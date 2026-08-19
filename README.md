@@ -27,7 +27,7 @@ python3 -m http.server 8080
 
 ## Features
 
-**Template Gallery** - 48 built-in, professionally designed templates across nine categories (price tags, food & kitchen, home storage, office filing, cable flags, name tags, shipping, QR & social, and Korean labels). Live WYSIWYG thumbnails, category filters, tag search, and one-click apply - optionally auto-scaled to fit your current label size. Field templates (`{{Name}}`, `{{AssetID}}`) drop straight into batch printing, and date templates print today's date via `[[date]]` expressions. Save your own designs to a **My Templates** category with one click for instant reuse.
+**Template Gallery** - 80 built-in, professionally designed templates across 13 categories (price tags, food & kitchen, home storage, office filing, cables & tech, names & school, shipping, QR & social, Korean labels, health & care, safety & compliance, gifts & events, and craft & garden). Live WYSIWYG thumbnails, category filters, tag search, and one-click apply - optionally auto-scaled to fit your current label size. Field templates (`{{Name}}`, `{{AssetID}}`) drop straight into batch printing, and date templates print today's date via `[[date]]` expressions. Save your own designs to a **My Templates** category with one click for instant reuse.
 
 **Design Elements** - Text (multiple fonts including local system fonts, sizes, styles, alignment, background colors), images with scale/aspect lock, barcodes (Code128, EAN-13, UPC-A, Code39), QR codes, and shapes (rectangle, ellipse, triangle, line) with solid, dithered grayscale, and stroke fills.
 

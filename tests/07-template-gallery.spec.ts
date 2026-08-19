@@ -13,13 +13,13 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#templates-btn');
     await expect(page.locator('#template-gallery-dialog')).toBeVisible();
 
-    // Category chips render (All + 9 categories; My Templates chip only shows when user templates exist)
-    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(10);
+    // Category chips render (All + 13 categories; My Templates chip only shows when user templates exist)
+    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(14);
 
     // Template cards render with thumbnails
     const cards = page.locator('#template-grid .template-card');
     await expect(cards.first()).toBeVisible();
-    expect(await cards.count()).toBeGreaterThanOrEqual(30);
+    expect(await cards.count()).toBeGreaterThanOrEqual(80);
 
     // Wait for async barcode/QR thumbnails to settle
     await page.waitForTimeout(1000);
@@ -55,7 +55,7 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#templates-btn');
     await expect(page.locator('#template-grid .template-card').first()).toBeVisible();
 
-    await page.fill('#template-search', 'wifi');
+    await page.fill('#template-search', 'Wi-Fi QR');
     const cards = page.locator('#template-grid .template-card');
     await expect(cards).toHaveCount(1);
     await expect(cards.first()).toContainText('Wi-Fi QR');
@@ -65,7 +65,7 @@ test.describe.serial('Template Gallery', () => {
     await expect(page.locator('#template-grid')).toContainText('No templates match');
 
     await page.fill('#template-search', '');
-    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(30);
+    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(80);
   });
 
   test('applying a template loads elements and label size', async ({ page }) => {
@@ -132,7 +132,7 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#template-category-chips .gallery-chip[data-category="korean"]');
     const cards = page.locator('#template-grid .template-card');
     await expect(cards.first()).toBeVisible();
-    expect(await cards.count()).toBeGreaterThanOrEqual(8);
+    expect(await cards.count()).toBeGreaterThanOrEqual(12);
     await expect(page.locator('#template-grid')).toContainText('이름표');
 
     await page.waitForTimeout(500);
@@ -172,7 +172,7 @@ test.describe.serial('Template Gallery', () => {
     page.once('dialog', d => d.accept());
     await page.click('.user-template-delete');
     await expect(page.locator('#template-category-chips .gallery-chip[data-category="custom"]')).toHaveCount(0);
-    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(30);
+    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(80);
   });
 
   test('fit to current label size scales the template', async ({ page }) => {
