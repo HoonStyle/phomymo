@@ -501,6 +501,16 @@
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23b9b4c4' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
       }
 
+      /* ---- Template gallery: category chips scroll in one row ---- */
+      #template-category-chips {
+        flex-wrap: nowrap !important;
+        flex-shrink: 0;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+      }
+      #template-category-chips::-webkit-scrollbar { display: none; }
+
       /* ---- Template gallery specifics ---- */
       #template-grid .template-card {
         background-color: #232129 !important;
@@ -2392,7 +2402,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=157"></script>
+  <script type="module" src="app.js?v=158"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {

@@ -5109,7 +5109,7 @@ function renderGalleryChips() {
   const categories = getGalleryCategories();
   const container = $('#template-category-chips');
   const chip = (id, label, active) =>
-    `<button class="gallery-chip px-2.5 py-1 text-xs rounded-full border transition-colors ${active ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}" data-category="${id || ''}">${label}</button>`;
+    `<button class="gallery-chip flex-shrink-0 whitespace-nowrap px-2.5 py-1 text-xs rounded-full border transition-colors ${active ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}" data-category="${id || ''}">${label}</button>`;
 
   container.innerHTML =
     chip(null, 'All', galleryUI.category === null) +
@@ -5122,6 +5122,12 @@ function renderGalleryChips() {
       renderGalleryGrid();
     });
   });
+
+  // Keep the active chip visible in the scrollable row
+  const activeChip = container.querySelector('.bg-gray-900');
+  if (activeChip && activeChip.scrollIntoView) {
+    activeChip.scrollIntoView({ inline: 'nearest', block: 'nearest' });
+  }
 }
 
 /**
