@@ -19,7 +19,7 @@ import {
   createShapeElement,
 } from './elements.js?v=100';
 import { evaluateExpressions } from './templates.js?v=101';
-import { STORAGE_KEYS } from './constants.js?v=105';
+import { STORAGE_KEYS } from './constants.js?v=106';
 
 // Extra per-type properties that the renderer understands but the element
 // factories don't create. These survive normalization so templates can use them.
