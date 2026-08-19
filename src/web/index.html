@@ -68,7 +68,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Roboto+Mono:wght@400;500;700&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Roboto:wght@400;500;700&family=Open+Sans:wght@400;600;700&family=Lato:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Oswald:wght@400;500;600&family=Playfair+Display:wght@400;500;600;700&family=Merriweather:wght@400;700&family=Roboto+Mono:wght@400;500;700&family=Source+Code+Pro:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
   <style>
     /* Hide body until styles are ready to prevent FOUC */
     body { opacity: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -305,6 +305,195 @@
     }
     #mobile-menu-panel.menu-open {
       transform: translateX(0) !important;
+    }
+
+    /* ============================================================
+       Ink Studio — mobile dark skin (≤767px only)
+       Tokens: bg #141318 · surface #1e1c24 / #232129 · border #2b2833
+               text #eae6f2 / #b9b4c4 / #8b8598 · accent #e3a44a
+       Desktop (≥768px) is untouched.
+       ============================================================ */
+    @media (max-width: 767px) {
+      body { background-color: #141318 !important; }
+
+      #mobile-header, .mobile-toolbar, .mobile-props-panel, #mobile-menu-panel,
+      div[id$="-dialog"], #zoom-controls {
+        font-family: 'Space Grotesk', 'Inter', system-ui, -apple-system, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+      }
+
+      /* Canvas backdrop: dot grid on ink black */
+      .canvas-bg {
+        background-color: #141318 !important;
+        background-image: radial-gradient(#26242e 1.15px, transparent 1.15px) !important;
+        background-size: 22px 22px !important;
+        background-position: 11px 11px !important;
+      }
+
+      /* ---- Top bar ---- */
+      #mobile-header {
+        background: #141318 !important;
+        border-bottom: none !important;
+        padding-top: 10px;
+        padding-bottom: 8px;
+      }
+      #mobile-header #mobile-label-name { color: #eae6f2 !important; }
+      #mobile-menu-btn { background: #232129 !important; border-radius: 14px; }
+      #mobile-menu-btn svg { color: #b9b4c4 !important; }
+      #mobile-dither-preview-btn {
+        background: #232129 !important;
+        color: #b9b4c4 !important;
+        border-radius: 999px;
+      }
+      #mobile-print-btn {
+        background: #e3a44a !important;
+        color: #211505 !important;
+        border-radius: 999px;
+      }
+
+      /* ---- Zoom pill ---- */
+      #zoom-controls {
+        background: #232129 !important;
+        border-color: #2b2833 !important;
+        border-radius: 999px !important;
+        box-shadow: 0 10px 26px rgba(0, 0, 0, 0.45) !important;
+      }
+      #zoom-controls .text-gray-700 { color: #cfc9dc !important; }
+      #zoom-controls svg.text-gray-700 { color: #8b8598 !important; }
+      #zoom-controls .bg-gray-200 { background-color: #2b2833 !important; }
+      #zoom-controls .hover\:bg-gray-100:hover { background-color: #2c2833 !important; }
+
+      /* ---- Footer status bar ---- */
+      footer {
+        background: #141318 !important;
+        border-top: none !important;
+        bottom: calc(148px + env(safe-area-inset-bottom, 0px));
+      }
+      footer .text-gray-400 { color: #6b6575 !important; }
+      footer .text-gray-300 { color: #322f3b !important; }
+      body { padding-bottom: 172px; }
+
+      /* ---- Floating tool dock ---- */
+      .mobile-toolbar {
+        left: 14px;
+        right: 14px;
+        bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+        background: #1e1c24;
+        border: 1px solid #2b2833;
+        border-radius: 26px;
+        padding: 4px 6px;
+        box-shadow: 0 16px 38px rgba(0, 0, 0, 0.5);
+      }
+      .mobile-toolbar-row { padding: 6px 2px; }
+      #mobile-selection-row { border-bottom-color: #2b2833 !important; }
+      .mobile-tool-btn {
+        color: #8b8598;
+        border-radius: 16px;
+        padding: 8px 10px;
+      }
+      .mobile-tool-btn:active { background: #2c2833; color: #e3a44a; }
+      .mobile-tool-btn.danger { color: #f87171; }
+      .mobile-divider { background: #2b2833; }
+
+      /* ---- Slide-up properties panel ---- */
+      .mobile-props-panel {
+        background: #1e1c24;
+        border: 1px solid #2b2833;
+        border-bottom: none;
+        border-radius: 28px 28px 0 0;
+        box-shadow: 0 -16px 44px rgba(0, 0, 0, 0.5);
+      }
+      .mobile-props-header { border-bottom-color: #2b2833; }
+
+      /* ---- Side menu & dialogs: dark surfaces ---- */
+      #mobile-menu-panel { background: #1e1c24 !important; }
+      div[id$="-dialog"] > div {
+        background-color: #1e1c24 !important;
+        border: 1px solid #2b2833;
+      }
+
+      /* Shared utility remaps inside dark scopes */
+      #mobile-props-panel .bg-white, #mobile-menu-panel .bg-white,
+      div[id$="-dialog"] .bg-white,
+      #mobile-props-panel .bg-gray-50, #mobile-menu-panel .bg-gray-50,
+      div[id$="-dialog"] .bg-gray-50,
+      #mobile-props-panel .bg-gray-100, #mobile-menu-panel .bg-gray-100,
+      div[id$="-dialog"] .bg-gray-100 {
+        background-color: #232129 !important;
+      }
+      #mobile-props-panel .bg-gray-900, #mobile-menu-panel .bg-gray-900,
+      div[id$="-dialog"] .bg-gray-900 {
+        background-color: #e3a44a !important;
+        color: #211505 !important;
+      }
+      #mobile-props-panel .text-gray-900, #mobile-menu-panel .text-gray-900,
+      div[id$="-dialog"] .text-gray-900 { color: #eae6f2 !important; }
+      #mobile-props-panel .text-gray-700, #mobile-menu-panel .text-gray-700,
+      div[id$="-dialog"] .text-gray-700,
+      #mobile-props-panel .text-gray-600, #mobile-menu-panel .text-gray-600,
+      div[id$="-dialog"] .text-gray-600,
+      #mobile-props-panel .text-gray-500, #mobile-menu-panel .text-gray-500,
+      div[id$="-dialog"] .text-gray-500 { color: #b9b4c4 !important; }
+      #mobile-props-panel .text-gray-400, #mobile-menu-panel .text-gray-400,
+      div[id$="-dialog"] .text-gray-400 { color: #8b8598 !important; }
+      #mobile-props-panel .border-gray-100, #mobile-menu-panel .border-gray-100,
+      div[id$="-dialog"] .border-gray-100,
+      #mobile-props-panel .border-gray-200, #mobile-menu-panel .border-gray-200,
+      div[id$="-dialog"] .border-gray-200,
+      #mobile-props-panel .border-gray-300, #mobile-menu-panel .border-gray-300,
+      div[id$="-dialog"] .border-gray-300 { border-color: #2b2833 !important; }
+      #mobile-props-panel .hover\:bg-gray-50:hover, #mobile-menu-panel .hover\:bg-gray-50:hover,
+      div[id$="-dialog"] .hover\:bg-gray-50:hover,
+      #mobile-props-panel .hover\:bg-gray-100:hover, #mobile-menu-panel .hover\:bg-gray-100:hover,
+      div[id$="-dialog"] .hover\:bg-gray-100:hover { background-color: #2c2833 !important; }
+
+      /* Inputs inside dark scopes */
+      .prop-input {
+        background-color: #232129 !important;
+        border-color: #322f3b !important;
+        color: #eae6f2 !important;
+      }
+      .prop-input:focus {
+        background-color: #232129 !important;
+        box-shadow: 0 0 0 2px #e3a44a;
+      }
+      .prop-label { color: #8b8598; }
+      div[id$="-dialog"] input[type="text"] {
+        background-color: #232129;
+        color: #eae6f2;
+      }
+      div[id$="-dialog"] input::placeholder, .prop-input::placeholder { color: #6b6575; }
+
+      /* ---- Header partner links ---- */
+      #mobile-header a img {
+        height: 18px;
+        filter: brightness(0) invert(0.62);
+      }
+      #mobile-header a.text-gray-600 { color: #6b6575 !important; }
+
+      /* ---- Props panel controls ---- */
+      #mobile-props-panel button { color: #e6e2ee; }
+      #mobile-props-panel .text-blue-600 { color: #e3a44a !important; }
+      #mobile-props-panel .bg-blue-100 { background-color: #34291a !important; }
+      #mobile-props-panel .border-blue-400 { border-color: #e3a44a !important; }
+      #mobile-props-panel .bg-blue-500 { background-color: #e3a44a !important; color: #211505 !important; }
+      div[id$="-dialog"] .bg-blue-50 { background-color: #232129 !important; }
+      div[id$="-dialog"] .text-blue-700 { color: #e3a44a !important; }
+      div[id$="-dialog"] .border-blue-200 { border-color: #3a3040 !important; }
+      select.prop-input {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%23b9b4c4' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e") !important;
+      }
+
+      /* ---- Template gallery specifics ---- */
+      #template-grid .template-card {
+        background-color: #232129 !important;
+        border-color: #2b2833 !important;
+      }
+      #template-grid .template-card .bg-gray-50,
+      #template-grid .template-card .bg-white { background-color: #17161c !important; }
+      div[id$="-dialog"] .text-green-600 { color: #6fd398 !important; }
+      div[id$="-dialog"] .bg-purple-100 { background-color: #342a3e !important; }
+      div[id$="-dialog"] .text-purple-700 { color: #c9a0f0 !important; }
+      .user-template-delete { background-color: #322f3b !important; color: #b9b4c4 !important; }
     }
   </style>
 </head>
@@ -2181,7 +2370,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=153"></script>
+  <script type="module" src="app.js?v=154"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {

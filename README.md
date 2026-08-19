@@ -43,7 +43,7 @@ python3 -m http.server 8080
 
 **Export** - Save/load designs to browser storage, export/import as JSON, export to PDF or PNG.
 
-**Mobile** - Full-featured touch UI with pinch-to-zoom, two-finger pan, slide-up property panels, and complete feature parity with desktop.
+**Mobile** - Full-featured touch UI with pinch-to-zoom, two-finger pan, slide-up property panels, and complete feature parity with desktop. Mobile gets a dedicated dark "Ink Studio" theme: the label floats on an ink-black dot grid, with a floating tool dock and amber accents.
 
 **Printer Status** - Live battery level, paper status, firmware version, and serial number with auto-query on connect.
 

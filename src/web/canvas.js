@@ -76,6 +76,17 @@ export class CanvasRenderer {
     this.ditherPreview = false;
     // Cache for dithered preview canvases
     this.ditherPreviewCache = new Map();
+
+    // Canvas chrome theme: 'light' (default) or 'dark' (mobile Ink Studio skin)
+    this.theme = 'light';
+  }
+
+  /**
+   * Set the canvas chrome theme (backdrop, overflow dim). Label content is unaffected.
+   * @param {string} theme - 'light' or 'dark'
+   */
+  setTheme(theme) {
+    this.theme = theme === 'dark' ? 'dark' : 'light';
   }
 
   /**
@@ -509,6 +520,13 @@ export class CanvasRenderer {
       }
     } else {
       // Single label mode - draw one white area
+      // In dark theme, cast a soft shadow so the label floats above the backdrop
+      if (this.theme === 'dark') {
+        ctx.save();
+        ctx.shadowColor = 'rgba(0, 0, 0, 0.55)';
+        ctx.shadowBlur = 26 * zoom;
+        ctx.shadowOffsetY = 8 * zoom;
+      }
       ctx.fillStyle = 'white';
       ctx.beginPath();
       if (this.isRound) {
@@ -528,10 +546,13 @@ export class CanvasRenderer {
         );
       }
       ctx.fill();
+      if (this.theme === 'dark') {
+        ctx.restore();
+      }
 
       // Draw border for round labels to make the boundary visible
       if (this.isRound) {
-        ctx.strokeStyle = '#d1d5db';
+        ctx.strokeStyle = this.theme === 'dark' ? '#3a3745' : '#d1d5db';
         ctx.lineWidth = 1 * zoom;
         ctx.stroke();
       }
@@ -544,8 +565,8 @@ export class CanvasRenderer {
   drawCheckerboard(ctx, x, y, width, height) {
     // Scale square size by zoom for consistent visual appearance
     const squareSize = 10 * this.zoom;
-    const lightColor = '#f0f0f0';
-    const darkColor = '#d0d0d0';
+    const lightColor = this.theme === 'dark' ? '#1a1920' : '#f0f0f0';
+    const darkColor = this.theme === 'dark' ? '#201e27' : '#d0d0d0';
 
     // Fill with light color first
     ctx.fillStyle = lightColor;
@@ -714,7 +735,7 @@ export class CanvasRenderer {
     }
 
     // Fill using evenodd rule (fills area between outer and inner paths)
-    ctx.fillStyle = 'rgba(100, 100, 100, 0.5)';
+    ctx.fillStyle = this.theme === 'dark' ? 'rgba(12, 11, 16, 0.6)' : 'rgba(100, 100, 100, 0.5)';
     ctx.fill('evenodd');
 
     ctx.restore();

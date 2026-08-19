@@ -4,7 +4,7 @@
  * v116
  */
 
-import { CanvasRenderer } from './canvas.js?v=115';
+import { CanvasRenderer } from './canvas.js?v=116';
 import { BLETransport } from './ble.js?v=103';
 import { USBTransport } from './usb.js?v=101';
 import { print, printDensityTest, isDSeriesPrinter, isP12Printer, isA30Printer, isTapePrinter, isPM241Printer, isTSPLPrinter, isRotatedPrinter, getPrinterWidthBytes, getPrinterDpi, getPrinterAlignment, getPrinterDescription, isDeviceRecognized, getMatchedPattern, loadPrinterDefinitions, getAllPrinterDefinitions, getPrinterDefinition, getCustomPrinterDefinitions, saveCustomPrinterDefinition, deleteCustomPrinterDefinition, isBuiltinPrinter, resetBuiltinPrinter, getAvailableProtocols, getAvailableLabelPresets, getDetectedDefinition } from './printer.js?v=128';
@@ -6017,6 +6017,9 @@ function handleViewportChange() {
     // Close mobile props panel when switching modes
     closeMobileProps();
     updateMobileUI();
+    // Mobile uses the dark Ink Studio canvas chrome
+    state.renderer.setTheme(state.mobile.isMobile ? 'dark' : 'light');
+    render();
   }
 }
 
@@ -7340,6 +7343,8 @@ function init() {
   // Create canvas renderer
   const canvas = $('#preview-canvas');
   state.renderer = new CanvasRenderer(canvas);
+  // Mobile uses the dark Ink Studio canvas chrome
+  state.renderer.setTheme(isMobileViewport() ? 'dark' : 'light');
   state.renderer.setDimensions(state.labelSize.width, state.labelSize.height, state.zoom, state.labelSize.round || false);
   // Re-render when async content (barcodes, QR codes) finishes loading
   // Use requestAnimationFrame to batch multiple async loads
