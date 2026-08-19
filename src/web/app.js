@@ -4,7 +4,7 @@
  * v116
  */
 
-import { CanvasRenderer } from './canvas.js?v=116';
+import { CanvasRenderer } from './canvas.js?v=117';
 import { BLETransport } from './ble.js?v=104';
 import { USBTransport } from './usb.js?v=101';
 import { print, printDensityTest, isDSeriesPrinter, isP12Printer, isA30Printer, isTapePrinter, isPM241Printer, isTSPLPrinter, isRotatedPrinter, getPrinterWidthBytes, getPrinterDpi, getPrinterAlignment, getPrinterDescription, isDeviceRecognized, getMatchedPattern, loadPrinterDefinitions, getAllPrinterDefinitions, getPrinterDefinition, getCustomPrinterDefinitions, saveCustomPrinterDefinition, deleteCustomPrinterDefinition, isBuiltinPrinter, resetBuiltinPrinter, getAvailableProtocols, getAvailableLabelPresets, getDetectedDefinition } from './printer.js?v=128';
@@ -179,6 +179,8 @@ const state = {
     copies: 1,        // Number of copies
     feed: 32,         // Feed after print in dots (8 dots = 1mm)
     printerModel: 'auto',  // 'auto', 'narrow-48', 'mini-54', 'wide-72', 'mid-76', 'wide-81', 'd-series'
+    offsetX: 0,       // Print offset calibration in mm (+ = right)
+    offsetY: 0,       // Print offset calibration in mm (+ = down)
   },
   // Template state
   templateFields: [],     // Detected field names from elements
@@ -1959,8 +1961,8 @@ async function handleBatchPrint() {
         ditherMode = 'threshold';
       }
       const rasterData = isRotatedPrinter(deviceName, printerModel)
-        ? state.renderer.getRasterDataRaw(mergedElements, ditherMode)
-        : state.renderer.getRasterData(mergedElements, printerWidth, 203, ditherMode, printerAlignment);
+        ? state.renderer.getRasterDataRaw(mergedElements, ditherMode, getPrintOffsetX(), getPrintOffsetY())
+        : state.renderer.getRasterData(mergedElements, printerWidth, 203, ditherMode, printerAlignment, getPrintOffsetX(), getPrintOffsetY());
 
       // Print
       await print(state.transport, rasterData, {
@@ -2046,8 +2048,8 @@ async function handlePrintSinglePreview() {
       ditherMode = 'threshold';
     }
     const rasterData = isRotatedPrinter(deviceName, printerModel)
-      ? state.renderer.getRasterDataRaw(mergedElements, ditherMode)
-      : state.renderer.getRasterData(mergedElements, printerWidth, 203, ditherMode, printerAlignment);
+      ? state.renderer.getRasterDataRaw(mergedElements, ditherMode, getPrintOffsetX(), getPrintOffsetY())
+      : state.renderer.getRasterData(mergedElements, printerWidth, 203, ditherMode, printerAlignment, getPrintOffsetX(), getPrintOffsetY());
 
     // Print
     await print(state.transport, rasterData, {
@@ -4747,6 +4749,17 @@ async function handleConnect(event) {
 /**
  * Handle print button click
  */
+/**
+ * Print offset calibration in pixels at 203 DPI (settings are stored in mm)
+ */
+function getPrintOffsetX() {
+  return (state.printSettings.offsetX || 0) * 8;
+}
+
+function getPrintOffsetY() {
+  return (state.printSettings.offsetY || 0) * 8;
+}
+
 async function handlePrint() {
   const btn = $('#print-btn');
   const originalText = btn.textContent;
@@ -4787,8 +4800,8 @@ async function handlePrint() {
       console.log('TSPL printer: forcing threshold mode for crisp barcodes');
     }
     const rasterData = isRotatedPrinter(deviceName, printerModel)
-      ? state.renderer.getRasterDataRaw(elementsToRender, ditherMode)
-      : state.renderer.getRasterData(elementsToRender, printerWidth, printerDpi, ditherMode, printerAlignment);
+      ? state.renderer.getRasterDataRaw(elementsToRender, ditherMode, getPrintOffsetX(), getPrintOffsetY())
+      : state.renderer.getRasterData(elementsToRender, printerWidth, printerDpi, ditherMode, printerAlignment, getPrintOffsetX(), getPrintOffsetY());
 
     // Print multiple copies if requested
     for (let copy = 1; copy <= copies; copy++) {
@@ -7504,6 +7517,8 @@ function init() {
   const densityValue = $('#print-density-value');
   const copiesInput = $('#print-copies');
   const feedSelect = $('#print-feed');
+  const offsetXInput = $('#print-offset-x');
+  const offsetYInput = $('#print-offset-y');
   const printerModelSelect = $('#printer-model');
 
   // Load saved print settings from localStorage
@@ -7522,6 +7537,8 @@ function init() {
       densityValue.textContent = state.printSettings.density;
       copiesInput.value = state.printSettings.copies;
       feedSelect.value = state.printSettings.feed;
+      offsetXInput.value = state.printSettings.offsetX || 0;
+      offsetYInput.value = state.printSettings.offsetY || 0;
       printerModelSelect.value = state.printSettings.printerModel || 'auto';
     }
   }
@@ -7557,6 +7574,8 @@ function init() {
     densityValue.textContent = state.printSettings.density;
     copiesInput.value = state.printSettings.copies;
     feedSelect.value = state.printSettings.feed;
+    offsetXInput.value = state.printSettings.offsetX || 0;
+    offsetYInput.value = state.printSettings.offsetY || 0;
     printerModelSelect.value = state.printSettings.printerModel || 'auto';
     printSettingsDialog.classList.remove('hidden');
   });
@@ -7570,11 +7589,13 @@ function init() {
   });
 
   $('#print-settings-reset').addEventListener('click', () => {
-    state.printSettings = { density: 6, copies: 1, feed: 32, printerModel: 'auto' };
+    state.printSettings = { density: 6, copies: 1, feed: 32, printerModel: 'auto', offsetX: 0, offsetY: 0 };
     densitySlider.value = 6;
     densityValue.textContent = '6';
     copiesInput.value = 1;
     feedSelect.value = 32;
+    offsetXInput.value = 0;
+    offsetYInput.value = 0;
     printerModelSelect.value = 'auto';
   });
 
@@ -7582,6 +7603,8 @@ function init() {
     state.printSettings.density = parseInt(densitySlider.value);
     state.printSettings.copies = Math.max(PRINT.MIN_COPIES, Math.min(PRINT.MAX_COPIES, parseInt(copiesInput.value) || PRINT.DEFAULT_COPIES));
     state.printSettings.feed = parseInt(feedSelect.value);
+    state.printSettings.offsetX = Math.max(-10, Math.min(10, parseFloat(offsetXInput.value) || 0));
+    state.printSettings.offsetY = Math.max(-10, Math.min(10, parseFloat(offsetYInput.value) || 0));
     state.printSettings.printerModel = printerModelSelect.value;
 
     // Save to localStorage

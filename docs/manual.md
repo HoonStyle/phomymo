@@ -234,6 +234,10 @@ The density slider controls how dark the print is (1 = light, 8 = dark). Some pr
 
 ![Density adjusted](screenshots/05-print-settings/04-density-adjusted.png)
 
+### Print Offset
+
+If your printer consistently prints shifted from where the design sits on the label (for example a few millimeters to the left), use **Print Offset (mm)** to compensate: positive horizontal values shift the output right, positive vertical values shift it down. The offset applies only at print time - your design on the canvas is unchanged - and is saved with your other print settings.
+
 ### Other Settings
 
 - **Copies** - Number of copies to print

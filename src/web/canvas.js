@@ -1848,7 +1848,7 @@ export class CanvasRenderer {
    * Render elements to a temporary canvas and return pixel data
    * Shared helper for getRasterData and getRasterDataRaw
    */
-  _renderToPixels(elements) {
+  _renderToPixels(elements, offsetX = 0, offsetY = 0) {
     const width = this.labelWidth;
     const height = this.labelHeight;
     const tempCanvas = document.createElement('canvas');
@@ -1869,6 +1869,12 @@ export class CanvasRenderer {
       const radius = Math.min(width, height) / 2;
       tempCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
       tempCtx.clip();
+    }
+
+    // Print offset calibration: shift content within the label to compensate
+    // for printers that feed the media slightly off-center (px at 203 DPI)
+    if (offsetX || offsetY) {
+      tempCtx.translate(offsetX, offsetY);
     }
 
     // Render elements to temp canvas (with zone offsets if multi-label mode)
@@ -2277,8 +2283,8 @@ export class CanvasRenderer {
    * @param {string} ditherMode - Dither mode: 'auto', 'none', 'threshold', 'floyd-steinberg', 'atkinson', 'ordered'
    * @param {'left' | 'center' | 'right'} alignment - How to align label within printer width (default: 'center')
    */
-  getRasterData(elements, printerWidthBytes = DEFAULT_PRINTER_WIDTH_BYTES, printerDpi = 203, ditherMode = 'auto', alignment = 'center') {
-    let { pixels, width, height } = this._renderToPixels(elements);
+  getRasterData(elements, printerWidthBytes = DEFAULT_PRINTER_WIDTH_BYTES, printerDpi = 203, ditherMode = 'auto', alignment = 'center', offsetX = 0, offsetY = 0) {
+    let { pixels, width, height } = this._renderToPixels(elements, offsetX, offsetY);
 
     // Scale up for higher DPI printers (e.g., M02 Pro at 300 DPI)
     if (printerDpi > 203) {
@@ -2341,8 +2347,8 @@ export class CanvasRenderer {
    * @param {Array} elements - Elements to render
    * @param {string} ditherMode - Dither mode: 'auto', 'none', 'threshold', 'floyd-steinberg', 'atkinson', 'ordered'
    */
-  getRasterDataRaw(elements, ditherMode = 'auto') {
-    const { pixels, width, height } = this._renderToPixels(elements);
+  getRasterDataRaw(elements, ditherMode = 'auto', offsetX = 0, offsetY = 0) {
+    const { pixels, width, height } = this._renderToPixels(elements, offsetX, offsetY);
     const widthBytes = Math.ceil(width / 8);
     const data = this._pixelsToRaster(pixels, width, height, widthBytes, false, ditherMode);
 
