@@ -9,7 +9,7 @@
  * Template coordinates use the same base resolution as the editor: 8 px/mm.
  */
 
-import { CanvasRenderer } from './canvas.js?v=116';
+import { CanvasRenderer } from './canvas.js?v=117';
 import {
   generateId,
   createTextElement,

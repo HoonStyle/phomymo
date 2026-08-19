@@ -1538,6 +1538,22 @@
             <option value="80">Extra Large (10mm)</option>
           </select>
         </div>
+
+        <!-- Print Offset Calibration -->
+        <div>
+          <div class="prop-label">Print Offset (mm)</div>
+          <div class="flex gap-2">
+            <div class="flex-1">
+              <input type="number" id="print-offset-x" class="prop-input" step="0.5" min="-10" max="10" value="0">
+              <div class="text-xs text-gray-400 mt-1">Horizontal (+ = right)</div>
+            </div>
+            <div class="flex-1">
+              <input type="number" id="print-offset-y" class="prop-input" step="0.5" min="-10" max="10" value="0">
+              <div class="text-xs text-gray-400 mt-1">Vertical (+ = down)</div>
+            </div>
+          </div>
+          <div class="text-xs text-gray-400 mt-1">Shifts the printed output if your printer prints off-center</div>
+        </div>
       </div>
 
       <div class="mt-6 space-y-2">
@@ -2386,7 +2402,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=155"></script>
+  <script type="module" src="app.js?v=156"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {
