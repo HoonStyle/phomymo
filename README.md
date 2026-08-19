@@ -27,6 +27,8 @@ python3 -m http.server 8080
 
 ## Features
 
+**Template Gallery** - 40 built-in, professionally designed templates across eight categories (price tags, food & kitchen, home storage, office filing, cable flags, name tags, shipping, QR & social). Live WYSIWYG thumbnails, category filters, tag search, and one-click apply - optionally auto-scaled to fit your current label size. Field templates (`{{Name}}`, `{{AssetID}}`) drop straight into batch printing, and date templates print today's date via `[[date]]` expressions.
+
 **Design Elements** - Text (multiple fonts including local system fonts, sizes, styles, alignment, background colors), images with scale/aspect lock, barcodes (Code128, EAN-13, UPC-A, Code39), QR codes, and shapes (rectangle, ellipse, triangle, line) with solid, dithered grayscale, and stroke fills.
 
 **Editing** - Drag to move, corner/edge resize handles, rotation. Multi-select (Shift+click), grouping (Ctrl/Cmd+G), undo/redo, keyboard nudge, layer ordering, clipboard image paste (Ctrl/Cmd+V).
@@ -112,6 +114,8 @@ phomymo/
 │       ├── handles.js     # Selection handles
 │       ├── storage.js     # localStorage persistence
 │       ├── templates.js   # Variable substitution & CSV
+│       ├── gallery.js     # Built-in template gallery
+│       ├── template-library.json  # Bundled template designs
 │       ├── ble.js         # Web Bluetooth transport
 │       ├── usb.js         # WebUSB transport
 │       ├── printer.js     # Print protocols

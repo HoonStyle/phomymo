@@ -13,6 +13,9 @@ export async function waitForAppReady(page: Page) {
     return select && select.options.length > 1;
   }, { timeout: 10_000 });
   await page.waitForTimeout(500);
+  // Browsers without Web Bluetooth (e.g. headless shells) show a blocking
+  // compatibility overlay on startup - dismiss it so tests can interact
+  await dismissCompatibilityWarning(page);
 }
 
 /** Dismiss the info dialog if it appears on first load */
@@ -25,6 +28,19 @@ export async function dismissInfoDialog(page: Page) {
     }
   } catch {
     // No dialog visible, that's fine
+  }
+}
+
+/** Dismiss the browser-compatibility warning if it appears (e.g. no Web Bluetooth) */
+export async function dismissCompatibilityWarning(page: Page) {
+  try {
+    const dismissBtn = page.locator('#compatibility-warning #dismiss-warning-btn');
+    if (await dismissBtn.isVisible({ timeout: 1000 })) {
+      await dismissBtn.click();
+      await page.waitForTimeout(200);
+    }
+  } catch {
+    // No warning visible, that's fine
   }
 }
 

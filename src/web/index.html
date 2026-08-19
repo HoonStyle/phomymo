@@ -553,7 +553,11 @@
 
       <div class="toolbar-divider hidden sm:block"></div>
 
-      <!-- Save/Load/Export -->
+      <!-- Templates/Save/Load/Export -->
+      <button id="templates-btn" class="toolbar-btn" title="Template Gallery">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h1M9 17h1"/></svg>
+        <span class="hidden sm:inline">Templates</span>
+      </button>
       <button id="save-btn" class="toolbar-btn" title="Save">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
         <span class="hidden sm:inline">Save</span>
@@ -1181,6 +1185,30 @@
       <div class="flex gap-2">
         <button id="load-cancel" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Template Gallery Dialog -->
+  <div id="template-gallery-dialog" class="hidden fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 p-2 sm:p-4">
+    <div class="bg-white rounded-xl w-full max-w-3xl shadow-xl max-h-[90vh] sm:max-h-[85vh] flex flex-col">
+      <div class="flex items-center justify-between px-4 sm:px-5 pt-4 sm:pt-5 pb-2">
+        <h3 class="text-lg font-semibold text-gray-900">Template Gallery</h3>
+        <button id="template-gallery-close" class="text-gray-400 hover:text-gray-600 p-1">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-4 sm:px-5 pb-2 flex flex-col sm:flex-row sm:items-center gap-2">
+        <div class="relative flex-1">
+          <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="template-search" class="w-full pl-9 pr-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Search templates...">
+        </div>
+        <label class="flex items-center gap-2 text-sm text-gray-600 whitespace-nowrap cursor-pointer select-none">
+          <input type="checkbox" id="template-fit-size" class="rounded border-gray-300">
+          Fit to current label size
+        </label>
+      </div>
+      <div id="template-category-chips" class="px-4 sm:px-5 pb-3 flex gap-1.5 flex-wrap"></div>
+      <div id="template-grid" class="flex-1 overflow-y-auto px-4 sm:px-5 pb-4 sm:pb-5 grid grid-cols-2 sm:grid-cols-3 gap-3 content-start min-h-[200px]"></div>
     </div>
   </div>
 
@@ -1968,6 +1996,12 @@
 
         <!-- Actions -->
         <div class="space-y-1">
+          <button id="mobile-templates-btn" class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-100 active:bg-gray-200 rounded-lg flex items-center gap-3">
+            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM14 5a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1V5zM4 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1H5a1 1 0 01-1-1v-4zM14 15a1 1 0 011-1h4a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 01-1-1v-4z"/>
+            </svg>
+            Template Gallery
+          </button>
           <button id="mobile-save-btn" class="w-full px-3 py-2.5 text-left text-sm hover:bg-gray-100 active:bg-gray-200 rounded-lg flex items-center gap-3">
             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/>
@@ -2143,7 +2177,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=151"></script>
+  <script type="module" src="app.js?v=152"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {

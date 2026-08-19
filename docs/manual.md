@@ -5,11 +5,12 @@ A guide to designing and printing labels with the Phomymo label designer.
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Adding Elements](#adding-elements)
-3. [Element Properties](#element-properties)
-4. [Templates and Batch Printing](#templates-and-batch-printing)
-5. [Print Settings](#print-settings)
-6. [Custom Printer Definitions](#custom-printer-definitions)
+2. [Template Gallery](#template-gallery)
+3. [Adding Elements](#adding-elements)
+4. [Element Properties](#element-properties)
+5. [Templates and Batch Printing](#templates-and-batch-printing)
+6. [Print Settings](#print-settings)
+7. [Custom Printer Definitions](#custom-printer-definitions)
 
 ---
 
@@ -36,6 +37,42 @@ The interface has three main areas:
 3. The app auto-detects your printer model and configures the correct settings
 
 You can also use **USB** for PM-241 shipping label printers by switching the connection type dropdown.
+
+---
+
+## Template Gallery
+
+The fastest way to start a label is from a ready-made template. Click **Templates** in the toolbar to open the gallery.
+
+![Template gallery](screenshots/07-template-gallery/01-gallery-open.png)
+
+The gallery ships with 40 professionally designed templates across eight categories - price tags, food and kitchen labels, home storage, office filing, cable flags, name tags, shipping labels, and QR labels. Every thumbnail is a live preview rendered from the actual design, so what you see is exactly what prints.
+
+### Browsing and Searching
+
+- **Category chips** filter the grid to one category
+- **Search** matches template names and tags (e.g. "wifi", "freezer", "fragile")
+- The size badge under each template turns **green** when it matches your currently selected label size
+
+![Category filter](screenshots/07-template-gallery/02-category-filtered.png)
+
+### Applying a Template
+
+Click any template to load it onto the canvas. The label size switches to the template's native size automatically, and every element remains fully editable - change the text, swap fonts, move things around.
+
+![Template applied](screenshots/07-template-gallery/03-template-applied.png)
+
+If your canvas already has elements, the app asks before replacing them.
+
+**Fit to current label size** - check this option to keep your currently selected label size instead: the template artwork is scaled proportionally and centered to fit.
+
+### Smart Templates
+
+Templates marked with a purple **Fields** badge contain `{{Field}}` placeholders. Applying one activates the template toolbar automatically, so you can jump straight into CSV import and batch printing (see [Templates and Batch Printing](#templates-and-batch-printing)).
+
+![Field template](screenshots/07-template-gallery/04-field-template-applied.png)
+
+Several templates also use `[[date]]` instant expressions - the date labels in the Food & Kitchen category, for example, always print the current date with no editing needed.
 
 ---
 
