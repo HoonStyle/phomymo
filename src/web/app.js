@@ -67,13 +67,15 @@ import {
 } from './templates.js?v=101';
 import {
   loadTemplateLibrary,
-  getTemplateLibrary,
   filterTemplates,
   getTemplateById,
   createThumbnailRenderer,
   drawTemplateThumbnail,
   instantiateTemplate,
-} from './gallery.js?v=100';
+  getGalleryCategories,
+  saveUserTemplate,
+  deleteUserTemplate,
+} from './gallery.js?v=101';
 import {
   ZOOM,
   TEXT,
@@ -5033,7 +5035,7 @@ function scheduleGalleryRedraw() {
  * Render the category filter chips
  */
 function renderGalleryChips() {
-  const { categories } = getTemplateLibrary();
+  const categories = getGalleryCategories();
   const container = $('#template-category-chips');
   const chip = (id, label, active) =>
     `<button class="gallery-chip px-2.5 py-1 text-xs rounded-full border transition-colors ${active ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}" data-category="${id || ''}">${label}</button>`;
@@ -5076,8 +5078,30 @@ function renderGalleryGrid() {
       fieldPattern.test(el.text || '') || fieldPattern.test(el.barcodeData || '') || fieldPattern.test(el.qrData || ''));
 
     const card = document.createElement('button');
-    card.className = 'template-card text-left border border-gray-200 rounded-lg p-2.5 hover:border-blue-400 hover:shadow-sm transition-all bg-white flex flex-col gap-2';
+    card.className = 'template-card relative text-left border border-gray-200 rounded-lg p-2.5 hover:border-blue-400 hover:shadow-sm transition-all bg-white flex flex-col gap-2';
     card.dataset.templateId = tpl.id;
+
+    // User templates get a delete control
+    if (tpl.isUserTemplate) {
+      const del = document.createElement('span');
+      del.className = 'user-template-delete absolute top-1 right-1 w-5 h-5 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 hover:bg-red-100 hover:text-red-600 text-xs cursor-pointer z-10';
+      del.title = 'Delete template';
+      del.textContent = '✕';
+      del.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (confirm(`Delete template "${tpl.name}"?`)) {
+          deleteUserTemplate(tpl.id);
+          // If My Templates just became empty, fall back to All
+          if (galleryUI.category === 'custom' && filterTemplates({ category: 'custom' }).length === 0) {
+            galleryUI.category = null;
+          }
+          renderGalleryChips();
+          renderGalleryGrid();
+          setStatus(`Template "${tpl.name}" deleted`);
+        }
+      });
+      card.appendChild(del);
+    }
 
     const thumbBox = document.createElement('div');
     thumbBox.className = 'h-24 sm:h-28 flex items-center justify-center bg-gray-50 rounded overflow-hidden';
@@ -5103,6 +5127,33 @@ function renderGalleryGrid() {
 
     galleryUI.thumbCanvases.set(tpl.id, canvas);
     drawTemplateThumbnail(galleryUI.renderer, tpl, canvas);
+  }
+}
+
+/**
+ * Save the current canvas design as a user template in the gallery
+ */
+function handleSaveAsTemplate() {
+  if (state.elements.length === 0) {
+    showToast('Canvas is empty — nothing to save', 'error');
+    return;
+  }
+  if (state.multiLabel.enabled) {
+    showToast('Multi-label designs cannot be saved as templates', 'error');
+    return;
+  }
+
+  const name = prompt('Template name:', state.currentDesignName || '');
+  if (name === null) return;
+
+  try {
+    saveUserTemplate(name, state.elements, state.labelSize);
+    galleryUI.category = 'custom';
+    renderGalleryChips();
+    renderGalleryGrid();
+    setStatus(`Saved "${name.trim()}" to My Templates`);
+  } catch (e) {
+    showToast(e.message, 'error');
   }
 }
 
@@ -7694,6 +7745,7 @@ function init() {
     galleryUI.query = e.target.value;
     renderGalleryGrid();
   });
+  $('#template-save-current').addEventListener('click', handleSaveAsTemplate);
 
   // Import from file
   $('#import-file-btn').addEventListener('click', () => $('#import-file-input').click());

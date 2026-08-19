@@ -13,8 +13,8 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#templates-btn');
     await expect(page.locator('#template-gallery-dialog')).toBeVisible();
 
-    // Category chips render (All + 8 categories)
-    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(9);
+    // Category chips render (All + 9 categories; My Templates chip only shows when user templates exist)
+    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(10);
 
     // Template cards render with thumbnails
     const cards = page.locator('#template-grid .template-card');
@@ -118,6 +118,61 @@ test.describe.serial('Template Gallery', () => {
     await expect(page.locator('#template-toolbar-btn')).toBeVisible();
 
     await screenshot(page, CH, 4, 'field-template-applied');
+  });
+
+  test('korean category renders localized templates', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await waitForAppReady(page);
+    await dismissCompatibilityWarning(page);
+    await dismissInfoDialog(page);
+
+    await page.click('#templates-btn');
+    await expect(page.locator('#template-grid .template-card').first()).toBeVisible();
+
+    await page.click('#template-category-chips .gallery-chip[data-category="korean"]');
+    const cards = page.locator('#template-grid .template-card');
+    await expect(cards.first()).toBeVisible();
+    expect(await cards.count()).toBeGreaterThanOrEqual(8);
+    await expect(page.locator('#template-grid')).toContainText('이름표');
+
+    await page.waitForTimeout(500);
+    await screenshot(page, CH, 6, 'korean-category');
+
+    // Korean search works via tags
+    await page.fill('#template-search', '택배');
+    await expect(page.locator('#template-grid .template-card')).toHaveCount(1);
+  });
+
+  test('save current design as user template and delete it', async ({ page }) => {
+    await page.goto('/', { waitUntil: 'networkidle' });
+    await waitForAppReady(page);
+    await dismissCompatibilityWarning(page);
+    await dismissInfoDialog(page);
+
+    // Create a simple design
+    await page.click('#add-text');
+    await page.waitForTimeout(300);
+
+    await page.click('#templates-btn');
+    await expect(page.locator('#template-grid .template-card').first()).toBeVisible();
+
+    // Save it as a template (prompt returns the name)
+    page.once('dialog', d => d.accept('My Test Label'));
+    await page.click('#template-save-current');
+
+    // My Templates chip appears and the grid shows the saved template
+    await expect(page.locator('#template-category-chips .gallery-chip[data-category="custom"]')).toBeVisible();
+    const userCard = page.locator('#template-grid .template-card');
+    await expect(userCard).toHaveCount(1);
+    await expect(userCard.first()).toContainText('My Test Label');
+
+    await screenshot(page, CH, 7, 'user-template-saved');
+
+    // Delete it — chip disappears, grid falls back to All
+    page.once('dialog', d => d.accept());
+    await page.click('.user-template-delete');
+    await expect(page.locator('#template-category-chips .gallery-chip[data-category="custom"]')).toHaveCount(0);
+    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(30);
   });
 
   test('fit to current label size scales the template', async ({ page }) => {
