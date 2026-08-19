@@ -46,7 +46,7 @@ The fastest way to start a label is from a ready-made template. Click **Template
 
 ![Template gallery](screenshots/07-template-gallery/01-gallery-open.png)
 
-The gallery ships with 40 professionally designed templates across eight categories - price tags, food and kitchen labels, home storage, office filing, cable flags, name tags, shipping labels, and QR labels. Every thumbnail is a live preview rendered from the actual design, so what you see is exactly what prints.
+The gallery ships with 48 professionally designed templates across nine categories - price tags, food and kitchen labels, home storage, office filing, cable flags, name tags, shipping labels, QR labels, and Korean-language labels (한국어). Every thumbnail is a live preview rendered from the actual design, so what you see is exactly what prints.
 
 ### Browsing and Searching
 
@@ -73,6 +73,12 @@ Templates marked with a purple **Fields** badge contain `{{Field}}` placeholders
 ![Field template](screenshots/07-template-gallery/04-field-template-applied.png)
 
 Several templates also use `[[date]]` instant expressions - the date labels in the Food & Kitchen category, for example, always print the current date with no editing needed.
+
+### Saving Your Own Templates
+
+Click **Save current** in the gallery header to save whatever is on your canvas as a reusable template. Saved designs appear under a **⭐ My Templates** category with the same live thumbnails, and can be deleted from their card at any time. My Templates are stored in your browser alongside your saved designs.
+
+![User template saved](screenshots/07-template-gallery/07-user-template-saved.png)
 
 ---
 

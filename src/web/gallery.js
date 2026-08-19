@@ -19,6 +19,7 @@ import {
   createShapeElement,
 } from './elements.js?v=100';
 import { evaluateExpressions } from './templates.js?v=101';
+import { STORAGE_KEYS } from './constants.js?v=105';
 
 // Extra per-type properties that the renderer understands but the element
 // factories don't create. These survive normalization so templates can use them.
@@ -106,15 +107,104 @@ export function getTemplateLibrary() {
   return library || { categories: [], templates: [] };
 }
 
+// =============================================================================
+// USER TEMPLATES (saved from the user's own designs, stored in localStorage)
+// =============================================================================
+
+export const USER_TEMPLATE_CATEGORY = { id: 'custom', name: 'My Templates', icon: '⭐' };
+
+function getRawUserTemplates() {
+  try {
+    const data = localStorage.getItem(STORAGE_KEYS.USER_TEMPLATES);
+    return data ? JSON.parse(data) : {};
+  } catch (e) {
+    console.error('Failed to load user templates:', e);
+    return {};
+  }
+}
+
+function setRawUserTemplates(raw) {
+  localStorage.setItem(STORAGE_KEYS.USER_TEMPLATES, JSON.stringify(raw));
+}
+
+/**
+ * Get all user-saved templates in gallery template shape, newest first.
+ * Element IDs are made deterministic so thumbnail caches stay warm.
+ */
+export function getUserTemplates() {
+  return Object.values(getRawUserTemplates())
+    .sort((a, b) => (b.savedAt || 0) - (a.savedAt || 0))
+    .map(t => ({
+      id: t.id,
+      name: t.name,
+      category: USER_TEMPLATE_CATEGORY.id,
+      isUserTemplate: true,
+      tags: [],
+      labelSize: t.labelSize,
+      elements: (t.elements || []).map((el, i) => ({ ...el, id: `usertpl_${t.id}_${i}` })),
+    }));
+}
+
+/**
+ * Save the current design as a user template.
+ * @returns {string} the new template's id
+ */
+export function saveUserTemplate(name, elements, labelSize) {
+  if (!name || !name.trim()) throw new Error('Template name is required');
+  if (!elements || elements.length === 0) throw new Error('Nothing to save — the canvas is empty');
+
+  const raw = getRawUserTemplates();
+  const id = 'u_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+  raw[id] = {
+    id,
+    name: name.trim(),
+    labelSize: { ...labelSize },
+    // Deep-clone and normalize to single-label space
+    elements: JSON.parse(JSON.stringify(elements)).map(el => ({ ...el, zone: 0 })),
+    savedAt: Date.now(),
+  };
+
+  try {
+    setRawUserTemplates(raw);
+  } catch (e) {
+    throw new Error('Failed to save template (storage may be full)');
+  }
+  return id;
+}
+
+/**
+ * Delete a user template by id.
+ */
+export function deleteUserTemplate(id) {
+  const raw = getRawUserTemplates();
+  if (!(id in raw)) return false;
+  delete raw[id];
+  setRawUserTemplates(raw);
+  return true;
+}
+
+/**
+ * Categories to show in the gallery: My Templates first (when any exist),
+ * then the built-in categories.
+ */
+export function getGalleryCategories() {
+  const cats = [...getTemplateLibrary().categories];
+  if (getUserTemplates().length > 0) {
+    cats.unshift(USER_TEMPLATE_CATEGORY);
+  }
+  return cats;
+}
+
 /**
  * Filter templates by category and/or free-text query (name + tags).
+ * User templates list before built-ins.
  * @param {object} opts - { category: string|null, query: string }
  */
 export function filterTemplates({ category = null, query = '' } = {}) {
-  const lib = getTemplateLibrary();
+  const all = [...getUserTemplates(), ...getTemplateLibrary().templates];
   const q = query.trim().toLowerCase();
 
-  return lib.templates.filter(t => {
+  return all.filter(t => {
     if (category && t.category !== category) return false;
     if (q) {
       const haystack = [t.name, t.category, ...(t.tags || [])].join(' ').toLowerCase();
@@ -125,10 +215,14 @@ export function filterTemplates({ category = null, query = '' } = {}) {
 }
 
 /**
- * Find a template by id.
+ * Find a template (built-in or user) by id.
  */
 export function getTemplateById(id) {
-  return getTemplateLibrary().templates.find(t => t.id === id) || null;
+  return (
+    getTemplateLibrary().templates.find(t => t.id === id) ||
+    getUserTemplates().find(t => t.id === id) ||
+    null
+  );
 }
 
 const PX_PER_MM = 8;
