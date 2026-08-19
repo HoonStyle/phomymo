@@ -1,0 +1,551 @@
+{
+  "version": 1,
+  "categories": [
+    { "id": "retail", "name": "Retail & Price", "icon": "🏷️" },
+    { "id": "food", "name": "Food & Kitchen", "icon": "🍎" },
+    { "id": "home", "name": "Home & Storage", "icon": "🏠" },
+    { "id": "office", "name": "Office & Filing", "icon": "📁" },
+    { "id": "cable", "name": "Cables & Tech", "icon": "🔌" },
+    { "id": "name", "name": "Names & School", "icon": "✏️" },
+    { "id": "shipping", "name": "Shipping & Mail", "icon": "📦" },
+    { "id": "qr", "name": "QR & Social", "icon": "📱" }
+  ],
+  "templates": [
+    {
+      "id": "price-tag",
+      "name": "Price Tag",
+      "category": "retail",
+      "tags": ["price", "product", "barcode", "store"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 16, "width": 288, "height": 40, "text": "Product Name", "fontSize": 26, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 60, "width": 288, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 72, "width": 288, "height": 84, "text": "$9.99", "fontSize": 60, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "barcode", "x": 60, "y": 164, "width": 200, "height": 60, "barcodeData": "12345678", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "sale-tag",
+      "name": "Sale Tag",
+      "category": "retail",
+      "tags": ["sale", "discount", "price", "promo"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 64, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 400, "height": 64, "text": "SALE", "fontSize": 38, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 24, "y": 84, "width": 160, "height": 32, "text": "Reg. $24.99", "fontSize": 22, "align": "left", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 24, "y": 95, "width": 132, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 190, "y": 76, "width": 186, "height": 72, "text": "$14.99", "fontSize": 52, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 24, "y": 188, "width": 352, "height": 28, "text": "Limited time offer", "fontSize": 16, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "product-ean13",
+      "name": "Product Barcode",
+      "category": "retail",
+      "tags": ["barcode", "ean", "product", "sku"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 12, "width": 288, "height": 36, "text": "Product Name", "fontSize": 22, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 50, "width": 288, "height": 24, "text": "SKU 0001", "fontSize": 16, "align": "center", "noWrap": true },
+        { "type": "barcode", "x": 40, "y": 84, "width": 240, "height": 140, "barcodeData": "8801234567893", "barcodeFormat": "EAN13" }
+      ]
+    },
+    {
+      "id": "mini-price",
+      "name": "Mini Price Tag",
+      "category": "retail",
+      "tags": ["price", "small", "jewelry", "tape"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 8, "width": 130, "height": 80, "text": "Item", "fontSize": 22, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 142, "y": 8, "width": 90, "height": 80, "text": "$5.00", "fontSize": 26, "fontWeight": "bold", "align": "right", "noWrap": true }
+      ]
+    },
+    {
+      "id": "shelf-label",
+      "name": "Shelf Label",
+      "category": "retail",
+      "tags": ["shelf", "price", "store", "unit price"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "text", "x": 24, "y": 24, "width": 432, "height": 56, "text": "Product Name", "fontSize": 34, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 84, "width": 432, "height": 32, "text": "Description or variant", "fontSize": 20, "align": "left", "noWrap": true },
+        { "type": "text", "x": 24, "y": 130, "width": 300, "height": 110, "text": "$19.99", "fontSize": 72, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 310, "y": 196, "width": 146, "height": 40, "text": "$0.42 / oz", "fontSize": 18, "align": "right", "verticalAlign": "bottom", "noWrap": true },
+        { "type": "barcode", "x": 24, "y": 252, "width": 280, "height": 52, "barcodeData": "SKU-04211", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "food-storage",
+      "name": "Food Storage",
+      "category": "food",
+      "tags": ["food", "container", "date", "fridge"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 14, "width": 288, "height": 20, "text": "CONTENTS", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 36, "width": 288, "height": 56, "text": "Chicken Soup", "fontSize": 30, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 100, "width": 288, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 122, "width": 130, "height": 20, "text": "MADE", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 144, "width": 140, "height": 30, "text": "[[date]]", "fontSize": 20, "align": "left", "noWrap": true },
+        { "type": "text", "x": 176, "y": 122, "width": 128, "height": 20, "text": "USE BY", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "text", "x": 176, "y": 144, "width": 128, "height": 30, "text": "___ / ___", "fontSize": 20, "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "freezer-label",
+      "name": "Freezer Label",
+      "category": "food",
+      "tags": ["freezer", "frozen", "date", "food"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 56, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 320, "height": 56, "text": "FREEZER", "fontSize": 28, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 16, "y": 70, "width": 288, "height": 64, "text": "Contents", "fontSize": 30, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 146, "width": 288, "height": 30, "text": "Frozen [[date]]", "fontSize": 20, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 184, "width": 288, "height": 26, "text": "Best within 3 months", "fontSize": 16, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "spice-jar",
+      "name": "Spice Jar",
+      "category": "food",
+      "tags": ["spice", "jar", "round", "kitchen"],
+      "labelSize": { "width": 30, "height": 30, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 12, "y": 12, "width": 216, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 40, "y": 64, "width": 160, "height": 22, "text": "· SPICE ·", "fontSize": 13, "align": "center", "noWrap": true },
+        { "type": "text", "x": 30, "y": 92, "width": 180, "height": 52, "text": "OREGANO", "fontSize": 30, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 40, "y": 152, "width": 160, "height": 22, "text": "[[date]]", "fontSize": 13, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "jam-jar",
+      "name": "Homemade Jam",
+      "category": "food",
+      "tags": ["jam", "jar", "round", "homemade", "preserve"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 22, "y": 22, "width": 276, "height": 276, "fill": "white", "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 60, "y": 84, "width": 200, "height": 26, "text": "HOMEMADE", "fontSize": 16, "fontFamily": "Georgia, serif", "align": "center", "noWrap": true },
+        { "type": "text", "x": 50, "y": 118, "width": 220, "height": 84, "text": "Strawberry Jam", "fontSize": 32, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center" },
+        { "type": "text", "x": 60, "y": 214, "width": 200, "height": 26, "text": "[[date|MM/DD/YYYY]]", "fontSize": 15, "fontFamily": "Georgia, serif", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "prep-expiry",
+      "name": "Prep / Use By",
+      "category": "food",
+      "tags": ["prep", "expiry", "restaurant", "kitchen", "haccp"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 14, "width": 368, "height": 44, "text": "Item Name", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 64, "width": 368, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 84, "width": 180, "height": 22, "text": "PREP", "fontSize": 15, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 108, "width": 180, "height": 60, "text": "[[datetime]]", "fontSize": 17, "align": "center" },
+        { "type": "shape", "shapeType": "line", "x": 130, "y": 145, "width": 140, "height": 10, "rotation": 90, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 204, "y": 84, "width": 180, "height": 22, "text": "USE BY", "fontSize": 15, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 204, "y": 108, "width": 180, "height": 40, "text": "__ / __  ·  __ : __", "fontSize": 17, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "pantry-label",
+      "name": "Pantry",
+      "category": "food",
+      "tags": ["pantry", "canister", "kitchen", "bulk"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "line", "x": 20, "y": 30, "width": 360, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 20, "y": 52, "width": 360, "height": 100, "text": "FLOUR", "fontSize": 60, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 20, "y": 164, "width": 360, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 20, "y": 186, "width": 360, "height": 28, "text": "Refilled [[date]]", "fontSize": 16, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "leftovers",
+      "name": "Leftovers",
+      "category": "food",
+      "tags": ["leftovers", "fridge", "date", "food"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 48, "fill": "dither-25" },
+        { "type": "text", "x": 0, "y": 0, "width": 320, "height": 48, "text": "LEFTOVERS", "fontSize": 22, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 64, "width": 288, "height": 64, "text": "Pasta Bake", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 140, "width": 288, "height": 28, "text": "Made [[date]]", "fontSize": 18, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 172, "width": 288, "height": 24, "text": "Eat within 3 days", "fontSize": 15, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "storage-box",
+      "name": "Storage Box",
+      "category": "home",
+      "tags": ["box", "storage", "moving", "qr", "inventory"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 480, "height": 64, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 480, "height": 64, "text": "BOX 07", "fontSize": 32, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 24, "y": 84, "width": 290, "height": 160, "text": "Winter clothes\nScarves & gloves\nBoots", "fontSize": 20, "align": "left", "verticalAlign": "top", "noWrap": true },
+        { "type": "qr", "x": 340, "y": 84, "width": 130, "height": 130, "qrData": "https://example.com/box/07" },
+        { "type": "text", "x": 330, "y": 220, "width": 150, "height": 40, "text": "Scan for inventory", "fontSize": 13, "align": "center" },
+        { "type": "shape", "shapeType": "line", "x": 24, "y": 268, "width": 432, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 24, "y": 284, "width": 432, "height": 24, "text": "Basement · Shelf B", "fontSize": 14, "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "season-box",
+      "name": "Seasonal Storage",
+      "category": "home",
+      "tags": ["seasonal", "storage", "closet", "box"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "text", "x": 24, "y": 24, "width": 432, "height": 64, "text": "WINTER", "fontSize": 42, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 24, "y": 96, "width": 432, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 24, "y": 116, "width": 432, "height": 130, "text": "Coats, boots, scarves, blankets", "fontSize": 20, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 24, "y": 274, "width": 432, "height": 24, "text": "Packed [[date]]", "fontSize": 15, "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "switch-label",
+      "name": "Switch / Outlet",
+      "category": "home",
+      "tags": ["switch", "outlet", "breaker", "home"],
+      "labelSize": { "width": 22, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 168, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 12 },
+        { "type": "text", "x": 14, "y": 14, "width": 148, "height": 68, "text": "KITCHEN", "fontSize": 24, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "battery-swap",
+      "name": "Battery / Filter",
+      "category": "home",
+      "tags": ["battery", "filter", "maintenance", "date"],
+      "labelSize": { "width": 30, "height": 20 },
+      "elements": [
+        { "type": "text", "x": 12, "y": 14, "width": 216, "height": 20, "text": "REPLACED", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 12, "y": 38, "width": 216, "height": 44, "text": "[[date]]", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 12, "y": 92, "width": 216, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 110, "width": 216, "height": 26, "text": "Next due: ______", "fontSize": 15, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "plant-marker",
+      "name": "Plant Label",
+      "category": "home",
+      "tags": ["plant", "garden", "care", "pot"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 20, "width": 288, "height": 48, "text": "Monstera", "fontSize": 30, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 72, "width": 288, "height": 28, "text": "Monstera deliciosa", "fontSize": 17, "fontFamily": "Georgia, serif", "fontStyle": "italic", "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 80, "y": 110, "width": 160, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 128, "width": 288, "height": 26, "text": "Water: weekly", "fontSize": 15, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 156, "width": 288, "height": 26, "text": "Light: bright indirect", "fontSize": 15, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 194, "width": 288, "height": 24, "text": "Repotted [[date]]", "fontSize": 13, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "file-folder",
+      "name": "File Folder",
+      "category": "office",
+      "tags": ["file", "folder", "filing", "document"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 20, "height": 200, "fill": "black" },
+        { "type": "text", "x": 40, "y": 24, "width": 330, "height": 24, "text": "2025 · FINANCE", "fontSize": 15, "align": "left", "noWrap": true },
+        { "type": "text", "x": 40, "y": 54, "width": 330, "height": 58, "text": "Tax Documents", "fontSize": 32, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 40, "y": 122, "width": 330, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 40, "y": 142, "width": 330, "height": 24, "text": "Folder 12 of 30", "fontSize": 14, "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "binder-spine",
+      "name": "Binder Spine",
+      "category": "office",
+      "tags": ["binder", "spine", "vertical", "office"],
+      "labelSize": { "width": 12, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 12, "y": 12, "width": 72, "height": 56, "fill": "white", "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 12, "width": 72, "height": 56, "text": "01", "fontSize": 24, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": -67, "y": 160, "width": 230, "height": 60, "rotation": 90, "text": "2025 REPORTS", "fontSize": 26, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "archive-box",
+      "name": "Archive",
+      "category": "office",
+      "tags": ["archive", "records", "box", "retention"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 52, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 400, "height": 52, "text": "ARCHIVE", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 20, "y": 72, "width": 360, "height": 52, "text": "2019 – 2021", "fontSize": 34, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 20, "y": 140, "width": 360, "height": 28, "text": "Destroy after: Jan 2028", "fontSize": 16, "align": "center", "noWrap": true },
+        { "type": "text", "x": 20, "y": 176, "width": 360, "height": 24, "text": "Box 3 of 5", "fontSize": 14, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "asset-tag",
+      "name": "Asset Tag",
+      "category": "office",
+      "tags": ["asset", "inventory", "it", "qr", "batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 52, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 320, "height": 52, "text": "COMPANY ASSET", "fontSize": 22, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "qr", "x": 20, "y": 72, "width": 130, "height": 130, "qrData": "{{AssetID}}" },
+        { "type": "text", "x": 170, "y": 80, "width": 134, "height": 22, "text": "ASSET ID", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "text", "x": 170, "y": 104, "width": 134, "height": 34, "text": "{{AssetID}}", "fontSize": 22, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 170, "y": 146, "width": 130, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 170, "y": 162, "width": 134, "height": 40, "text": "IT Dept · ext 1234", "fontSize": 14, "align": "left" }
+      ]
+    },
+    {
+      "id": "cable-flag",
+      "name": "Cable Flag",
+      "category": "cable",
+      "tags": ["cable", "flag", "wrap", "cord"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 8, "width": 136, "height": 80, "text": "HDMI 1", "fontSize": 24, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 125, "y": 43, "width": 70, "height": 10, "rotation": 90, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 176, "y": 8, "width": 136, "height": 80, "text": "HDMI 1", "fontSize": 24, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "cable-port",
+      "name": "Port Label",
+      "category": "cable",
+      "tags": ["port", "network", "router", "lan"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 8, "width": 224, "height": 80, "text": "LAN 1 → Router", "fontSize": 20, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "charger-tag",
+      "name": "Charger Tag",
+      "category": "cable",
+      "tags": ["charger", "adapter", "owner", "tech"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 6, "width": 224, "height": 48, "text": "Anna's MacBook", "fontSize": 20, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 8, "y": 56, "width": 224, "height": 30, "text": "65W USB-C", "fontSize": 14, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "network-patch",
+      "name": "Patch Panel",
+      "category": "cable",
+      "tags": ["patch", "panel", "switch", "network", "datacenter"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 96, "height": 96, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 96, "height": 96, "text": "P24", "fontSize": 26, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 104, "y": 8, "width": 208, "height": 80, "text": "Switch 1 → Room 204", "fontSize": 18, "align": "center" }
+      ]
+    },
+    {
+      "id": "name-tag",
+      "name": "Name Tag",
+      "category": "name",
+      "tags": ["name", "badge", "hello", "event", "batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 56, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 400, "height": 56, "text": "HELLO, I'M", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 16, "y": 66, "width": 368, "height": 120, "text": "{{Name}}", "fontSize": 44, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "school-supply",
+      "name": "School Supplies",
+      "category": "name",
+      "tags": ["school", "kids", "class", "supplies", "batch"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 6, "width": 224, "height": 50, "text": "{{Name}}", "fontSize": 24, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 8, "y": 58, "width": 224, "height": 30, "text": "Class {{Class}}", "fontSize": 14, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "belongs-to",
+      "name": "This Belongs To",
+      "category": "name",
+      "tags": ["belongs", "owner", "lost", "found", "phone"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 20, "width": 288, "height": 22, "text": "THIS BELONGS TO", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 50, "width": 288, "height": 64, "text": "Alex Kim", "fontSize": 34, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 80, "y": 126, "width": 160, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 142, "width": 288, "height": 22, "text": "If found, please call", "fontSize": 13, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 168, "width": 288, "height": 36, "text": "010-1234-5678", "fontSize": 22, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "locker-round",
+      "name": "Locker / Cubby",
+      "category": "name",
+      "tags": ["locker", "cubby", "round", "school"],
+      "labelSize": { "width": 30, "height": 30, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 12, "y": 12, "width": 216, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 40, "y": 74, "width": 160, "height": 22, "text": "ROOM 2", "fontSize": 14, "align": "center", "noWrap": true },
+        { "type": "text", "x": 40, "y": 98, "width": 160, "height": 52, "text": "Alex", "fontSize": 36, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "shipping-4x6",
+      "name": "Shipping 4×6",
+      "category": "shipping",
+      "tags": ["shipping", "4x6", "address", "tracking", "parcel"],
+      "labelSize": { "width": 102, "height": 152 },
+      "elements": [
+        { "type": "text", "x": 40, "y": 36, "width": 160, "height": 28, "text": "FROM", "fontSize": 18, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 40, "y": 68, "width": 500, "height": 120, "text": "Your Store\n123 Commerce St\nCity, ST 12345", "fontSize": 22, "align": "left", "verticalAlign": "top", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 40, "y": 208, "width": 736, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 40, "y": 236, "width": 250, "height": 32, "text": "SHIP TO", "fontSize": 22, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 40, "y": 280, "width": 700, "height": 260, "text": "Jane Smith\n456 Oak Avenue, Apt 2B\nSpringfield, ST 67890", "fontSize": 38, "fontWeight": "bold", "align": "left", "verticalAlign": "top", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 40, "y": 560, "width": 736, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "barcode", "x": 108, "y": 600, "width": 600, "height": 190, "barcodeData": "1Z999AA10123456784", "barcodeFormat": "CODE128", "showText": true, "textFontSize": 26 },
+        { "type": "shape", "shapeType": "line", "x": 40, "y": 816, "width": 736, "height": 10, "stroke": "black", "strokeWidth": 3 },
+        { "type": "shape", "shapeType": "rectangle", "x": 40, "y": 850, "width": 350, "height": 110, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "text", "x": 40, "y": 850, "width": 350, "height": 110, "text": "STANDARD", "fontSize": 30, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 426, "y": 850, "width": 350, "height": 110, "text": "WT: 2.5 LB\nZONE 4", "fontSize": 26, "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "rectangle", "x": 40, "y": 1000, "width": 736, "height": 130, "fill": "black" },
+        { "type": "text", "x": 40, "y": 1000, "width": 736, "height": 130, "text": "FRAGILE · HANDLE WITH CARE", "fontSize": 34, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true }
+      ]
+    },
+    {
+      "id": "return-address",
+      "name": "Return Address",
+      "category": "shipping",
+      "tags": ["return", "address", "sender", "mail"],
+      "labelSize": { "width": 102, "height": 51 },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 64, "y": 84, "width": 240, "height": 240, "fill": "white", "stroke": "black", "strokeWidth": 5 },
+        { "type": "text", "x": 64, "y": 84, "width": 240, "height": 240, "text": "YS", "fontSize": 72, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 360, "y": 92, "width": 400, "height": 30, "text": "RETURN TO", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 360, "y": 132, "width": 420, "height": 180, "text": "Your Store\n123 Commerce St\nCity, ST 12345", "fontSize": 28, "align": "left", "verticalAlign": "top", "noWrap": true }
+      ]
+    },
+    {
+      "id": "fragile",
+      "name": "Fragile",
+      "category": "shipping",
+      "tags": ["fragile", "handle", "care", "warning"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 10, "y": 10, "width": 460, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "triangle", "x": 224, "y": 28, "width": 32, "height": 26, "fill": "black" },
+        { "type": "text", "x": 40, "y": 76, "width": 400, "height": 96, "text": "FRAGILE", "fontSize": 56, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 40, "y": 186, "width": 400, "height": 36, "text": "HANDLE WITH CARE", "fontSize": 22, "align": "center", "noWrap": true },
+        { "type": "text", "x": 40, "y": 240, "width": 400, "height": 26, "text": "THIS SIDE UP", "fontSize": 14, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "thank-you",
+      "name": "Thank You",
+      "category": "shipping",
+      "tags": ["thank you", "small business", "order", "packaging"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "line", "x": 120, "y": 34, "width": 160, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 20, "y": 54, "width": 360, "height": 64, "text": "Thank you!", "fontSize": 40, "fontFamily": "Georgia, serif", "fontStyle": "italic", "align": "center", "noWrap": true },
+        { "type": "text", "x": 20, "y": 126, "width": 360, "height": 30, "text": "for supporting our small business", "fontSize": 16, "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 120, "y": 168, "width": 160, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 20, "y": 188, "width": 360, "height": 26, "text": "@yourshop", "fontSize": 15, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "order-label",
+      "name": "Order Label",
+      "category": "shipping",
+      "tags": ["order", "packing", "qr", "batch", "ecommerce"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 16, "width": 120, "height": 22, "text": "ORDER", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 40, "width": 260, "height": 46, "text": "#{{Order}}", "fontSize": 32, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "qr", "x": 300, "y": 16, "width": 84, "height": 84, "qrData": "{{Order}}" },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 114, "width": 368, "height": 10, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 130, "width": 368, "height": 36, "text": "{{Name}}", "fontSize": 22, "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 174, "width": 368, "height": 26, "text": "Packed [[datetime]]", "fontSize": 15, "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "mail-address",
+      "name": "Address Label",
+      "category": "shipping",
+      "tags": ["address", "mail", "envelope", "to"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 16, "width": 60, "height": 26, "text": "TO:", "fontSize": 16, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 48, "y": 52, "width": 336, "height": 150, "text": "Jane Smith\n123 Main Street\nSpringfield, ST 12345", "fontSize": 22, "align": "left", "verticalAlign": "top", "noWrap": true }
+      ]
+    },
+    {
+      "id": "wifi-qr",
+      "name": "Wi-Fi QR",
+      "category": "qr",
+      "tags": ["wifi", "qr", "guest", "network", "scan"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 44, "width": 150, "height": 44, "text": "Wi-Fi", "fontSize": 30, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 96, "width": 150, "height": 26, "text": "Scan to connect", "fontSize": 15, "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 130, "width": 150, "height": 56, "text": "MyNetwork", "fontSize": 17, "fontWeight": "bold", "align": "left" },
+        { "type": "qr", "x": 184, "y": 56, "width": 128, "height": 128, "qrData": "WIFI:T:WPA;S:MyNetwork;P:password123;;" }
+      ]
+    },
+    {
+      "id": "review-qr",
+      "name": "Review QR",
+      "category": "qr",
+      "tags": ["review", "feedback", "qr", "stars", "business"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 16, "width": 288, "height": 30, "text": "How did we do?", "fontSize": 20, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "qr", "x": 110, "y": 54, "width": 100, "height": 100, "qrData": "https://example.com/review" },
+        { "type": "text", "x": 16, "y": 158, "width": 288, "height": 30, "text": "★ ★ ★ ★ ★", "fontSize": 20, "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 192, "width": 288, "height": 24, "text": "Scan to leave a review", "fontSize": 14, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "instagram",
+      "name": "Social Handle",
+      "category": "qr",
+      "tags": ["instagram", "social", "follow", "qr", "handle"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 18, "width": 288, "height": 22, "text": "FOLLOW US", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 16, "y": 42, "width": 288, "height": 42, "text": "@yourbrand", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 110, "y": 96, "width": 100, "height": 100, "qrData": "https://instagram.com/yourbrand" },
+        { "type": "text", "x": 16, "y": 204, "width": 288, "height": 22, "text": "Like · Share · Tag us", "fontSize": 13, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "menu-qr",
+      "name": "Menu QR",
+      "category": "qr",
+      "tags": ["menu", "restaurant", "qr", "order", "table"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 6, "y": 6, "width": 388, "height": 228, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 16 },
+        { "type": "text", "x": 28, "y": 56, "width": 180, "height": 56, "text": "MENU", "fontSize": 40, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 28, "y": 120, "width": 180, "height": 52, "text": "Scan to see our menu & order", "fontSize": 16, "align": "left" },
+        { "type": "qr", "x": 252, "y": 46, "width": 132, "height": 132, "qrData": "https://example.com/menu" }
+      ]
+    },
+    {
+      "id": "url-round",
+      "name": "QR Round",
+      "category": "qr",
+      "tags": ["qr", "round", "url", "link"],
+      "labelSize": { "width": 30, "height": 30, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 12, "y": 12, "width": 216, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 2 },
+        { "type": "qr", "x": 60, "y": 40, "width": 120, "height": 120, "qrData": "https://example.com" },
+        { "type": "text", "x": 30, "y": 170, "width": 180, "height": 26, "text": "example.com", "fontSize": 15, "align": "center", "noWrap": true }
+      ]
+    }
+  ]
+}

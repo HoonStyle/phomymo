@@ -66,6 +66,15 @@ import {
   evaluateExpressions,
 } from './templates.js?v=101';
 import {
+  loadTemplateLibrary,
+  getTemplateLibrary,
+  filterTemplates,
+  getTemplateById,
+  createThumbnailRenderer,
+  drawTemplateThumbnail,
+  instantiateTemplate,
+} from './gallery.js?v=100';
+import {
   ZOOM,
   TEXT,
   IMAGE,
@@ -4969,6 +4978,200 @@ function hideLoadDialog() {
   $('#load-dialog').classList.add('hidden');
 }
 
+// =============================================================================
+// TEMPLATE GALLERY
+// =============================================================================
+
+const galleryUI = {
+  category: null,
+  query: '',
+  renderer: null,
+  thumbCanvases: new Map(), // templateId -> thumbnail canvas
+  redrawPending: false,
+};
+
+/**
+ * Show the built-in template gallery dialog
+ */
+function showTemplateGallery() {
+  $('#template-gallery-dialog').classList.remove('hidden');
+  loadTemplateLibrary().then(() => {
+    if (!galleryUI.renderer) {
+      galleryUI.renderer = createThumbnailRenderer(scheduleGalleryRedraw);
+    }
+    renderGalleryChips();
+    renderGalleryGrid();
+  });
+}
+
+/**
+ * Hide the template gallery dialog
+ */
+function hideTemplateGallery() {
+  $('#template-gallery-dialog').classList.add('hidden');
+}
+
+/**
+ * Redraw visible thumbnails once async content (barcodes, QR codes) loads
+ */
+function scheduleGalleryRedraw() {
+  if (galleryUI.redrawPending) return;
+  galleryUI.redrawPending = true;
+  requestAnimationFrame(() => {
+    galleryUI.redrawPending = false;
+    if ($('#template-gallery-dialog').classList.contains('hidden')) return;
+    for (const [id, canvas] of galleryUI.thumbCanvases) {
+      const tpl = getTemplateById(id);
+      if (tpl && canvas.isConnected) {
+        drawTemplateThumbnail(galleryUI.renderer, tpl, canvas);
+      }
+    }
+  });
+}
+
+/**
+ * Render the category filter chips
+ */
+function renderGalleryChips() {
+  const { categories } = getTemplateLibrary();
+  const container = $('#template-category-chips');
+  const chip = (id, label, active) =>
+    `<button class="gallery-chip px-2.5 py-1 text-xs rounded-full border transition-colors ${active ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}" data-category="${id || ''}">${label}</button>`;
+
+  container.innerHTML =
+    chip(null, 'All', galleryUI.category === null) +
+    categories.map(c => chip(c.id, `${c.icon || ''} ${escapeHtml(c.name)}`.trim(), galleryUI.category === c.id)).join('');
+
+  container.querySelectorAll('.gallery-chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      galleryUI.category = btn.dataset.category || null;
+      renderGalleryChips();
+      renderGalleryGrid();
+    });
+  });
+}
+
+/**
+ * Render the template card grid with live thumbnails
+ */
+function renderGalleryGrid() {
+  const grid = $('#template-grid');
+  const templates = filterTemplates({ category: galleryUI.category, query: galleryUI.query });
+  galleryUI.thumbCanvases.clear();
+
+  if (templates.length === 0) {
+    grid.innerHTML = '<div class="col-span-full text-sm text-gray-400 text-center py-10">No templates match your search</div>';
+    return;
+  }
+
+  grid.innerHTML = '';
+  const curW = state.labelSize.width;
+  const curH = state.labelSize.height;
+  const fieldPattern = /\{\{.+?\}\}/;
+
+  for (const tpl of templates) {
+    const { width, height, round } = tpl.labelSize;
+    const matchesSize = width === curW && height === curH;
+    const hasFields = tpl.elements.some(el =>
+      fieldPattern.test(el.text || '') || fieldPattern.test(el.barcodeData || '') || fieldPattern.test(el.qrData || ''));
+
+    const card = document.createElement('button');
+    card.className = 'template-card text-left border border-gray-200 rounded-lg p-2.5 hover:border-blue-400 hover:shadow-sm transition-all bg-white flex flex-col gap-2';
+    card.dataset.templateId = tpl.id;
+
+    const thumbBox = document.createElement('div');
+    thumbBox.className = 'h-24 sm:h-28 flex items-center justify-center bg-gray-50 rounded overflow-hidden';
+    const canvas = document.createElement('canvas');
+    canvas.style.maxWidth = '100%';
+    canvas.style.maxHeight = '100%';
+    canvas.style.width = 'auto';
+    canvas.style.height = 'auto';
+    thumbBox.appendChild(canvas);
+    card.appendChild(thumbBox);
+
+    const info = document.createElement('div');
+    info.innerHTML = `
+      <div class="text-sm font-medium text-gray-900 truncate">${escapeHtml(tpl.name)}</div>
+      <div class="flex items-center gap-1 mt-0.5 flex-wrap">
+        <span class="text-xs ${matchesSize ? 'text-green-600 font-medium' : 'text-gray-400'}">${round ? `${width}mm ●` : `${width}×${height}mm`}</span>
+        ${hasFields ? '<span class="px-1 py-0.5 text-[10px] bg-purple-100 text-purple-700 rounded">Fields</span>' : ''}
+      </div>`;
+    card.appendChild(info);
+
+    card.addEventListener('click', () => applyGalleryTemplate(tpl.id));
+    grid.appendChild(card);
+
+    galleryUI.thumbCanvases.set(tpl.id, canvas);
+    drawTemplateThumbnail(galleryUI.renderer, tpl, canvas);
+  }
+}
+
+/**
+ * Apply a gallery template to the canvas
+ * @param {string} templateId - Template ID from the library
+ */
+function applyGalleryTemplate(templateId) {
+  const tpl = getTemplateById(templateId);
+  if (!tpl) return;
+
+  if (state.elements.length > 0) {
+    if (!confirm('Replace the current design with this template?')) return;
+  }
+
+  const fitToCurrent = $('#template-fit-size').checked;
+  const target = fitToCurrent ? { ...state.labelSize } : null;
+  const { elements, labelSize } = instantiateTemplate(tpl, target);
+
+  state.elements = elements;
+  state.labelSize = labelSize;
+  state.selectedIds = [];
+  state.templateData = [];
+  state.selectedRecords = [];
+
+  // Templates are single-label designs — reset multi-label state
+  state.multiLabel = {
+    enabled: false,
+    labelWidth: 10,
+    labelHeight: 20,
+    labelsAcross: 4,
+    gapMm: 2,
+    cloneMode: true,
+  };
+  state.activeZone = 0;
+  state.renderer.disableMultiLabel();
+  $('#zone-toolbar').classList.add('hidden');
+
+  // Sync the label-size dropdown with the applied size
+  const sizeKey = state.labelSize.round
+    ? `${state.labelSize.width}mm Round`
+    : `${state.labelSize.width}x${state.labelSize.height}`;
+  const select = $('#label-size');
+  if (LABEL_SIZES[sizeKey]) {
+    select.value = sizeKey;
+    $('#custom-size').classList.add('hidden');
+  } else {
+    select.value = 'custom';
+    $('#custom-size').classList.remove('hidden');
+    $('#custom-width').value = state.labelSize.width;
+    $('#custom-height').value = state.labelSize.height;
+  }
+
+  state.renderer.setDimensions(state.labelSize.width, state.labelSize.height, state.zoom, state.labelSize.round || false);
+  state.renderer.clearCache();
+  resetHistory();
+  updatePrintSize();
+  updateToolbarState();
+  updatePropertiesPanel();
+  detectTemplateFields();
+
+  state.currentDesignName = null;
+  updateMobileLabelName();
+
+  render();
+  hideTemplateGallery();
+  setStatus(`Template "${tpl.name}" applied`);
+}
+
 /**
  * Export current design to file
  */
@@ -5776,6 +5979,10 @@ function initMobileUI() {
   $('#mobile-menu-backdrop')?.addEventListener('click', closeMobileMenu);
 
   // Mobile menu actions
+  $('#mobile-templates-btn')?.addEventListener('click', () => {
+    closeMobileMenu();
+    showTemplateGallery();
+  });
   $('#mobile-save-btn')?.addEventListener('click', () => {
     closeMobileMenu();
     showSaveDialog();
@@ -7476,6 +7683,17 @@ function init() {
 
   $('#load-btn').addEventListener('click', showLoadDialog);
   $('#load-cancel').addEventListener('click', hideLoadDialog);
+
+  // Template gallery
+  $('#templates-btn').addEventListener('click', showTemplateGallery);
+  $('#template-gallery-close').addEventListener('click', hideTemplateGallery);
+  $('#template-gallery-dialog').addEventListener('click', (e) => {
+    if (e.target.id === 'template-gallery-dialog') hideTemplateGallery();
+  });
+  $('#template-search').addEventListener('input', (e) => {
+    galleryUI.query = e.target.value;
+    renderGalleryGrid();
+  });
 
   // Import from file
   $('#import-file-btn').addEventListener('click', () => $('#import-file-input').click());
