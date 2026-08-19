@@ -128,6 +128,10 @@ phomymo/
 └── README.md
 ```
 
+## Known Issues
+
+- **M110: print output shifted ~2-3mm to the left** (observed printing from iPhone/Bluefy; not yet verified on desktop Chrome). Likely a per-printer alignment calibration rather than a rendering bug — the alignment can be overridden via Print Settings > Manage Printers as a workaround. Tracked, not fixed yet.
+
 ## Acknowledgments
 
 Protocol research and inspiration:
