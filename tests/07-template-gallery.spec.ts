@@ -168,9 +168,10 @@ test.describe.serial('Template Gallery', () => {
     await page.waitForTimeout(500);
     await screenshot(page, CH, 6, 'korean-category');
 
-    // Korean search works via tags
+    // Korean search works via tags (택배 라벨 + 택배 취급주의)
     await page.fill('#template-search', '택배');
-    await expect(page.locator('#template-grid .template-card')).toHaveCount(1);
+    await expect(page.locator('#template-grid .template-card')).toHaveCount(2);
+    await expect(page.locator('#template-grid')).toContainText('택배 라벨');
   });
 
   test('save current design as user template and delete it', async ({ page }) => {
