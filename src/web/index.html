@@ -411,6 +411,22 @@
         border: 1px solid #2b2833;
       }
 
+      /* Base text color for dark surfaces — covers text that carries no
+         explicit text-* utility (would otherwise stay default black) */
+      #mobile-props-panel, #mobile-menu-panel, div[id$="-dialog"] > div {
+        color: #e6e2ee;
+      }
+      /* Form controls don't inherit color by default; keep any explicit
+         text-* utility, otherwise follow the surface color */
+      #mobile-menu-panel button:not([class*="text-"]),
+      div[id$="-dialog"] button:not([class*="text-"]),
+      div[id$="-dialog"] label:not([class*="text-"]) {
+        color: inherit;
+      }
+      div[id$="-dialog"] input, div[id$="-dialog"] select, div[id$="-dialog"] textarea {
+        color: #eae6f2;
+      }
+
       /* Shared utility remaps inside dark scopes */
       #mobile-props-panel .bg-white, #mobile-menu-panel .bg-white,
       div[id$="-dialog"] .bg-white,
