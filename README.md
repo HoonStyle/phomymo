@@ -29,7 +29,7 @@ python3 -m http.server 8080
 
 **Template Gallery** - 160 built-in, professionally designed templates across 18 categories (price tags, food & kitchen, home storage, office filing, cables & tech, names & school, shipping, QR & social, Korean labels, health & care, safety & compliance, gifts & events, craft & garden, cafe & hospitality, beauty & wellness, pets & animal care, warehouse & logistics, and travel & outdoors). Live WYSIWYG thumbnails, category filters, tag search, and one-click apply - optionally auto-scaled to fit your current label size. Field templates (`{{Name}}`, `{{AssetID}}`) drop straight into batch printing, and date templates print today's date via `[[date]]` expressions. Save your own designs to a **My Templates** category with one click for instant reuse.
 
-**Design Elements** - Text (multiple fonts including local system fonts, sizes, styles, alignment, background colors), images with scale/aspect lock, barcodes (Code128, EAN-13, UPC-A, Code39), QR codes, and shapes (rectangle, ellipse, triangle, line) with solid, dithered grayscale, and stroke fills.
+**Design Elements** - Text with 50 curated built-in fonts (including 7 Korean families) plus optional local system fonts, sizes, styles, alignment, and background colors; images with scale/aspect lock; barcodes (Code128, EAN-13, UPC-A, Code39); QR codes; and shapes with 50 editable border/frame presets alongside rectangle, ellipse, triangle, and line tools.
 
 **Editing** - Drag to move, corner/edge resize handles, rotation. Multi-select (Shift+click), grouping (Ctrl/Cmd+G), undo/redo, keyboard nudge, layer ordering, clipboard image paste (Ctrl/Cmd+V).
 
