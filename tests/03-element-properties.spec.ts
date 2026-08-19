@@ -17,6 +17,9 @@ test.describe.serial('Element Properties', () => {
     await page.waitForTimeout(200);
 
     await expect(page.locator('#props-text')).toBeVisible();
+    await expect(page.locator('#prop-font-family option')).toHaveCount(50);
+    await page.locator('#prop-font-family').selectOption('Poppins, sans-serif');
+    await expect(page.locator('#prop-font-family')).toHaveValue('Poppins, sans-serif');
     await elementScreenshot(page, '#props-panel', CH, 1, 'text-properties-panel');
 
     // Modify text content
@@ -75,6 +78,20 @@ test.describe.serial('Element Properties', () => {
     await page.waitForTimeout(200);
 
     await screenshot(page, CH, 8, 'shape-properties-modified');
+  });
+
+  test('border element exposes 50 frame presets', async ({ page }) => {
+    await page.click('#add-shape-btn');
+    await page.click('button[data-shape="border"]');
+    await page.waitForTimeout(200);
+
+    await expect(page.locator('#props-shape')).toBeVisible();
+    await expect(page.locator('#prop-shape-type')).toHaveValue('border');
+    await expect(page.locator('#prop-border-style-group')).toBeVisible();
+    await expect(page.locator('#prop-border-style option')).toHaveCount(50);
+
+    await page.locator('#prop-border-style').selectOption('deco-diamond');
+    await expect(page.locator('#prop-border-style')).toHaveValue('deco-diamond');
   });
 
   test('position and size properties', async ({ page }) => {

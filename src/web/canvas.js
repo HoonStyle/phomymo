@@ -1386,7 +1386,7 @@ export class CanvasRenderer {
    * Render shape element (centered at origin)
    */
   renderShapeElement(element, width, height) {
-    const { shapeType, fill, stroke, strokeWidth, cornerRadius } = element;
+    const { shapeType, fill, stroke, strokeWidth, cornerRadius, borderStyle } = element;
 
     // Draw based on shape type
     switch (shapeType) {
@@ -1402,9 +1402,252 @@ export class CanvasRenderer {
       case 'line':
         this.drawLine(width, height, stroke || fill, strokeWidth);
         break;
+      case 'border':
+        this.drawBorderStyle(width, height, borderStyle || 'classic-thin', strokeWidth || 2);
+        break;
       default:
         this.drawRectangle(width, height, 0, fill, stroke, strokeWidth);
     }
+  }
+
+  /**
+   * Draw one of the built-in monochrome border/frame presets.
+   * Border elements are transparent and scale with their element bounds.
+   */
+  drawBorderStyle(width, height, style, strokeWidth = 2) {
+    const ctx = this.ctx;
+    const left = -width / 2;
+    const top = -height / 2;
+    const right = width / 2;
+    const bottom = height / 2;
+    const minSide = Math.min(width, height);
+    const unit = Math.max(2, Math.min(10, minSide / 18));
+
+    const roundedRectPath = (inset = 0, radius = 0) => {
+      const x = left + inset;
+      const y = top + inset;
+      const w = Math.max(1, width - inset * 2);
+      const h = Math.max(1, height - inset * 2);
+      const r = Math.min(radius, w / 2, h / 2);
+      ctx.beginPath();
+      if (r <= 0) {
+        ctx.rect(x, y, w, h);
+      } else {
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
+      }
+      ctx.closePath();
+    };
+    const strokeRect = (inset = 0, lineWidth = strokeWidth, radius = 0, dash = []) => {
+      ctx.lineWidth = lineWidth;
+      ctx.setLineDash(dash);
+      roundedRectPath(inset, radius);
+      ctx.stroke();
+      ctx.setLineDash([]);
+    };
+    const drawCorners = (length, inset = 0, rounded = false) => {
+      const l = left + inset, r = right - inset, t = top + inset, b = bottom - inset;
+      ctx.beginPath();
+      if (rounded) {
+        const rr = Math.min(length / 2, unit * 2);
+        ctx.moveTo(l, t + length); ctx.lineTo(l, t + rr); ctx.quadraticCurveTo(l, t, l + rr, t); ctx.lineTo(l + length, t);
+        ctx.moveTo(r - length, t); ctx.lineTo(r - rr, t); ctx.quadraticCurveTo(r, t, r, t + rr); ctx.lineTo(r, t + length);
+        ctx.moveTo(r, b - length); ctx.lineTo(r, b - rr); ctx.quadraticCurveTo(r, b, r - rr, b); ctx.lineTo(r - length, b);
+        ctx.moveTo(l + length, b); ctx.lineTo(l + rr, b); ctx.quadraticCurveTo(l, b, l, b - rr); ctx.lineTo(l, b - length);
+      } else {
+        ctx.moveTo(l, t + length); ctx.lineTo(l, t); ctx.lineTo(l + length, t);
+        ctx.moveTo(r - length, t); ctx.lineTo(r, t); ctx.lineTo(r, t + length);
+        ctx.moveTo(r, b - length); ctx.lineTo(r, b); ctx.lineTo(r - length, b);
+        ctx.moveTo(l + length, b); ctx.lineTo(l, b); ctx.lineTo(l, b - length);
+      }
+      ctx.stroke();
+    };
+    const repeatEdges = (step, draw) => {
+      for (let x = left + step; x <= right - step / 2; x += step) {
+        draw(x, top + unit, 'top');
+        draw(x, bottom - unit, 'bottom');
+      }
+      for (let y = top + step; y <= bottom - step / 2; y += step) {
+        draw(left + unit, y, 'left');
+        draw(right - unit, y, 'right');
+      }
+    };
+    const zigzagEdge = (amplitude, step, inset = unit) => {
+      const l = left + inset, r = right - inset, t = top + inset, b = bottom - inset;
+      ctx.beginPath();
+      ctx.moveTo(l, t);
+      for (let x = l + step; x <= r; x += step) ctx.lineTo(Math.min(x, r), t + (((x - l) / step) % 2 ? amplitude : 0));
+      ctx.moveTo(l, b);
+      for (let x = l + step; x <= r; x += step) ctx.lineTo(Math.min(x, r), b - (((x - l) / step) % 2 ? amplitude : 0));
+      ctx.moveTo(l, t);
+      for (let y = t + step; y <= b; y += step) ctx.lineTo(l + (((y - t) / step) % 2 ? amplitude : 0), Math.min(y, b));
+      ctx.moveTo(r, t);
+      for (let y = t + step; y <= b; y += step) ctx.lineTo(r - (((y - t) / step) % 2 ? amplitude : 0), Math.min(y, b));
+      ctx.stroke();
+    };
+    const star = (x, y, radius) => {
+      ctx.beginPath();
+      for (let i = 0; i < 10; i++) {
+        const a = -Math.PI / 2 + i * Math.PI / 5;
+        const rr = i % 2 === 0 ? radius : radius * 0.42;
+        const px = x + Math.cos(a) * rr, py = y + Math.sin(a) * rr;
+        if (i === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+      }
+      ctx.closePath(); ctx.fill();
+    };
+    const heart = (x, y, size) => {
+      ctx.beginPath();
+      ctx.moveTo(x, y + size * 0.8);
+      ctx.bezierCurveTo(x - size * 1.2, y, x - size * 0.55, y - size, x, y - size * 0.35);
+      ctx.bezierCurveTo(x + size * 0.55, y - size, x + size * 1.2, y, x, y + size * 0.8);
+      ctx.fill();
+    };
+    const diamond = (x, y, size, fill = true) => {
+      ctx.beginPath(); ctx.moveTo(x, y - size); ctx.lineTo(x + size, y); ctx.lineTo(x, y + size); ctx.lineTo(x - size, y); ctx.closePath();
+      fill ? ctx.fill() : ctx.stroke();
+    };
+
+    ctx.save();
+    ctx.strokeStyle = 'black';
+    ctx.fillStyle = 'black';
+    ctx.lineJoin = 'round';
+    ctx.lineCap = 'round';
+    ctx.lineWidth = strokeWidth;
+    ctx.setLineDash([]);
+
+    const simple = {
+      'classic-thin': [1, 0], 'classic-medium': [3, 0], 'classic-bold': [6, 0],
+      'rounded-thin': [2, unit * 1.5], 'pill-frame': [3, minSide / 2],
+    };
+    if (simple[style]) {
+      const [lw, radius] = simple[style];
+      strokeRect(Math.max(lw, unit / 2), lw, radius);
+    } else if (style === 'double-thin' || style === 'double-bold' || style === 'rounded-double') {
+      const bold = style === 'double-bold';
+      const radius = style === 'rounded-double' ? unit * 2 : 0;
+      strokeRect(unit * 0.7, bold ? 4 : 1.5, radius);
+      strokeRect(unit * 2.2, bold ? 2 : 1.5, Math.max(0, radius - unit));
+    } else if (style === 'triple-line') {
+      strokeRect(unit * 0.6, 1.5); strokeRect(unit * 1.8, 1); strokeRect(unit * 3, 1.5);
+    } else if (style === 'inset-fine' || style === 'inset-bold') {
+      strokeRect(unit * 1.8, style === 'inset-bold' ? 5 : 2);
+      drawCorners(unit * 4, unit * 3.2);
+    } else if (style === 'dashed-fine') {
+      strokeRect(unit, 1.5, 0, [unit, unit]);
+    } else if (style === 'dashed-medium') {
+      strokeRect(unit, 2.5, 0, [unit * 2, unit * 1.25]);
+    } else if (style === 'dashed-wide') {
+      strokeRect(unit, 4, 0, [unit * 3.5, unit * 1.5]);
+    } else if (style === 'dotted-fine') {
+      ctx.lineCap = 'round'; strokeRect(unit, 2, 0, [0.1, unit * 1.5]);
+    } else if (style === 'dotted-bold') {
+      ctx.lineCap = 'round'; strokeRect(unit * 1.2, 4, 0, [0.1, unit * 2]);
+    } else if (style === 'dash-dot') {
+      strokeRect(unit, 2, 0, [unit * 3, unit, 0.1, unit]);
+    } else if (style === 'long-dash') {
+      strokeRect(unit, 2.5, 0, [unit * 5, unit * 1.5]);
+    } else if (style === 'railroad') {
+      strokeRect(unit, 1.5); strokeRect(unit * 2.7, 1.5);
+      repeatEdges(unit * 3.5, (x, y, edge) => {
+        ctx.beginPath();
+        if (edge === 'top' || edge === 'bottom') { ctx.moveTo(x, y - unit); ctx.lineTo(x, y + unit); }
+        else { ctx.moveTo(x - unit, y); ctx.lineTo(x + unit, y); }
+        ctx.stroke();
+      });
+    } else if (style === 'perforated') {
+      strokeRect(unit * 1.3, 1, 0, [unit * 0.5, unit * 1.8]);
+      strokeRect(unit * 2.5, 1);
+    } else if (style === 'ticket' || style === 'coupon') {
+      strokeRect(unit, style === 'ticket' ? 3 : 2, unit);
+      ctx.lineCap = 'round';
+      strokeRect(unit * 2.3, 1.5, 0, style === 'ticket' ? [0.1, unit * 1.7] : [unit * 2.5, unit]);
+      const notch = unit * 1.5;
+      for (const [x, y] of [[left + unit, 0], [right - unit, 0], [0, top + unit], [0, bottom - unit]]) {
+        ctx.beginPath(); ctx.arc(x, y, notch, 0, Math.PI * 2); ctx.stroke();
+      }
+    } else if (['postage','stamp','scallop-small','scallop-large'].includes(style)) {
+      const step = style === 'scallop-large' ? unit * 4 : style === 'scallop-small' ? unit * 2.5 : unit * 2;
+      const radius = style === 'stamp' ? unit * 0.55 : unit * 0.8;
+      repeatEdges(step, (x, y) => { ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); style === 'stamp' ? ctx.fill() : ctx.stroke(); });
+      if (style === 'postage' || style === 'stamp') strokeRect(unit * 2.4, style === 'stamp' ? 2 : 1);
+    } else if (style === 'notebook') {
+      strokeRect(unit, 2); ctx.lineWidth = 1;
+      for (let y = top + unit * 4; y < bottom - unit * 2; y += unit * 3) { ctx.beginPath(); ctx.moveTo(left + unit * 3, y); ctx.lineTo(right - unit * 2, y); ctx.stroke(); }
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(left + unit * 5, top + unit * 2); ctx.lineTo(left + unit * 5, bottom - unit * 2); ctx.stroke();
+    } else if (style === 'ledger') {
+      strokeRect(unit, 2); ctx.lineWidth = 1;
+      [0.28,0.56,0.78].forEach(f => { ctx.beginPath(); ctx.moveTo(left + width*f, top + unit*2); ctx.lineTo(left + width*f, bottom - unit*2); ctx.stroke(); });
+      ctx.beginPath(); ctx.moveTo(left+unit*2, top+height*.3); ctx.lineTo(right-unit*2, top+height*.3); ctx.stroke();
+    } else if (style === 'blueprint') {
+      strokeRect(unit, 3); strokeRect(unit * 2.5, 1);
+      drawCorners(unit * 4, unit * 4);
+      ctx.beginPath(); ctx.moveTo(0, top + unit * 2.5); ctx.lineTo(0, top + unit * 5); ctx.moveTo(left + unit * 2.5, 0); ctx.lineTo(left + unit * 5, 0); ctx.stroke();
+    } else if (style === 'index-card') {
+      strokeRect(unit, 2);
+      ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(left+unit, top+height*.28); ctx.lineTo(right-unit, top+height*.28); ctx.stroke();
+      for (let y = top + height*.46; y < bottom-unit; y += unit*3) { ctx.beginPath(); ctx.moveTo(left+unit*2,y); ctx.lineTo(right-unit*2,y); ctx.stroke(); }
+    } else if (style === 'corner-brackets' || style === 'corner-round' || style === 'corner-square' || style === 'crop-marks') {
+      ctx.lineWidth = style === 'corner-square' ? 5 : 2.5;
+      drawCorners(style === 'crop-marks' ? unit * 5 : unit * 4, style === 'crop-marks' ? unit * 2 : unit, style === 'corner-round');
+      if (style === 'corner-brackets') drawCorners(unit * 2, unit * 2.3);
+    } else if (style === 'deco-step') {
+      strokeRect(unit, 1.5); drawCorners(unit * 5, unit * 2);
+      for (const sx of [-1,1]) for (const sy of [-1,1]) {
+        ctx.beginPath(); ctx.moveTo(sx*(right-unit*6),sy*(bottom-unit)); ctx.lineTo(sx*(right-unit*6),sy*(bottom-unit*3)); ctx.lineTo(sx*(right-unit*3),sy*(bottom-unit*3)); ctx.stroke();
+      }
+    } else if (style === 'deco-diamond') {
+      strokeRect(unit * 1.5, 2); [[0,top+unit*1.5],[0,bottom-unit*1.5],[left+unit*1.5,0],[right-unit*1.5,0]].forEach(([x,y])=>diamond(x,y,unit*1.4,true));
+    } else if (style === 'deco-fan' || style === 'deco-sunburst') {
+      strokeRect(unit * 1.2, 2);
+      const rays = style === 'deco-fan' ? 5 : 9;
+      for (const [cx,cy,sx,sy] of [[left+unit*2,top+unit*2,1,1],[right-unit*2,top+unit*2,-1,1],[right-unit*2,bottom-unit*2,-1,-1],[left+unit*2,bottom-unit*2,1,-1]]) {
+        for(let i=0;i<rays;i++){const a=(Math.PI/2)*(i/(rays-1));ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+sx*Math.cos(a)*unit*4,cy+sy*Math.sin(a)*unit*4);ctx.stroke();}
+      }
+    } else if (style === 'vintage-single' || style === 'vintage-double' || style === 'victorian-corners') {
+      strokeRect(unit, 2, unit);
+      if (style !== 'vintage-single') strokeRect(unit*2.5, 1, unit*.5);
+      for (const [x,y,sx,sy] of [[left+unit*2,top+unit*2,1,1],[right-unit*2,top+unit*2,-1,1],[right-unit*2,bottom-unit*2,-1,-1],[left+unit*2,bottom-unit*2,1,-1]]) {
+        ctx.beginPath(); ctx.moveTo(x,y+sy*unit*3); ctx.bezierCurveTo(x+sx*unit*3,y+sy*unit*3,x+sx*unit*3,y,x+sx*unit*5,y); ctx.stroke();
+        if(style==='victorian-corners'){ctx.beginPath();ctx.arc(x+sx*unit*2,y+sy*unit*2,unit,0,Math.PI*2);ctx.stroke();}
+      }
+    } else if (style === 'zigzag' || style === 'sawtooth') {
+      ctx.lineWidth = style === 'sawtooth' ? 3 : 2;
+      zigzagEdge(style === 'sawtooth' ? unit*2 : unit, style === 'sawtooth' ? unit*2.5 : unit*1.8);
+    } else if (style === 'confetti') {
+      repeatEdges(unit*4,(x,y,edge)=>{ctx.save();ctx.translate(x,y);ctx.rotate((edge==='top'||edge==='bottom')?Math.PI/4:-Math.PI/4);ctx.fillRect(-unit*.6,-1,unit*1.2,2);ctx.restore();});
+      strokeRect(unit*2.3,1);
+    } else if (style === 'stars') {
+      repeatEdges(unit*5,(x,y)=>star(x,y,unit)); strokeRect(unit*2.5,1);
+    } else if (style === 'hearts') {
+      repeatEdges(unit*6,(x,y)=>heart(x,y,unit*.8)); strokeRect(unit*2.7,1);
+    } else if (style === 'botanical') {
+      strokeRect(unit*2.5,1);
+      repeatEdges(unit*6,(x,y,edge)=>{ctx.save();ctx.translate(x,y);ctx.rotate(edge==='left'||edge==='right'?Math.PI/2:0);ctx.beginPath();ctx.ellipse(0,0,unit*1.2,unit*.55,-Math.PI/4,0,Math.PI*2);ctx.stroke();ctx.restore();});
+    } else if (style === 'industrial') {
+      strokeRect(unit,5); strokeRect(unit*3,1);
+      for(const [x,y] of [[left+unit*2,top+unit*2],[right-unit*2,top+unit*2],[right-unit*2,bottom-unit*2],[left+unit*2,bottom-unit*2]]){ctx.beginPath();ctx.arc(x,y,unit*.65,0,Math.PI*2);ctx.fill();}
+    } else if (style === 'caution') {
+      strokeRect(unit,3);
+      ctx.lineWidth = 3;
+      const step=unit*4;
+      for(let x=left+unit;x<right;x+=step){ctx.beginPath();ctx.moveTo(x,top+unit);ctx.lineTo(Math.min(x+unit*2,right-unit),top+unit*3);ctx.stroke();ctx.beginPath();ctx.moveTo(x,bottom-unit);ctx.lineTo(Math.min(x+unit*2,right-unit),bottom-unit*3);ctx.stroke();}
+      for(let y=top+unit;y<bottom;y+=step){ctx.beginPath();ctx.moveTo(left+unit,y);ctx.lineTo(left+unit*3,Math.min(y+unit*2,bottom-unit));ctx.stroke();ctx.beginPath();ctx.moveTo(right-unit,y);ctx.lineTo(right-unit*3,Math.min(y+unit*2,bottom-unit));ctx.stroke();}
+    } else if (style === 'circuit') {
+      strokeRect(unit*2,1.5);
+      const nodes=[[left+unit*2,top+height*.3],[right-unit*2,top+height*.62],[left+width*.38,top+unit*2],[left+width*.7,bottom-unit*2]];
+      for(const [x,y] of nodes){ctx.beginPath();ctx.arc(x,y,unit*.7,0,Math.PI*2);ctx.fill();ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+(x<0?unit*4:-unit*4),y+(y<0?unit*2:-unit*2));ctx.stroke();}
+      drawCorners(unit*3,unit);
+    } else {
+      strokeRect(unit, 2);
+    }
+    ctx.restore();
   }
 
   /**

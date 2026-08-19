@@ -9,7 +9,7 @@
  * Template coordinates use the same base resolution as the editor: 8 px/mm.
  */
 
-import { CanvasRenderer } from './canvas.js?v=117';
+import { CanvasRenderer } from './canvas.js?v=118';
 import {
   generateId,
   createTextElement,
@@ -17,7 +17,7 @@ import {
   createBarcodeElement,
   createQRElement,
   createShapeElement,
-} from './elements.js?v=100';
+} from './elements.js?v=101';
 import { evaluateExpressions } from './templates.js?v=101';
 import { STORAGE_KEYS } from './constants.js?v=106';
 
@@ -25,6 +25,7 @@ import { STORAGE_KEYS } from './constants.js?v=106';
 // factories don't create. These survive normalization so templates can use them.
 const EXTRA_PROPS = {
   barcode: ['showText', 'textFontSize', 'textBold'],
+  shape: ['borderStyle'],
 };
 
 let library = null; // { categories: [], templates: [] }

@@ -4,7 +4,7 @@
  * v116
  */
 
-import { CanvasRenderer } from './canvas.js?v=117';
+import { CanvasRenderer } from './canvas.js?v=118';
 import { BLETransport } from './ble.js?v=104';
 import { USBTransport } from './usb.js?v=101';
 import { print, printDensityTest, isDSeriesPrinter, isP12Printer, isA30Printer, isTapePrinter, isPM241Printer, isTSPLPrinter, isRotatedPrinter, getPrinterWidthBytes, getPrinterDpi, getPrinterAlignment, getPrinterDescription, isDeviceRecognized, getMatchedPattern, loadPrinterDefinitions, getAllPrinterDefinitions, getPrinterDefinition, getCustomPrinterDefinitions, saveCustomPrinterDefinition, deleteCustomPrinterDefinition, isBuiltinPrinter, resetBuiltinPrinter, getAvailableProtocols, getAvailableLabelPresets, getDetectedDefinition } from './printer.js?v=128';
@@ -36,7 +36,7 @@ import {
   collapseToSingleZone,
   hasElementsInHigherZones,
   removeElementsInHigherZones,
-} from './elements.js?v=100';
+} from './elements.js?v=101';
 import {
   HandleType,
   getHandleAtPoint,
@@ -75,7 +75,7 @@ import {
   getGalleryCategories,
   saveUserTemplate,
   deleteUserTemplate,
-} from './gallery.js?v=101';
+} from './gallery.js?v=102';
 import {
   ZOOM,
   TEXT,
@@ -95,7 +95,9 @@ import {
   D_SERIES_ROUND_LABELS,
   TAPE_LABEL_SIZES,
   PM241_LABEL_SIZES,
-} from './constants.js?v=106';
+  FONTS,
+  BORDER_PRESETS,
+} from './constants.js?v=107';
 import {
   bindCheckbox,
   bindToggleButton,
@@ -145,6 +147,58 @@ import {
 // DOM helpers
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
+
+const FONT_GROUP_LABELS = {
+  sans: 'Sans-Serif',
+  serif: 'Serif',
+  display: 'Display & Handwritten',
+  mono: 'Monospace',
+  korean: 'Korean',
+};
+
+const BORDER_GROUP_LABELS = {
+  classic: 'Classic',
+  dash: 'Dash & Dot',
+  paper: 'Paper & Stationery',
+  corner: 'Corners & Art Deco',
+  decorative: 'Decorative',
+  utility: 'Utility & Industrial',
+};
+
+function populateGroupedSelect(select, items, groupLabels, selectedValue) {
+  if (!select) return;
+  select.innerHTML = '';
+  for (const [group, label] of Object.entries(groupLabels)) {
+    const groupItems = items.filter(item => item.group === group);
+    if (groupItems.length === 0) continue;
+    const optgroup = document.createElement('optgroup');
+    optgroup.label = label;
+    for (const item of groupItems) {
+      const option = document.createElement('option');
+      option.value = item.value;
+      option.textContent = item.label;
+      if (item.value === selectedValue) option.selected = true;
+      optgroup.appendChild(option);
+    }
+    select.appendChild(optgroup);
+  }
+}
+
+function groupedOptionsHtml(items, groupLabels, selectedValue) {
+  return Object.entries(groupLabels).map(([group, label]) => {
+    const options = items
+      .filter(item => item.group === group)
+      .map(item => `<option value="${item.value}" ${item.value === selectedValue ? 'selected' : ''}>${item.label}</option>`)
+      .join('');
+    return options ? `<optgroup label="${label}">${options}</optgroup>` : '';
+  }).join('');
+}
+
+function populateDesignPresetControls() {
+  populateGroupedSelect($('#prop-font-family'), FONTS, FONT_GROUP_LABELS, 'Inter, sans-serif');
+  populateGroupedSelect($('#prop-border-style'), BORDER_PRESETS, BORDER_GROUP_LABELS, 'classic-thin');
+}
+
 
 // Default to M-series sizes (imported from constants.js)
 let LABEL_SIZES = { ...M_SERIES_LABEL_SIZES, ...M_SERIES_ROUND_LABELS };
@@ -341,15 +395,12 @@ function updateFontDropdowns() {
   const dropdown = $('#prop-font-family');
   if (!dropdown) return;
 
-  // Remove existing "System Fonts" optgroup if present
-  const existing = dropdown.querySelector('optgroup[label="System Fonts"]');
-  if (existing) existing.remove();
+  const currentValue = dropdown.value || 'Inter, sans-serif';
+  populateGroupedSelect(dropdown, FONTS, FONT_GROUP_LABELS, currentValue);
 
-  // Add new optgroup with local fonts
   if (state.localFonts.length > 0) {
     const optgroup = document.createElement('optgroup');
     optgroup.label = 'System Fonts';
-
     for (const font of state.localFonts) {
       const option = document.createElement('option');
       option.value = font.family;
@@ -357,11 +408,10 @@ function updateFontDropdowns() {
       option.style.fontFamily = font.family;
       optgroup.appendChild(option);
     }
-
     dropdown.appendChild(optgroup);
+    dropdown.value = currentValue;
   }
 
-  // Hide "Add System Fonts" button
   const btn = $('#add-system-fonts-btn');
   if (btn) btn.classList.add('hidden');
 }
@@ -2410,9 +2460,12 @@ function updatePropertiesPanel() {
       $('#prop-shape-type').value = element.shapeType || 'rectangle';
       $('#prop-stroke-width').value = element.strokeWidth || 2;
       $('#prop-corner-radius').value = element.cornerRadius || 0;
-      // Show/hide corner radius based on shape type
+      $('#prop-border-style').value = element.borderStyle || 'classic-thin';
+      // Show controls relevant to rectangles and border/frame elements.
       const showCornerRadius = element.shapeType === 'rectangle';
+      const showBorderStyle = element.shapeType === 'border';
       $('#prop-corner-radius-group').classList.toggle('hidden', !showCornerRadius);
+      $('#prop-border-style-group').classList.toggle('hidden', !showBorderStyle);
       // Update fill dropdown (map legacy values to new ones)
       let fillValue = element.fill || 'black';
       if (fillValue === 'dither-light') fillValue = 'dither-25';
@@ -4546,20 +4599,25 @@ function addQRElement() {
 function addShapeElement(shapeType = 'rectangle') {
   saveHistory();
   const dims = state.renderer.getSingleLabelDimensions();
-  const width = shapeType === 'line' ? 100 : 80;
-  const height = shapeType === 'line' ? 4 : 60;
+  const isBorder = shapeType === 'border';
+  const width = isBorder ? Math.max(20, dims.width - 16) : (shapeType === 'line' ? 100 : 80);
+  const height = isBorder ? Math.max(20, dims.height - 16) : (shapeType === 'line' ? 4 : 60);
   const element = createShapeElement(shapeType, {
     x: dims.width / 2 - width / 2,
     y: dims.height / 2 - height / 2,
-    width: width,
-    height: height,
+    width,
+    height,
+    fill: isBorder ? 'none' : 'black',
+    stroke: isBorder ? 'black' : 'none',
     strokeWidth: shapeType === 'line' ? 3 : 2,
+    borderStyle: 'classic-thin',
     zone: state.activeZone,
   });
   state.elements.push(element);
   autoCloneIfEnabled();
   selectElement(element.id);
-  setStatus(`${shapeType.charAt(0).toUpperCase() + shapeType.slice(1)} added`);
+  const label = isBorder ? 'Border / Frame' : shapeType.charAt(0).toUpperCase() + shapeType.slice(1);
+  setStatus(`${label} added`);
 }
 
 /**
@@ -5520,7 +5578,7 @@ function getElementLabel(el) {
     case 'qr':
       return el.qrData ? `QR: ${el.qrData.substring(0, 15)}` : 'QR Code';
     case 'shape':
-      const shapeNames = { rectangle: 'Rectangle', ellipse: 'Ellipse', triangle: 'Triangle', line: 'Line' };
+      const shapeNames = { rectangle: 'Rectangle', ellipse: 'Ellipse', triangle: 'Triangle', line: 'Line', border: 'Border / Frame' };
       return shapeNames[el.shapeType] || 'Shape';
     default:
       return 'Element';
@@ -6423,20 +6481,7 @@ function populateMobileProps() {
           <div class="flex-1">
             <div class="prop-label">Font</div>
             <select id="mobile-prop-fontFamily" class="prop-input">
-              <optgroup label="Sans-Serif">
-                <option value="Inter, sans-serif" ${fontFamily === 'Inter, sans-serif' ? 'selected' : ''}>Inter</option>
-                <option value="Roboto, sans-serif" ${fontFamily === 'Roboto, sans-serif' ? 'selected' : ''}>Roboto</option>
-                <option value="Open Sans, sans-serif" ${fontFamily === 'Open Sans, sans-serif' ? 'selected' : ''}>Open Sans</option>
-                <option value="Arial, sans-serif" ${fontFamily === 'Arial, sans-serif' ? 'selected' : ''}>Arial</option>
-              </optgroup>
-              <optgroup label="Serif">
-                <option value="Georgia, serif" ${fontFamily === 'Georgia, serif' ? 'selected' : ''}>Georgia</option>
-                <option value="Times New Roman, serif" ${fontFamily === 'Times New Roman, serif' ? 'selected' : ''}>Times New Roman</option>
-              </optgroup>
-              <optgroup label="Monospace">
-                <option value="Roboto Mono, monospace" ${fontFamily === 'Roboto Mono, monospace' ? 'selected' : ''}>Roboto Mono</option>
-                <option value="Courier New, monospace" ${fontFamily === 'Courier New, monospace' ? 'selected' : ''}>Courier New</option>
-              </optgroup>
+              ${groupedOptionsHtml(FONTS, FONT_GROUP_LABELS, fontFamily)}
               ${state.localFonts.length > 0 ? `
               <optgroup label="System Fonts">
                 ${state.localFonts.map(f => `<option value="${f.family}" ${fontFamily === f.family ? 'selected' : ''}>${f.family}</option>`).join('')}
@@ -6594,8 +6639,17 @@ function populateMobileProps() {
           <option value="ellipse" ${shapeType === 'ellipse' ? 'selected' : ''}>Ellipse</option>
           <option value="triangle" ${shapeType === 'triangle' ? 'selected' : ''}>Triangle</option>
           <option value="line" ${shapeType === 'line' ? 'selected' : ''}>Line</option>
+          <option value="border" ${shapeType === 'border' ? 'selected' : ''}>Border / Frame</option>
         </select>
       </div>
+      ${shapeType === 'border' ? `
+      <div class="prop-group">
+        <div class="prop-label">Border Style</div>
+        <select id="mobile-prop-borderStyle" class="prop-input">
+          ${groupedOptionsHtml(BORDER_PRESETS, BORDER_GROUP_LABELS, selected.borderStyle || 'classic-thin')}
+        </select>
+      </div>
+      ` : ''}
       <div class="prop-group">
         <div class="prop-label">Fill</div>
         <select id="mobile-prop-fill" class="prop-input">
@@ -6932,8 +6986,9 @@ function wireUpMobilePropHandlers(element) {
   // Shape properties
   $('#mobile-prop-shapeType')?.addEventListener('change', (e) => {
     updateProp('shapeType', e.target.value);
-    populateMobileProps(); // Refresh to show/hide corner radius
+    populateMobileProps(); // Refresh shape-specific controls.
   });
+  $('#mobile-prop-borderStyle')?.addEventListener('change', (e) => updateProp('borderStyle', e.target.value));
   $('#mobile-prop-fill')?.addEventListener('change', (e) => updateProp('fill', e.target.value));
   $('#mobile-prop-strokeWidth')?.addEventListener('change', (e) => updateProp('strokeWidth', parseInt(e.target.value)));
   $('#mobile-prop-cornerRadius')?.addEventListener('change', (e) => updateProp('cornerRadius', parseInt(e.target.value)));
@@ -7335,6 +7390,9 @@ function init() {
   configureErrorHandlers({
     setStatus: setStatus,
   });
+
+  // Populate the shared 50-font and 50-border preset catalogs.
+  populateDesignPresetControls();
 
   // Initialize local fonts (show button or auto-load if previously enabled)
   initLocalFonts();
@@ -7939,10 +7997,12 @@ function init() {
   // Shape type dropdown (with special handling for corner radius visibility)
   bindSelect('#prop-shape-type', 'shapeType', 'shape', bindCtx, (value) => {
     $('#prop-corner-radius-group').classList.toggle('hidden', value !== 'rectangle');
+    $('#prop-border-style-group').classList.toggle('hidden', value !== 'border');
   });
 
-  // Shape fill and stroke
+  // Shape fill, stroke, and border preset
   bindSelect('#shape-fill', 'fill', 'shape', bindCtx);
+  bindSelect('#prop-border-style', 'borderStyle', 'shape', bindCtx);
   bindButtonGroup('.stroke-btn', 'stroke', 'stroke', 'shape', bindCtx);
 
   // Shape numeric inputs

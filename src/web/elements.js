@@ -119,6 +119,7 @@ export function createShapeElement(shapeType = 'rectangle', options = {}) {
     stroke: options.stroke ?? 'none',             // 'none', 'black', 'white'
     strokeWidth: options.strokeWidth ?? 2,        // Stroke width in pixels
     cornerRadius: options.cornerRadius ?? 0,      // For rounded rectangles
+    borderStyle: options.borderStyle ?? 'classic-thin', // For border/frame shapes
   };
 }
 
