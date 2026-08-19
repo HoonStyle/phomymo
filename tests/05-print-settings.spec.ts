@@ -79,4 +79,29 @@ test.describe.serial('Print Settings', () => {
 
     await screenshot(page, CH, 6, 'settings-persisted');
   });
+
+  test('print offset calibration persists', async ({ page }) => {
+    await page.click('#print-settings-btn');
+    await expect(page.locator('#print-settings-dialog')).toBeVisible();
+
+    // Offset inputs exist with defaults
+    await expect(page.locator('#print-offset-x')).toHaveValue('0');
+    await expect(page.locator('#print-offset-y')).toHaveValue('0');
+
+    // Set a calibration (e.g. compensate a leftward drift by shifting right)
+    await page.locator('#print-offset-x').fill('2.5');
+    await page.locator('#print-offset-y').fill('-1');
+    await page.click('#print-settings-save');
+    await expect(page.locator('#print-settings-dialog')).toBeHidden();
+
+    // Survives reload via localStorage
+    await page.reload({ waitUntil: 'networkidle' });
+    await waitForAppReady(page);
+    await dismissInfoDialog(page);
+    await page.click('#print-settings-btn');
+    await expect(page.locator('#print-offset-x')).toHaveValue('2.5');
+    await expect(page.locator('#print-offset-y')).toHaveValue('-1');
+
+    await screenshot(page, CH, 7, 'print-offset-persisted');
+  });
 });
