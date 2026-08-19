@@ -9,7 +9,16 @@
     { "id": "name", "name": "Names & School", "icon": "✏️" },
     { "id": "shipping", "name": "Shipping & Mail", "icon": "📦" },
     { "id": "qr", "name": "QR & Social", "icon": "📱" },
-    { "id": "korean", "name": "한국어", "icon": "🇰🇷" }
+    { "id": "korean", "name": "한국어", "icon": "🇰🇷" },
+    { "id": "health", "name": "Health & Care", "icon": "✚" },
+    { "id": "safety", "name": "Safety & Compliance", "icon": "⚠️" },
+    { "id": "event", "name": "Gifts & Events", "icon": "🎉" },
+    { "id": "craft", "name": "Craft & Garden", "icon": "🧵" },
+    { "id": "hospitality", "name": "Cafe & Hospitality", "icon": "🛎️" },
+    { "id": "beauty", "name": "Beauty & Wellness", "icon": "✦" },
+    { "id": "pet", "name": "Pets & Animal Care", "icon": "🐾" },
+    { "id": "warehouse", "name": "Warehouse & Logistics", "icon": "🏭" },
+    { "id": "travel", "name": "Travel & Outdoors", "icon": "🧭" }
   ],
   "templates": [
     {
@@ -654,6 +663,1800 @@
         { "type": "shape", "shapeType": "ellipse", "x": 12, "y": 12, "width": 216, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 2 },
         { "type": "qr", "x": 60, "y": 40, "width": 120, "height": 120, "qrData": "https://example.com" },
         { "type": "text", "x": 30, "y": 170, "width": 180, "height": 26, "text": "example.com", "fontSize": 15, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "clearance-grid",
+      "name": "Clearance Grid",
+      "category": "retail",
+      "tags": ["clearance","sale","price","retail","batch","editorial"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 92, "height": 240, "fill": "black" },
+        { "type": "text", "x": 0, "y": 14, "width": 92, "height": 28, "text": "FINAL", "fontSize": 15, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 4, "y": 48, "width": 84, "height": 118, "text": "SALE", "fontSize": 34, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true },
+        { "type": "text", "x": 116, "y": 18, "width": 260, "height": 24, "text": "{{Product}}", "fontSize": 16, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 116, "y": 50, "width": 260, "height": 8, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 116, "y": 64, "width": 260, "height": 88, "text": "{{Price}}", "fontSize": 62, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 162, "width": 260, "height": 22, "text": "WAS {{RegularPrice}}", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "barcode", "x": 116, "y": 194, "width": 260, "height": 32, "barcodeData": "{{SKU}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "jewelry-sku",
+      "name": "Jewelry SKU",
+      "category": "retail",
+      "tags": ["jewelry","sku","price","tiny","batch","minimal"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 232, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "text", "x": 14, "y": 10, "width": 142, "height": 24, "text": "{{Item}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 36, "width": 142, "height": 18, "text": "SKU {{SKU}}", "fontSize": 10, "align": "left", "noWrap": true },
+        { "type": "text", "x": 160, "y": 16, "width": 64, "height": 48, "text": "{{Price}}", "fontSize": 18, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 66, "width": 210, "height": 6, "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 14, "y": 72, "width": 210, "height": 14, "text": "METAL · SIZE · STONE", "fontSize": 8, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "allergen-alert",
+      "name": "Allergen Alert",
+      "category": "food",
+      "tags": ["allergen","ingredients","kitchen","restaurant","warning"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 56, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 400, "height": 56, "text": "ALLERGEN ALERT", "fontSize": 25, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 20, "y": 72, "width": 360, "height": 46, "text": "{{Item}}", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 20, "y": 124, "width": 360, "height": 8, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 24, "y": 142, "width": 352, "height": 34, "text": "CONTAINS: {{Allergens}}", "fontSize": 18, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 182, "width": 352, "height": 22, "text": "Prepared [[date]] · Batch {{Batch}}", "fontSize": 13, "align": "left", "noWrap": true },
+        { "type": "text", "x": 24, "y": 208, "width": 352, "height": 18, "text": "CHECK RECIPE BEFORE SERVING", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "coffee-roast",
+      "name": "Coffee Roast",
+      "category": "food",
+      "tags": ["coffee","roast","beans","date","batch","artisan"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 12, "y": 12, "width": 296, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 18 },
+        { "type": "text", "x": 30, "y": 30, "width": 260, "height": 18, "text": "SMALL BATCH · ROASTED FRESH", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 74, "y": 56, "width": 172, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 30, "y": 70, "width": 260, "height": 54, "text": "{{Origin}}", "fontSize": 32, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 38, "y": 128, "width": 244, "height": 26, "text": "{{Process}} · {{Roast}}", "fontSize": 14, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 38, "y": 164, "width": 110, "height": 18, "text": "ROASTED", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 38, "y": 184, "width": 110, "height": 24, "text": "[[date]]", "fontSize": 14, "align": "left", "noWrap": true },
+        { "type": "text", "x": 170, "y": 164, "width": 112, "height": 18, "text": "LOT", "fontSize": 10, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 170, "y": 184, "width": 112, "height": 24, "text": "{{Lot}}", "fontSize": 14, "fontWeight": "bold", "align": "right", "noWrap": true }
+      ]
+    },
+    {
+      "id": "linen-stack",
+      "name": "Linen Stack",
+      "category": "home",
+      "tags": ["linen","closet","storage","home","minimal"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 20, "width": 288, "height": 20, "text": "HOME / LINEN", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 50, "width": 288, "height": 62, "text": "KING SHEETS", "fontSize": 36, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 288, "height": 8, "stroke": "black", "strokeWidth": 4 },
+        { "type": "text", "x": 16, "y": 140, "width": 136, "height": 24, "text": "ROOM", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 166, "width": 136, "height": 32, "text": "PRIMARY", "fontSize": 18, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 168, "y": 140, "width": 136, "height": 24, "text": "SET", "fontSize": 11, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 168, "y": 166, "width": 136, "height": 32, "text": "02 / 03", "fontSize": 18, "fontWeight": "bold", "align": "right", "noWrap": true }
+      ]
+    },
+    {
+      "id": "cleaning-bottle",
+      "name": "Cleaning Bottle",
+      "category": "home",
+      "tags": ["cleaning","spray","solution","dilution","date"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 72, "height": 240, "fill": "black" },
+        { "type": "text", "x": 0, "y": 82, "width": 88, "height": 30, "text": "CLEAN", "fontSize": 18, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true },
+        { "type": "text", "x": 92, "y": 18, "width": 212, "height": 50, "text": "{{Solution}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 92, "y": 78, "width": 212, "height": 22, "text": "DILUTION", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 92, "y": 102, "width": 212, "height": 34, "text": "{{Ratio}}", "fontSize": 22, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 92, "y": 146, "width": 212, "height": 8, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 92, "y": 164, "width": 212, "height": 22, "text": "MIXED [[date]]", "fontSize": 13, "align": "left", "noWrap": true },
+        { "type": "text", "x": 92, "y": 190, "width": 212, "height": 22, "text": "DISCARD {{DiscardDate}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "document-status",
+      "name": "Document Control",
+      "category": "office",
+      "tags": ["document","confidential","review","version","office","batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 372, "height": 48, "text": "CONTROLLED DOCUMENT", "fontSize": 20, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 18, "y": 62, "width": 364, "height": 44, "text": "{{Title}}", "fontSize": 26, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 112, "width": 170, "height": 18, "text": "OWNER", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 132, "width": 170, "height": 24, "text": "{{Owner}}", "fontSize": 14, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 212, "y": 112, "width": 170, "height": 18, "text": "VERSION / REVIEW", "fontSize": 10, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 212, "y": 132, "width": 170, "height": 24, "text": "v{{Version}} · {{ReviewDate}}", "fontSize": 14, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 170, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 18, "y": 178, "width": 364, "height": 16, "text": "UNCONTROLLED WHEN PRINTED", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "visitor-pass",
+      "name": "Visitor Pass",
+      "category": "office",
+      "tags": ["visitor","badge","office","security","qr","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 54, "fill": "black" },
+        { "type": "text", "x": 16, "y": 0, "width": 368, "height": 54, "text": "VISITOR / {{Date}}", "fontSize": 18, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 70, "width": 252, "height": 20, "text": "GUEST", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 94, "width": 252, "height": 48, "text": "{{Name}}", "fontSize": 30, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 150, "width": 252, "height": 18, "text": "HOST · {{Host}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 174, "width": 252, "height": 18, "text": "VALID UNTIL · {{Until}}", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "qr", "x": 292, "y": 74, "width": 90, "height": 90, "qrData": "{{PassID}}" },
+        { "type": "text", "x": 286, "y": 172, "width": 102, "height": 18, "text": "{{PassID}}", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "rectangle", "x": 18, "y": 206, "width": 364, "height": 20, "fill": "black" },
+        { "type": "text", "x": 18, "y": 206, "width": 364, "height": 20, "text": "ESCORT REQUIRED", "fontSize": 10, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true }
+      ]
+    },
+    {
+      "id": "breaker-panel",
+      "name": "Breaker Panel",
+      "category": "cable",
+      "tags": ["breaker","circuit","electrical","panel","batch","tiny"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 72, "height": 96, "fill": "black" },
+        { "type": "text", "x": 0, "y": 0, "width": 72, "height": 96, "text": "{{No}}", "fontSize": 28, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 86, "y": 10, "width": 222, "height": 36, "text": "{{Circuit}}", "fontSize": 22, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 86, "y": 52, "width": 222, "height": 6, "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 86, "y": 62, "width": 222, "height": 20, "text": "{{Panel}} · {{Amps}}A", "fontSize": 11, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "device-setup",
+      "name": "Device Setup",
+      "category": "cable",
+      "tags": ["device","setup","qr","serial","wifi","tech","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 18, "y": 18, "width": 244, "height": 20, "text": "DEVICE SETUP", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 44, "width": 244, "height": 44, "text": "{{Device}}", "fontSize": 26, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 96, "width": 244, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 112, "width": 244, "height": 20, "text": "ID · {{AssetID}}", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 138, "width": 244, "height": 20, "text": "S/N · {{Serial}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 170, "width": 244, "height": 34, "text": "Scan for setup & support", "fontSize": 13, "align": "left" },
+        { "type": "qr", "x": 284, "y": 44, "width": 104, "height": 104, "qrData": "{{SetupURL}}" },
+        { "type": "text", "x": 278, "y": 160, "width": 116, "height": 20, "text": "{{AssetID}}", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "bookplate-modern",
+      "name": "Modern Bookplate",
+      "category": "name",
+      "tags": ["bookplate","book","library","owner","minimal"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 12, "y": 12, "width": 376, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 34, "y": 32, "width": 332, "height": 18, "text": "EX LIBRIS / PERSONAL LIBRARY", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 108, "y": 60, "width": 184, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 34, "y": 78, "width": 332, "height": 26, "text": "THIS BOOK BELONGS TO", "fontSize": 13, "align": "center", "noWrap": true },
+        { "type": "text", "x": 34, "y": 108, "width": 332, "height": 56, "text": "{{Name}}", "fontSize": 32, "fontFamily": "Georgia, serif", "fontStyle": "italic", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 108, "y": 174, "width": 184, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 34, "y": 190, "width": 332, "height": 18, "text": "Please return after reading", "fontSize": 10, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "luggage-id",
+      "name": "Luggage ID",
+      "category": "name",
+      "tags": ["luggage","travel","owner","contact","qr","batch"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 116, "height": 320, "fill": "black" },
+        { "type": "text", "x": 22, "y": 108, "width": 72, "height": 104, "text": "TRAVEL", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true },
+        { "type": "text", "x": 140, "y": 26, "width": 310, "height": 22, "text": "PROPERTY OF", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 140, "y": 54, "width": 310, "height": 54, "text": "{{Name}}", "fontSize": 34, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 140, "y": 116, "width": 310, "height": 8, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 140, "y": 136, "width": 210, "height": 22, "text": "{{Phone}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 140, "y": 164, "width": 210, "height": 22, "text": "{{Email}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 354, "y": 136, "width": 96, "height": 96, "qrData": "BEGIN:VCARD\nVERSION:3.0\nFN:{{Name}}\nTEL:{{Phone}}\nEMAIL:{{Email}}\nEND:VCARD" },
+        { "type": "text", "x": 140, "y": 252, "width": 310, "height": 40, "text": "SCAN IF FOUND · ID {{BagID}}", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "do-not-bend",
+      "name": "Do Not Bend",
+      "category": "shipping",
+      "tags": ["do not bend","mail","warning","document","shipping"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 10, "y": 10, "width": 460, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 28, "y": 28, "width": 424, "height": 54, "fill": "black" },
+        { "type": "text", "x": 28, "y": 28, "width": 424, "height": 54, "text": "DOCUMENTS ENCLOSED", "fontSize": 18, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 34, "y": 98, "width": 412, "height": 90, "text": "DO NOT", "fontSize": 54, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 34, "y": 178, "width": 412, "height": 78, "text": "BEND", "fontSize": 58, "fontWeight": "bold", "align": "center", "background": "black", "color": "white", "noWrap": true },
+        { "type": "text", "x": 34, "y": 272, "width": 412, "height": 20, "text": "KEEP FLAT · KEEP DRY", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "pick-pack",
+      "name": "Pick / Pack",
+      "category": "shipping",
+      "tags": ["pick","pack","warehouse","order","barcode","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 50, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 372, "height": 50, "text": "ORDER {{Order}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 66, "width": 248, "height": 20, "text": "ITEM", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 88, "width": 248, "height": 38, "text": "{{Item}}", "fontSize": 22, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 282, "y": 66, "width": 100, "height": 20, "text": "QTY", "fontSize": 10, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 282, "y": 88, "width": 100, "height": 38, "text": "× {{Qty}}", "fontSize": 24, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 18, "y": 148, "width": 170, "height": 22, "text": "BIN {{Bin}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 212, "y": 148, "width": 170, "height": 22, "text": "{{Variant}}", "fontSize": 13, "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "barcode", "x": 54, "y": 182, "width": 292, "height": 38, "barcodeData": "{{SKU}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "contact-card",
+      "name": "Contact Card QR",
+      "category": "qr",
+      "tags": ["contact","vcard","qr","business","networking"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 20, "width": 168, "height": 18, "text": "HELLO / CONNECT", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 44, "width": 168, "height": 40, "text": "{{Name}}", "fontSize": 24, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 88, "width": 168, "height": 24, "text": "{{Role}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 122, "width": 168, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 136, "width": 168, "height": 18, "text": "{{Phone}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 158, "width": 168, "height": 38, "text": "{{Email}}", "fontSize": 10, "align": "left", "noWrap": false, "clipOverflow": true },
+        { "type": "qr", "x": 198, "y": 42, "width": 110, "height": 110, "qrData": "BEGIN:VCARD\nVERSION:3.0\nFN:{{Name}}\nTITLE:{{Role}}\nTEL:{{Phone}}\nEMAIL:{{Email}}\nEND:VCARD" },
+        { "type": "text", "x": 198, "y": 160, "width": 110, "height": 32, "text": "SCAN TO SAVE", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "payment-qr",
+      "name": "Payment QR",
+      "category": "qr",
+      "tags": ["payment","tip","qr","checkout","business"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 42, "fill": "black" },
+        { "type": "text", "x": 12, "y": 0, "width": 296, "height": 42, "text": "SCAN · PAY · DONE", "fontSize": 16, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "qr", "x": 24, "y": 62, "width": 130, "height": 130, "qrData": "{{PaymentURL}}" },
+        { "type": "text", "x": 174, "y": 66, "width": 130, "height": 18, "text": "AMOUNT", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 174, "y": 88, "width": 130, "height": 46, "text": "{{Amount}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 174, "y": 142, "width": 130, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 174, "y": 156, "width": 130, "height": 24, "text": "{{Business}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 174, "y": 184, "width": 130, "height": 24, "text": "Thank you", "fontSize": 13, "fontFamily": "Georgia, serif", "fontStyle": "italic", "align": "left", "noWrap": true },
+        { "type": "text", "x": 24, "y": 206, "width": 280, "height": 18, "text": "REF {{Reference}}", "fontSize": 10, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "storage-kr",
+      "name": "모듈 수납 라벨",
+      "category": "korean",
+      "tags": ["수납","정리","박스","보관","storage","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 92, "height": 240, "fill": "black" },
+        { "type": "text", "x": 0, "y": 14, "width": 92, "height": 22, "text": "ZONE", "fontSize": 11, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 0, "y": 44, "width": 92, "height": 74, "text": "{{구역}}", "fontSize": 32, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 0, "y": 190, "width": 92, "height": 24, "text": "{{번호}}", "fontSize": 14, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 116, "y": 20, "width": 260, "height": 46, "text": "{{품목}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 116, "y": 76, "width": 260, "height": 8, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 116, "y": 96, "width": 260, "height": 72, "text": "{{내용}}", "fontSize": 16, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 116, "y": 190, "width": 260, "height": 22, "text": "보관일 · [[date]]", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true }
+      ]
+    },
+    {
+      "id": "cable-kr",
+      "name": "케이블 플래그",
+      "category": "korean",
+      "tags": ["케이블","전선","충전기","이름","cable","batch"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "text", "x": 8, "y": 8, "width": 132, "height": 80, "text": "{{기기}}", "fontSize": 20, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 124, "y": 43, "width": 72, "height": 10, "stroke": "black", "strokeWidth": 2, "rotation": 90 },
+        { "type": "text", "x": 180, "y": 8, "width": 132, "height": 80, "text": "{{기기}}", "fontSize": 20, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 130, "y": 66, "width": 60, "height": 14, "text": "{{포트}}", "fontSize": 8, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "wifi-kr",
+      "name": "와이파이 QR",
+      "category": "korean",
+      "tags": ["와이파이","무선","손님","qr","wifi"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 28, "width": 158, "height": 24, "text": "GUEST WI-FI", "fontSize": 12, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 58, "width": 158, "height": 42, "text": "{{네트워크}}", "fontSize": 24, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 108, "width": 158, "height": 20, "text": "카메라로 스캔", "fontSize": 11, "align": "left", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 140, "width": 158, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 16, "y": 154, "width": 158, "height": 18, "text": "비밀번호", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 176, "width": 158, "height": 28, "text": "{{비밀번호}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 190, "y": 54, "width": 118, "height": 118, "qrData": "WIFI:T:WPA;S:{{네트워크}};P:{{비밀번호}};;" }
+      ]
+    },
+    {
+      "id": "medicine-kr",
+      "name": "약 복용 라벨",
+      "category": "korean",
+      "tags": ["약","복용","의약품","시간","건강","medicine","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 50, "fill": "black" },
+        { "type": "text", "x": 16, "y": 0, "width": 368, "height": 50, "text": "{{약이름}}", "fontSize": 22, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 68, "width": 174, "height": 18, "text": "복용량", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 90, "width": 174, "height": 30, "text": "{{복용량}}", "fontSize": 18, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 208, "y": 68, "width": 174, "height": 18, "text": "복용 시간", "fontSize": 10, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 208, "y": 90, "width": 174, "height": 30, "text": "{{복용시간}}", "fontSize": 18, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 132, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 40, "text": "{{주의사항}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 18, "y": 198, "width": 364, "height": 20, "text": "시작 [[date]] · {{이름}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "medication-schedule",
+      "name": "Medication Schedule",
+      "category": "health",
+      "tags": ["medication","dose","schedule","patient","health","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 50, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 372, "height": 50, "text": "{{Medication}}", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 68, "width": 174, "height": 18, "text": "DOSE", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 90, "width": 174, "height": 30, "text": "{{Dose}}", "fontSize": 18, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 208, "y": 68, "width": 174, "height": 18, "text": "TAKE", "fontSize": 10, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 208, "y": 90, "width": 174, "height": 30, "text": "{{Schedule}}", "fontSize": 18, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 132, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 38, "text": "{{Instructions}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 18, "y": 198, "width": 364, "height": 20, "text": "START [[date]] · {{Patient}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "specimen-label",
+      "name": "Specimen Label",
+      "category": "health",
+      "tags": ["specimen","lab","patient","medical","barcode","batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 40, "fill": "black" },
+        { "type": "text", "x": 12, "y": 0, "width": 376, "height": 40, "text": "SPECIMEN · {{Type}}", "fontSize": 16, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 54, "width": 240, "height": 18, "text": "PATIENT", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 74, "width": 240, "height": 30, "text": "{{Patient}}", "fontSize": 18, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 272, "y": 54, "width": 112, "height": 18, "text": "DOB", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 272, "y": 74, "width": 112, "height": 30, "text": "{{DOB}}", "fontSize": 15, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 16, "y": 112, "width": 368, "height": 18, "text": "COLLECTED [[datetime]] · BY {{Initials}}", "fontSize": 10, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "barcode", "x": 48, "y": 144, "width": 304, "height": 36, "barcodeData": "{{SpecimenID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "first-aid-check",
+      "name": "First Aid Check",
+      "category": "health",
+      "tags": ["first aid","inspection","expiry","health","safety"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 12, "y": 12, "width": 296, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 3 },
+        { "type": "shape", "shapeType": "rectangle", "x": 26, "y": 28, "width": 54, "height": 54, "fill": "black" },
+        { "type": "text", "x": 26, "y": 28, "width": 54, "height": 54, "text": "+", "fontSize": 34, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 94, "y": 28, "width": 196, "height": 54, "text": "FIRST AID", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 26, "y": 96, "width": 264, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 26, "y": 112, "width": 264, "height": 18, "text": "KIT {{KitID}} · LOCATION {{Location}}", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 26, "y": 142, "width": 128, "height": 18, "text": "CHECKED", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 26, "y": 162, "width": 128, "height": 24, "text": "[[date]]", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 166, "y": 142, "width": 124, "height": 18, "text": "NEXT DUE", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 166, "y": 162, "width": 124, "height": 24, "text": "{{Due}}", "fontSize": 14, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 26, "y": 198, "width": 264, "height": 14, "text": "REPLACE EXPIRED OR OPEN ITEMS", "fontSize": 8, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "high-voltage",
+      "name": "High Voltage",
+      "category": "safety",
+      "tags": ["high voltage","danger","electrical","warning","safety"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 7 },
+        { "type": "shape", "shapeType": "rectangle", "x": 26, "y": 26, "width": 428, "height": 62, "fill": "black" },
+        { "type": "text", "x": 26, "y": 26, "width": 428, "height": 62, "text": "DANGER", "fontSize": 34, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "shape", "shapeType": "triangle", "x": 214, "y": 104, "width": 52, "height": 46, "fill": "black" },
+        { "type": "text", "x": 34, "y": 158, "width": 412, "height": 62, "text": "HIGH VOLTAGE", "fontSize": 42, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 72, "y": 230, "width": 336, "height": 8, "stroke": "black", "strokeWidth": 4 },
+        { "type": "text", "x": 34, "y": 250, "width": 412, "height": 34, "text": "AUTHORIZED PERSONNEL ONLY", "fontSize": 18, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "inspection-status",
+      "name": "Inspection Status",
+      "category": "safety",
+      "tags": ["inspection","pass","compliance","equipment","date","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 54, "fill": "black" },
+        { "type": "text", "x": 10, "y": 0, "width": 300, "height": 54, "text": "INSPECTED", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true },
+        { "type": "text", "x": 18, "y": 72, "width": 132, "height": 18, "text": "EQUIPMENT", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 94, "width": 284, "height": 34, "text": "{{Asset}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 138, "width": 284, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 18, "y": 152, "width": 132, "height": 18, "text": "CHECKED", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 174, "width": 132, "height": 26, "text": "[[date]]", "fontSize": 15, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 170, "y": 152, "width": 132, "height": 18, "text": "NEXT DUE", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 170, "y": 174, "width": 132, "height": 26, "text": "{{Due}}", "fontSize": 15, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 18, "y": 210, "width": 284, "height": 16, "text": "TECH {{Inspector}}", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "calibration-tag",
+      "name": "Calibration Tag",
+      "category": "safety",
+      "tags": ["calibration","quality","equipment","compliance","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 104, "height": 240, "fill": "black" },
+        { "type": "text", "x": 8, "y": 92, "width": 88, "height": 38, "text": "CAL", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true },
+        { "type": "text", "x": 126, "y": 18, "width": 250, "height": 20, "text": "CALIBRATION STATUS", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 126, "y": 44, "width": 250, "height": 40, "text": "{{Instrument}}", "fontSize": 24, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 126, "y": 94, "width": 250, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 126, "y": 110, "width": 118, "height": 18, "text": "CALIBRATED", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 126, "y": 132, "width": 118, "height": 24, "text": "{{CalDate}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 258, "y": 110, "width": 118, "height": 18, "text": "DUE", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 258, "y": 132, "width": 118, "height": 24, "text": "{{DueDate}}", "fontSize": 14, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 126, "y": 172, "width": 250, "height": 18, "text": "ID {{AssetID}} · BY {{Tech}}", "fontSize": 10, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "barcode", "x": 126, "y": 202, "width": 250, "height": 24, "barcodeData": "{{AssetID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "place-card",
+      "name": "Modern Place Card",
+      "category": "event",
+      "tags": ["place card","wedding","dinner","event","batch","minimal"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "text", "x": 20, "y": 22, "width": 360, "height": 18, "text": "TABLE {{Table}}", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "shape", "shapeType": "line", "x": 130, "y": 54, "width": 140, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 28, "y": 72, "width": 344, "height": 62, "text": "{{Name}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontStyle": "italic", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 28, "y": 140, "width": 344, "height": 20, "text": "{{Meal}}", "fontSize": 11, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 130, "y": 174, "width": 140, "height": 6, "stroke": "black", "strokeWidth": 2 }
+      ]
+    },
+    {
+      "id": "favor-seal",
+      "name": "Favor Seal",
+      "category": "event",
+      "tags": ["favor","gift","wedding","thank you","round","event"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 76, "width": 204, "height": 18, "text": "A SMALL THANK YOU", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 46, "y": 108, "width": 228, "height": 68, "text": "{{Names}}", "fontSize": 30, "fontFamily": "Georgia, serif", "fontStyle": "italic", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 94, "y": 186, "width": 132, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 202, "width": 204, "height": 24, "text": "{{Date}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 58, "y": 232, "width": 204, "height": 18, "text": "MADE WITH LOVE", "fontSize": 10, "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "rsvp-qr",
+      "name": "RSVP QR",
+      "category": "event",
+      "tags": ["rsvp","invitation","event","wedding","party","qr"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 10, "y": 10, "width": 300, "height": 220, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 14 },
+        { "type": "text", "x": 26, "y": 28, "width": 156, "height": 18, "text": "YOU'RE INVITED", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 26, "y": 54, "width": 156, "height": 46, "text": "{{Event}}", "fontSize": 25, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 26, "y": 108, "width": 156, "height": 20, "text": "{{Date}} · {{Time}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 26, "y": 134, "width": 156, "height": 36, "text": "{{Venue}}", "fontSize": 11, "align": "left", "verticalAlign": "top" },
+        { "type": "qr", "x": 196, "y": 52, "width": 100, "height": 100, "qrData": "{{RSVPURL}}" },
+        { "type": "text", "x": 190, "y": 160, "width": 112, "height": 28, "text": "SCAN TO RSVP", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 26, "y": 194, "width": 270, "height": 16, "text": "Kindly reply by {{ReplyBy}}", "fontSize": 9, "fontStyle": "italic", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "yarn-stash",
+      "name": "Yarn Stash",
+      "category": "craft",
+      "tags": ["yarn","knitting","crochet","craft","inventory","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 18, "height": 240, "fill": "black" },
+        { "type": "text", "x": 38, "y": 18, "width": 344, "height": 18, "text": "YARN / STASH INDEX", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 38, "y": 42, "width": 344, "height": 42, "text": "{{Brand}} · {{Line}}", "fontSize": 24, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 38, "y": 94, "width": 164, "height": 18, "text": "COLORWAY", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 38, "y": 116, "width": 164, "height": 28, "text": "{{Color}}", "fontSize": 16, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 218, "y": 94, "width": 164, "height": 18, "text": "DYE LOT", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 218, "y": 116, "width": 164, "height": 28, "text": "{{DyeLot}}", "fontSize": 16, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 38, "y": 154, "width": 344, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 38, "y": 168, "width": 344, "height": 20, "text": "{{Fiber}} · {{Weight}} · {{Length}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 38, "y": 198, "width": 344, "height": 20, "text": "NEEDLE {{Needle}} · HOOK {{Hook}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "handmade-batch",
+      "name": "Handmade Batch",
+      "category": "craft",
+      "tags": ["handmade","soap","candle","batch","date","maker"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 12, "y": 12, "width": 296, "height": 216, "fill": "white", "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 30, "y": 30, "width": 260, "height": 18, "text": "HANDMADE / SMALL BATCH", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true },
+        { "type": "text", "x": 30, "y": 58, "width": 260, "height": 50, "text": "{{Product}}", "fontSize": 28, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 76, "y": 116, "width": 168, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 30, "y": 132, "width": 260, "height": 24, "text": "{{Scent}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 30, "y": 166, "width": 126, "height": 18, "text": "MADE", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 30, "y": 186, "width": 126, "height": 22, "text": "[[date]]", "fontSize": 13, "align": "left", "noWrap": true },
+        { "type": "text", "x": 164, "y": 166, "width": 126, "height": 18, "text": "BATCH", "fontSize": 9, "fontWeight": "bold", "align": "right", "noWrap": true },
+        { "type": "text", "x": 164, "y": 186, "width": 126, "height": 22, "text": "{{Batch}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true }
+      ]
+    },
+    {
+      "id": "seed-packet",
+      "name": "Seed Packet",
+      "category": "craft",
+      "tags": ["seed","garden","planting","harvest","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 50, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 372, "height": 50, "text": "{{Variety}}", "fontSize": 22, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 68, "width": 220, "height": 22, "text": "{{Plant}}", "fontSize": 14, "fontFamily": "Georgia, serif", "fontStyle": "italic", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 98, "width": 220, "height": 18, "text": "SOW", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 18, "y": 120, "width": 220, "height": 24, "text": "{{SowWindow}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 152, "width": 220, "height": 18, "text": "DEPTH {{Depth}} · SPACE {{Spacing}}", "fontSize": 10, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 180, "width": 220, "height": 18, "text": "LOT {{Lot}} · PACKED [[date]]", "fontSize": 10, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 278, "y": 78, "width": 104, "height": 104, "qrData": "{{SeedURL}}" },
+        { "type": "text", "x": 268, "y": 190, "width": 124, "height": 18, "text": "GROWING GUIDE", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "boutique-hangtag",
+      "name": "Boutique Hangtag",
+      "category": "retail",
+      "tags": ["boutique","fashion","price","size","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 14, "y": 24, "width": 372, "height": 19, "text": "NEW COLLECTION", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 55, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 72, "width": 372, "height": 58, "text": "{{Product}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 139, "width": 372, "height": 26, "text": "SIZE {{Size}} · {{Color}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 175, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 192, "width": 372, "height": 19, "text": "{{Price}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "inventory-price",
+      "name": "Inventory Price",
+      "category": "retail",
+      "tags": ["inventory","price","barcode","sku","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 48, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 292, "height": 48, "text": "STOCK / {{Location}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 58, "width": 292, "height": 48, "text": "{{Product}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 113, "width": 173, "height": 29, "text": "SKU {{SKU}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 192, "y": 113, "width": 114, "height": 29, "text": "{{Price}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 151, "width": 292, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 45, "y": 168, "width": 230, "height": 38, "barcodeData": "{{SKU}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "limited-drop-seal",
+      "name": "Limited Drop Seal",
+      "category": "retail",
+      "tags": ["limited","drop","round","retail","edition"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "LIMITED DROP", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{Product}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "NO. {{Number}} / {{Total}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "{{Price}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "consignment-tag",
+      "name": "Consignment Tag",
+      "category": "retail",
+      "tags": ["consignment","seller","price","date","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 96, "height": 240, "fill": "black" },
+        { "type": "text", "x": 14, "y": 82, "width": 67, "height": 77, "text": "CONSIGN", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 24, "width": 264, "height": 53, "text": "{{Item}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 116, "y": 89, "width": 264, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 116, "y": 106, "width": 264, "height": 41, "text": "SELLER {{Seller}} · SPLIT {{Split}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 161, "width": 264, "height": 38, "text": "EXPIRES {{Expiry}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "sourdough-loaf",
+      "name": "Sourdough Loaf",
+      "category": "food",
+      "tags": ["bread","sourdough","bakery","date","artisan"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 14, "y": 24, "width": 372, "height": 19, "text": "WILD FERMENT", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 55, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 72, "width": 372, "height": 58, "text": "{{Loaf}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 139, "width": 372, "height": 26, "text": "FLOUR · WATER · SALT", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 175, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 192, "width": 372, "height": 19, "text": "BAKED [[date]]", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "tea-tin",
+      "name": "Tea Tin Seal",
+      "category": "food",
+      "tags": ["tea","tin","round","brew","origin"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "LOOSE LEAF", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{Tea}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "{{Origin}} · {{Grade}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "BREW {{BrewTime}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "meal-prep-macros",
+      "name": "Meal Prep Macros",
+      "category": "food",
+      "tags": ["meal prep","macros","protein","calories","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "MEAL / {{MealNo}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Meal}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "{{Calories}} KCAL · P {{Protein}}G", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "USE BY {{UseBy}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{Batch}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "hot-sauce-batch",
+      "name": "Hot Sauce Batch",
+      "category": "food",
+      "tags": ["hot sauce","batch","heat","bottle","date"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "FIRE", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Sauce}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "HEAT {{Heat}} / 5", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "BATCH {{Batch}} · [[date]]", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "bakery-display",
+      "name": "Bakery Display",
+      "category": "food",
+      "tags": ["bakery","display","price","ingredients","retail"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 480, "height": 74, "fill": "black" },
+        { "type": "text", "x": 22, "y": 0, "width": 436, "height": 74, "text": "FRESH TODAY", "fontSize": 28, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 22, "y": 86, "width": 436, "height": 80, "text": "{{Item}}", "fontSize": 38, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 22, "y": 179, "width": 436, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 22, "y": 195, "width": 436, "height": 42, "text": "{{Description}}", "fontSize": 21, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 22, "y": 253, "width": 436, "height": 32, "text": "{{Price}} · CONTAINS {{Allergens}}", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "toy-bin",
+      "name": "Toy Bin",
+      "category": "home",
+      "tags": ["toy","kids","storage","bin","home"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "PLAY / STORE", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{Category}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "RETURN TO BIN {{Bin}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "ROOM {{Room}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "laundry-sort",
+      "name": "Laundry Sort",
+      "category": "home",
+      "tags": ["laundry","sorting","wash","home"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "WASH", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Load}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "{{Temperature}} · {{Cycle}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "{{Notes}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "moving-room",
+      "name": "Moving Room",
+      "category": "home",
+      "tags": ["moving","box","room","qr","inventory"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "text", "x": 19, "y": 32, "width": 279, "height": 26, "text": "MOVE / {{Zone}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 19, "y": 74, "width": 279, "height": 74, "text": "{{Room}}", "fontSize": 38, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 19, "y": 160, "width": 279, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 19, "y": 182, "width": 279, "height": 58, "text": "{{Contents}}", "fontSize": 19, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 19, "y": 256, "width": 279, "height": 26, "text": "BOX {{Box}} · {{Priority}}", "fontSize": 14, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 317, "y": 80, "width": 144, "height": 144, "qrData": "{{InventoryURL}}" },
+        { "type": "text", "x": 317, "y": 230, "width": 144, "height": 26, "text": "SCAN", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "household-expiry",
+      "name": "Household Expiry",
+      "category": "home",
+      "tags": ["expiry","household","filter","battery","date"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 304, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 12, "y": 24, "width": 296, "height": 19, "text": "HOME CARE", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 55, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 72, "width": 296, "height": 58, "text": "{{Item}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 12, "y": 139, "width": 296, "height": 26, "text": "INSTALLED [[date]]", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 175, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 192, "width": 296, "height": 19, "text": "REPLACE {{Due}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "meeting-room-qr",
+      "name": "Meeting Room QR",
+      "category": "office",
+      "tags": ["meeting","room","booking","qr","office"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 13, "y": 24, "width": 185, "height": 19, "text": "MEET / WORK", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 13, "y": 55, "width": 185, "height": 55, "text": "{{Room}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 13, "y": 120, "width": 185, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 13, "y": 137, "width": 185, "height": 43, "text": "CAPACITY {{Capacity}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 13, "y": 192, "width": 185, "height": 19, "text": "SCAN TO BOOK", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 211, "y": 60, "width": 96, "height": 96, "qrData": "{{BookingURL}}" },
+        { "type": "text", "x": 211, "y": 162, "width": 96, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "legal-file",
+      "name": "Legal File",
+      "category": "office",
+      "tags": ["legal","file","case","confidential","batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 96, "height": 200, "fill": "black" },
+        { "type": "text", "x": 14, "y": 68, "width": 67, "height": 64, "text": "LEGAL", "fontSize": 20, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 20, "width": 264, "height": 44, "text": "{{Matter}}", "fontSize": 26, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 116, "y": 74, "width": 264, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 116, "y": 88, "width": 264, "height": 34, "text": "CLIENT {{Client}}", "fontSize": 14, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 134, "width": 264, "height": 32, "text": "FILE {{FileNo}} · {{Year}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "media-backup",
+      "name": "Media Backup",
+      "category": "office",
+      "tags": ["backup","drive","media","archive","barcode"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "MEDIA ARCHIVE", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Project}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "DRIVE {{Drive}} · COPY {{Copy}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "BACKED UP [[date]]", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{ArchiveID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "mailroom-slot",
+      "name": "Mailroom Slot",
+      "category": "office",
+      "tags": ["mailroom","slot","department","tape","office"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 232, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 58, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 50, "height": 80, "text": "{{Slot}}", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 8, "width": 164, "height": 43, "text": "{{Department}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 51, "width": 164, "height": 27, "text": "{{Name}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "fiber-route",
+      "name": "Fiber Route",
+      "category": "cable",
+      "tags": ["fiber","route","network","port","tape"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 312, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 77, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 69, "height": 80, "text": "{{Port}}", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 8, "width": 225, "height": 43, "text": "{{From}} → {{To}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 51, "width": 225, "height": 27, "text": "{{FiberType}} · {{Length}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "power-adapter",
+      "name": "Power Adapter",
+      "category": "cable",
+      "tags": ["power","adapter","voltage","device","tape"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 232, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 58, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 50, "height": 80, "text": "DC", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 8, "width": 164, "height": 43, "text": "{{Device}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 51, "width": 164, "height": 27, "text": "{{Voltage}} · {{Watts}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "server-node",
+      "name": "Server Node",
+      "category": "cable",
+      "tags": ["server","node","rack","qr","network"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "NODE / {{Env}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "{{Hostname}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "RACK {{Rack}} · U{{Unit}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "{{IP}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{AdminURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "audio-channel",
+      "name": "Audio Channel",
+      "category": "cable",
+      "tags": ["audio","channel","mixer","stage","tape"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 312, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 77, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 69, "height": 80, "text": "CH", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 8, "width": 225, "height": 43, "text": "{{Source}} → {{Channel}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 51, "width": 225, "height": 27, "text": "{{Connector}} · {{Phantom}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "daycare-cubby",
+      "name": "Daycare Cubby",
+      "category": "name",
+      "tags": ["daycare","cubby","child","name","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 55, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 292, "height": 55, "text": "HELLO / PLAY", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 67, "width": 292, "height": 60, "text": "{{Name}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 134, "width": 292, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 14, "y": 146, "width": 292, "height": 31, "text": "ROOM {{Room}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 190, "width": 292, "height": 24, "text": "PICKUP {{Guardian}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "sports-gear",
+      "name": "Sports Gear",
+      "category": "name",
+      "tags": ["sports","gear","team","owner","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "GEAR", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Name}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "TEAM {{Team}} · NO. {{Number}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "{{Phone}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "maker-nameplate",
+      "name": "Maker Nameplate",
+      "category": "name",
+      "tags": ["maker","studio","nameplate","craft","batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 184, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 12 },
+        { "type": "text", "x": 14, "y": 20, "width": 372, "height": 16, "text": "MADE BY", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 46, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 60, "width": 372, "height": 48, "text": "{{Name}}", "fontSize": 28, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 116, "width": 372, "height": 22, "text": "{{Discipline}}", "fontSize": 12, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 146, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 160, "width": 372, "height": 16, "text": "@{{Handle}}", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "emergency-id",
+      "name": "Emergency ID",
+      "category": "name",
+      "tags": ["emergency","medical","contact","allergy","id"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 184, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 352, "height": 46, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 336, "height": 46, "text": "MEDICAL ID", "fontSize": 19, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 180, "y": 86, "width": 40, "height": 20, "fill": "black" },
+        { "type": "text", "x": 20, "y": 98, "width": 360, "height": 40, "text": "{{Name}}", "fontSize": 28, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 20, "y": 146, "width": 360, "height": 20, "text": "ICE {{Contact}}", "fontSize": 12, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 20, "y": 170, "width": 360, "height": 12, "text": "ALLERGY {{Allergy}}", "fontSize": 8, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "cold-chain",
+      "name": "Cold Chain",
+      "category": "shipping",
+      "tags": ["cold chain","refrigerated","shipping","warning","temperature"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 432, "height": 74, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 416, "height": 74, "text": "COLD CHAIN", "fontSize": 31, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 216, "y": 114, "width": 48, "height": 32, "fill": "black" },
+        { "type": "text", "x": 24, "y": 157, "width": 432, "height": 64, "text": "KEEP REFRIGERATED", "fontSize": 45, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 234, "width": 432, "height": 32, "text": "2–8°C · DO NOT FREEZE", "fontSize": 19, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 272, "width": 432, "height": 19, "text": "PACKED [[datetime]]", "fontSize": 13, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "local-route",
+      "name": "Local Delivery Route",
+      "category": "shipping",
+      "tags": ["local delivery","route","order","barcode","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "LOCAL / {{Order}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Customer}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "ROUTE {{Route}} · STOP {{Stop}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "{{Window}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{Order}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "rma-return",
+      "name": "RMA Return",
+      "category": "shipping",
+      "tags": ["rma","return","qr","shipping","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "RETURN AUTH", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "RMA {{RMA}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "{{Item}} · {{Reason}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "SHIP BY {{ShipBy}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{RMAURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "handmade-mailer",
+      "name": "Handmade Mailer",
+      "category": "shipping",
+      "tags": ["mailer","handmade","small business","thank you"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 304, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 12, "y": 24, "width": 296, "height": 19, "text": "THANK YOU", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 55, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 72, "width": 296, "height": 58, "text": "Packed for {{Name}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 12, "y": 139, "width": 296, "height": 26, "text": "MADE · WRAPPED · SENT", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 175, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 192, "width": 296, "height": 19, "text": "ORDER {{Order}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "digital-menu-mini",
+      "name": "Digital Menu Mini",
+      "category": "qr",
+      "tags": ["menu","qr","round","cafe","restaurant"],
+      "labelSize": { "width": 30, "height": 30, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 220, "height": 220, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 192, "height": 192, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 43, "y": 53, "width": 154, "height": 19, "text": "TODAY'S MENU", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 34, "y": 86, "width": 173, "height": 48, "text": "SCAN MENU", "fontSize": 29, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 72, "y": 146, "width": 96, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 43, "y": 161, "width": 154, "height": 22, "text": "ORDER · PAY · ENJOY", "fontSize": 12, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 53, "y": 187, "width": 134, "height": 17, "text": "TABLE {{Table}}", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "portfolio-link",
+      "name": "Portfolio Link",
+      "category": "qr",
+      "tags": ["portfolio","creator","qr","contact","social"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 13, "y": 24, "width": 185, "height": 19, "text": "PORTFOLIO", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 13, "y": 55, "width": 185, "height": 55, "text": "{{Name}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 13, "y": 120, "width": 185, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 13, "y": 137, "width": 185, "height": 43, "text": "{{Role}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 13, "y": 192, "width": 185, "height": 19, "text": "@{{Handle}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 211, "y": 60, "width": 96, "height": 96, "qrData": "{{PortfolioURL}}" },
+        { "type": "text", "x": 211, "y": 162, "width": 96, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "event-checkin",
+      "name": "Event Check-in",
+      "category": "qr",
+      "tags": ["event","checkin","ticket","qr","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "CHECK IN", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "{{Attendee}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "{{Event}} · {{Session}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "TICKET {{Ticket}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{TicketURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "support-qr",
+      "name": "Product Support QR",
+      "category": "qr",
+      "tags": ["support","manual","warranty","qr","product"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 13, "y": 24, "width": 185, "height": 19, "text": "SUPPORT", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 13, "y": 55, "width": 185, "height": 55, "text": "{{Product}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 13, "y": 120, "width": 185, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 13, "y": 137, "width": 185, "height": 43, "text": "S/N {{Serial}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 13, "y": 192, "width": 185, "height": 19, "text": "SCAN FOR HELP", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 211, "y": 60, "width": 96, "height": 96, "qrData": "{{SupportURL}}" },
+        { "type": "text", "x": 211, "y": 162, "width": 96, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "coffee-bean-kr",
+      "name": "원두 라벨",
+      "category": "korean",
+      "tags": ["원두","커피","로스팅","카페","날짜"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 14, "y": 24, "width": 372, "height": 19, "text": "스페셜티 커피", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 55, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 72, "width": 372, "height": 58, "text": "{{원두명}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 139, "width": 372, "height": 26, "text": "{{산지}} · {{가공}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 175, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 192, "width": 372, "height": 19, "text": "로스팅 [[date]]", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "organizer-kr",
+      "name": "정리함 라벨",
+      "category": "korean",
+      "tags": ["정리","수납","상자","가정","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "우리집 정리", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{분류}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "{{내용}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "위치 {{위치}} · {{번호}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "gift-wrap-kr",
+      "name": "선물 포장 씰",
+      "category": "korean",
+      "tags": ["선물","포장","감사","원형","round"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "FOR YOU", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{받는분}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "마음을 담아", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "{{보내는분}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "handle-care-kr",
+      "name": "택배 취급주의",
+      "category": "korean",
+      "tags": ["택배","취급주의","파손","배송","warning"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 432, "height": 74, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 416, "height": 74, "text": "취급주의", "fontSize": 31, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 216, "y": 114, "width": 48, "height": 32, "fill": "black" },
+        { "type": "text", "x": 24, "y": 157, "width": 432, "height": 64, "text": "파손 주의", "fontSize": 45, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 234, "width": 432, "height": 32, "text": "던지거나 눌러두지 마세요", "fontSize": 19, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 272, "width": 432, "height": 19, "text": "송장 {{송장번호}}", "fontSize": 13, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "child-note-kr",
+      "name": "어린이 알림 라벨",
+      "category": "korean",
+      "tags": ["어린이","알림","보호자","학교","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "꼭 확인해주세요", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{이름}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "{{알림내용}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "보호자 {{연락처}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "office-file-kr",
+      "name": "사무 문서 라벨",
+      "category": "korean",
+      "tags": ["문서","파일","사무","보존","batch"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 96, "height": 200, "fill": "black" },
+        { "type": "text", "x": 14, "y": 68, "width": 67, "height": 64, "text": "문서", "fontSize": 20, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 20, "width": 264, "height": 44, "text": "{{문서명}}", "fontSize": 26, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 116, "y": 74, "width": 264, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 116, "y": 88, "width": 264, "height": 34, "text": "담당 {{담당자}}", "fontSize": 14, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 116, "y": 134, "width": 264, "height": 32, "text": "{{연도}} · 보존 {{보존기간}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "pet-profile-kr",
+      "name": "반려동물 프로필",
+      "category": "korean",
+      "tags": ["반려동물","강아지","고양이","연락처","qr"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "우리 가족", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "{{이름}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "{{품종}} · {{나이}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "보호자 {{연락처}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{프로필URL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "stock-location-kr",
+      "name": "재고 위치 라벨",
+      "category": "korean",
+      "tags": ["재고","창고","위치","바코드","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "재고 / {{구역}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{품목명}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "위치 {{위치}} · 수량 {{수량}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "LOT {{로트}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{품목코드}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "prescription-bottle",
+      "name": "Prescription Bottle",
+      "category": "health",
+      "tags": ["prescription","medicine","dose","patient","health"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "TAKE AS DIRECTED", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{Medication}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "{{Dose}} · {{Schedule}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "{{Patient}} · EXP {{Expiry}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "contact-lens",
+      "name": "Contact Lens Case",
+      "category": "health",
+      "tags": ["contact lens","left","right","expiry","tape"],
+      "labelSize": { "width": 30, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 232, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 58, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 50, "height": 80, "text": "LENS", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 8, "width": 164, "height": 43, "text": "{{Side}} · {{Power}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 68, "y": 51, "width": 164, "height": 27, "text": "OPENED [[date]]", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "dental-lab",
+      "name": "Dental Lab Case",
+      "category": "health",
+      "tags": ["dental","lab","patient","case","barcode"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "DENTAL / {{Doctor}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Patient}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "{{CaseType}} · SHADE {{Shade}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "DUE {{Due}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{CaseID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "sample-storage",
+      "name": "Sample Storage",
+      "category": "health",
+      "tags": ["sample","storage","freezer","lab","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "LAB / {{Project}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Sample}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "{{Temperature}} · BOX {{Box}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "COLLECTED {{Collected}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{SampleID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "lockout-tag",
+      "name": "Lockout Tag",
+      "category": "safety",
+      "tags": ["lockout","tagout","danger","maintenance","safety"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 432, "height": 74, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 416, "height": 74, "text": "LOCKOUT / TAGOUT", "fontSize": 31, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 216, "y": 114, "width": 48, "height": 32, "fill": "black" },
+        { "type": "text", "x": 24, "y": 157, "width": 432, "height": 64, "text": "DO NOT OPERATE", "fontSize": 45, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 234, "width": 432, "height": 32, "text": "LOCKED BY {{Name}}", "fontSize": 19, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 272, "width": 432, "height": 19, "text": "REASON {{Reason}} · [[datetime]]", "fontSize": 13, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "fire-check",
+      "name": "Fire Extinguisher Check",
+      "category": "safety",
+      "tags": ["fire","extinguisher","inspection","safety","date"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 55, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 292, "height": 55, "text": "FIRE CHECK", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 67, "width": 292, "height": 60, "text": "{{Location}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 134, "width": 292, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 14, "y": 146, "width": 292, "height": 31, "text": "PRESSURE · PIN · SEAL", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 190, "width": 292, "height": 24, "text": "CHECKED [[date]] · {{Inspector}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "sanitized-status",
+      "name": "Sanitized Status",
+      "category": "safety",
+      "tags": ["sanitized","cleaning","status","date","hospitality"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 304, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 12, "y": 24, "width": 296, "height": 19, "text": "READY FOR USE", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 55, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 72, "width": 296, "height": 58, "text": "SANITIZED", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 12, "y": 139, "width": 296, "height": 26, "text": "AREA {{Area}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 175, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 192, "width": 296, "height": 19, "text": "[[datetime]] · {{Initials}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "quality-hold",
+      "name": "Quality Hold",
+      "category": "safety",
+      "tags": ["quality","hold","quarantine","batch","warning"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 432, "height": 74, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 416, "height": 74, "text": "QUALITY HOLD", "fontSize": 31, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 216, "y": 114, "width": 48, "height": 32, "fill": "black" },
+        { "type": "text", "x": 24, "y": 157, "width": 432, "height": 64, "text": "DO NOT USE", "fontSize": 45, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 234, "width": 432, "height": 32, "text": "LOT {{Lot}} · {{Item}}", "fontSize": 19, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 272, "width": 432, "height": 19, "text": "HOLD REASON {{Reason}}", "fontSize": 13, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "birthday-seal",
+      "name": "Birthday Seal",
+      "category": "event",
+      "tags": ["birthday","party","favor","round","gift"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "LET'S CELEBRATE", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{Name}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "IS {{Age}} TODAY", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "{{Date}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "vendor-pass",
+      "name": "Vendor Pass",
+      "category": "event",
+      "tags": ["vendor","pass","event","qr","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "VENDOR ACCESS", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "{{Company}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "{{Contact}} · BOOTH {{Booth}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "VALID {{Date}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{PassURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "buffet-card",
+      "name": "Buffet Card",
+      "category": "event",
+      "tags": ["buffet","food","event","allergen","place card"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 184, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 12 },
+        { "type": "text", "x": 14, "y": 20, "width": 372, "height": 16, "text": "TODAY'S TABLE", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 46, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 60, "width": 372, "height": 48, "text": "{{Dish}}", "fontSize": 28, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 116, "width": 372, "height": 22, "text": "{{Description}}", "fontSize": 12, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 146, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 160, "width": 372, "height": 16, "text": "{{Dietary}}", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "fabric-bolt",
+      "name": "Fabric Bolt",
+      "category": "craft",
+      "tags": ["fabric","sewing","bolt","yardage","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "TEXTILE / {{Color}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Fabric}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "{{Fiber}} · {{Width}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "{{Yards}} YD · LOT {{Lot}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{SKU}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "pottery-kiln",
+      "name": "Pottery Kiln",
+      "category": "craft",
+      "tags": ["pottery","ceramics","kiln","glaze","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "KILN", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Piece}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "CLAY {{Clay}} · GLAZE {{Glaze}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "CONE {{Cone}} · {{Firing}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "paint-swatch",
+      "name": "Paint Swatch",
+      "category": "craft",
+      "tags": ["paint","color","finish","room","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 304, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 12, "y": 24, "width": 296, "height": 19, "text": "PAINT / SWATCH", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 55, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 72, "width": 296, "height": 58, "text": "{{Color}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 12, "y": 139, "width": 296, "height": 26, "text": "{{Brand}} · {{Finish}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 175, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 192, "width": 296, "height": 19, "text": "ROOM {{Room}} · {{Code}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "table-number",
+      "name": "Table Number",
+      "category": "hospitality",
+      "tags": ["table","restaurant","round","hospitality","qr"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "WELCOME", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "TABLE {{Table}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "SCAN TO ORDER", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "{{Server}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "reserved-table",
+      "name": "Reserved Table",
+      "category": "hospitality",
+      "tags": ["reserved","table","restaurant","guest","event"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 184, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 12 },
+        { "type": "text", "x": 14, "y": 20, "width": 372, "height": 16, "text": "WELCOME", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 46, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 60, "width": 372, "height": 48, "text": "RESERVED", "fontSize": 28, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 116, "width": 372, "height": 22, "text": "{{Guest}} · PARTY OF {{Party}}", "fontSize": 12, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 146, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 160, "width": 372, "height": 16, "text": "{{Time}}", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "room-key",
+      "name": "Room Key Card",
+      "category": "hospitality",
+      "tags": ["hotel","room","key","wifi","qr"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "STAY / RELAX", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "ROOM {{Room}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "CHECKOUT {{Checkout}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "WI-FI {{Network}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{GuestGuideURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "housekeeping-check",
+      "name": "Housekeeping Check",
+      "category": "hospitality",
+      "tags": ["housekeeping","hotel","cleaning","checklist","date"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "ROOM READY", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "ROOM {{Room}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "CLEAN · LINEN · AMENITIES", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "[[datetime]] · {{Staff}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{InspectionID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "coffee-order",
+      "name": "Coffee Order",
+      "category": "hospitality",
+      "tags": ["coffee","order","cup","cafe","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 55, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 292, "height": 55, "text": "ORDER {{Order}}", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 67, "width": 292, "height": 60, "text": "{{Drink}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 134, "width": 292, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 14, "y": 146, "width": 292, "height": 31, "text": "{{Size}} · {{Milk}} · {{Shots}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 190, "width": 292, "height": 24, "text": "FOR {{Name}} · {{Notes}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "skincare-jar",
+      "name": "Skincare Jar",
+      "category": "beauty",
+      "tags": ["skincare","jar","round","beauty","batch"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "DAILY RITUAL", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{Product}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "{{Active}} · {{Strength}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "EXP {{Expiry}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "salon-formula",
+      "name": "Salon Formula",
+      "category": "beauty",
+      "tags": ["salon","hair","formula","color","client"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "COLOR / {{Stylist}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Client}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "{{Formula}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "PROCESS {{Time}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{ClientID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "candle-scent",
+      "name": "Candle Scent Seal",
+      "category": "beauty",
+      "tags": ["candle","scent","round","wellness","batch"],
+      "labelSize": { "width": 40, "height": 40, "round": true },
+      "elements": [
+        { "type": "shape", "shapeType": "ellipse", "x": 10, "y": 10, "width": 300, "height": 300, "fill": "white", "stroke": "black", "strokeWidth": 4 },
+        { "type": "shape", "shapeType": "ellipse", "x": 24, "y": 24, "width": 272, "height": 272, "fill": "white", "stroke": "black", "strokeWidth": 1 },
+        { "type": "text", "x": 58, "y": 70, "width": 205, "height": 26, "text": "POURED BY HAND", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 45, "y": 115, "width": 230, "height": 64, "text": "{{Scent}}", "fontSize": 38, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 96, "y": 195, "width": 128, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 58, "y": 214, "width": 205, "height": 29, "text": "{{Notes}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 70, "y": 250, "width": 179, "height": 22, "text": "BATCH {{Batch}}", "fontSize": 13, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "spa-appointment",
+      "name": "Spa Appointment",
+      "category": "beauty",
+      "tags": ["spa","appointment","wellness","client","date"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 184, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 12 },
+        { "type": "text", "x": 14, "y": 20, "width": 372, "height": 16, "text": "TIME TO RESET", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 46, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 60, "width": 372, "height": 48, "text": "{{Service}}", "fontSize": 28, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 116, "width": 372, "height": 22, "text": "FOR {{Client}}", "fontSize": 12, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 146, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 160, "width": 372, "height": 16, "text": "{{Date}} · {{Time}}", "fontSize": 9, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "cosmetic-batch",
+      "name": "Cosmetic Batch",
+      "category": "beauty",
+      "tags": ["cosmetic","batch","expiry","ingredients","barcode"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 320, "height": 48, "fill": "black" },
+        { "type": "text", "x": 14, "y": 0, "width": 292, "height": 48, "text": "FORMULA / {{Shade}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 58, "width": 292, "height": 48, "text": "{{Product}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 113, "width": 173, "height": 29, "text": "LOT {{Lot}} · {{Size}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 192, "y": 113, "width": 114, "height": 29, "text": "PAO {{PAO}} · EXP {{Expiry}}", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 14, "y": 151, "width": 292, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 45, "y": 168, "width": 230, "height": 38, "barcodeData": "{{BatchID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "pet-food-bin",
+      "name": "Pet Food Bin",
+      "category": "pet",
+      "tags": ["pet food","storage","feeding","dog","cat"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "HAPPY BOWL", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{Pet}}'S FOOD", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "{{Food}} · {{Portion}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "FEED {{Schedule}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "pet-medication",
+      "name": "Pet Medication",
+      "category": "pet",
+      "tags": ["pet","medication","dose","vet","health"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 352, "height": 55, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 336, "height": 55, "text": "PET MEDS", "fontSize": 23, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 180, "y": 95, "width": 40, "height": 24, "fill": "black" },
+        { "type": "text", "x": 20, "y": 118, "width": 360, "height": 48, "text": "{{Medication}}", "fontSize": 34, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 20, "y": 175, "width": 360, "height": 24, "text": "{{Dose}} · {{Schedule}}", "fontSize": 14, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 20, "y": 204, "width": 360, "height": 14, "text": "PET {{Pet}} · VET {{Vet}}", "fontSize": 10, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "grooming-record",
+      "name": "Grooming Record",
+      "category": "pet",
+      "tags": ["grooming","pet","date","care","batch"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 304, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 12, "y": 24, "width": 296, "height": 19, "text": "FRESH & CLEAN", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 55, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 72, "width": 296, "height": 58, "text": "{{Pet}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 12, "y": 139, "width": 296, "height": 26, "text": "{{Service}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 90, "y": 175, "width": 141, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 12, "y": 192, "width": 296, "height": 19, "text": "NEXT {{NextDate}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "lost-pet-qr",
+      "name": "Lost Pet QR",
+      "category": "pet",
+      "tags": ["lost pet","qr","contact","dog","cat"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 24, "width": 237, "height": 19, "text": "HELP ME HOME", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 55, "width": 237, "height": 55, "text": "I'M {{Pet}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 120, "width": 237, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 137, "width": 237, "height": 43, "text": "PLEASE CALL {{Phone}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 192, "width": 237, "height": 19, "text": "REWARD {{Reward}}", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 269, "y": 60, "width": 115, "height": 115, "qrData": "{{PetProfileURL}}" },
+        { "type": "text", "x": 269, "y": 181, "width": 115, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "aquarium-care",
+      "name": "Aquarium Care",
+      "category": "pet",
+      "tags": ["aquarium","fish","water","maintenance","date"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "AQUA", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Tank}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "{{Gallons}} GAL · {{Species}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "WATER CHANGE [[date]]", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "pallet-id",
+      "name": "Pallet ID",
+      "category": "warehouse",
+      "tags": ["pallet","warehouse","barcode","logistics","batch"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 480, "height": 64, "fill": "black" },
+        { "type": "text", "x": 22, "y": 0, "width": 436, "height": 64, "text": "PALLET / {{Pallet}}", "fontSize": 26, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 22, "y": 74, "width": 436, "height": 64, "text": "{{Item}}", "fontSize": 37, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 22, "y": 150, "width": 259, "height": 38, "text": "QTY {{Qty}} · LOT {{Lot}}", "fontSize": 18, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 288, "y": 150, "width": 170, "height": 38, "text": "ZONE {{Zone}} · {{Status}}", "fontSize": 18, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 22, "y": 202, "width": 436, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 67, "y": 224, "width": 346, "height": 51, "barcodeData": "{{PalletID}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "location-marker",
+      "name": "Location Marker",
+      "category": "warehouse",
+      "tags": ["location","rack","bin","warehouse","tape"],
+      "labelSize": { "width": 40, "height": 12 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 312, "height": 88, "fill": "white", "stroke": "black", "strokeWidth": 2, "cornerRadius": 10 },
+        { "type": "shape", "shapeType": "rectangle", "x": 4, "y": 4, "width": 77, "height": 88, "fill": "black", "cornerRadius": 10 },
+        { "type": "text", "x": 8, "y": 8, "width": 69, "height": 80, "text": "{{Zone}}", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 8, "width": 225, "height": 43, "text": "AISLE {{Aisle}} · BAY {{Bay}}", "fontSize": 20, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 87, "y": 51, "width": 225, "height": 27, "text": "LEVEL {{Level}} · BIN {{Bin}}", "fontSize": 12, "align": "left", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "receiving-check",
+      "name": "Receiving Check",
+      "category": "warehouse",
+      "tags": ["receiving","inspection","supplier","warehouse","barcode"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 48, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 48, "text": "RECEIVING / {{Dock}}", "fontSize": 19, "fontWeight": "bold", "align": "left", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 58, "width": 364, "height": 48, "text": "{{Supplier}}", "fontSize": 28, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 113, "width": 216, "height": 29, "text": "PO {{PO}} · QTY {{Qty}}", "fontSize": 13, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 240, "y": 113, "width": 142, "height": 29, "text": "RECEIVED [[date]]", "fontSize": 13, "fontWeight": "bold", "align": "right", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 151, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "barcode", "x": 56, "y": 168, "width": 288, "height": 38, "barcodeData": "{{PO}}", "barcodeFormat": "CODE128", "showText": false }
+      ]
+    },
+    {
+      "id": "cycle-count",
+      "name": "Cycle Count",
+      "category": "warehouse",
+      "tags": ["cycle count","inventory","warehouse","date","batch"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "CYCLE COUNT", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{Location}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "SYSTEM {{SystemQty}} · COUNT ____", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "COUNTED [[date]] · {{Initials}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "hazmat-un",
+      "name": "Hazmat UN",
+      "category": "warehouse",
+      "tags": ["hazmat","un number","danger","shipping","safety"],
+      "labelSize": { "width": 60, "height": 40 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 464, "height": 304, "fill": "white", "stroke": "black", "strokeWidth": 6 },
+        { "type": "shape", "shapeType": "rectangle", "x": 24, "y": 24, "width": 432, "height": 74, "fill": "black" },
+        { "type": "text", "x": 32, "y": 24, "width": 416, "height": 74, "text": "HAZARDOUS MATERIAL", "fontSize": 31, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "triangle", "x": 216, "y": 114, "width": 48, "height": 32, "fill": "black" },
+        { "type": "text", "x": 24, "y": 157, "width": 432, "height": 64, "text": "UN {{UNNumber}}", "fontSize": 45, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 234, "width": 432, "height": 32, "text": "{{ProperName}}", "fontSize": 19, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 24, "y": 272, "width": 432, "height": 19, "text": "CLASS {{Class}} · PG {{PackingGroup}}", "fontSize": 13, "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "packing-cube",
+      "name": "Packing Cube",
+      "category": "travel",
+      "tags": ["packing","cube","travel","clothes","storage"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 400, "height": 55, "fill": "black" },
+        { "type": "text", "x": 18, "y": 0, "width": 364, "height": 55, "text": "PACK / GO", "fontSize": 21, "fontWeight": "bold", "align": "center", "color": "white", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 67, "width": 364, "height": 60, "text": "{{Category}}", "fontSize": 29, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 18, "y": 134, "width": 364, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 18, "y": 146, "width": 364, "height": 31, "text": "{{Contents}}", "fontSize": 16, "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 18, "y": 190, "width": 364, "height": 24, "text": "TRIP {{Trip}} · CUBE {{Cube}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "trail-cache",
+      "name": "Trail Cache",
+      "category": "travel",
+      "tags": ["trail","cache","outdoors","qr","hiking"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "text", "x": 13, "y": 24, "width": 185, "height": 19, "text": "OUTDOORS", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 13, "y": 55, "width": 185, "height": 55, "text": "{{Trail}}", "fontSize": 29, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 13, "y": 120, "width": 185, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 13, "y": 137, "width": 185, "height": 43, "text": "CACHE {{CacheID}}", "fontSize": 14, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 13, "y": 192, "width": 185, "height": 19, "text": "LEAVE NO TRACE", "fontSize": 11, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 211, "y": 60, "width": 96, "height": 96, "qrData": "{{TrailURL}}" },
+        { "type": "text", "x": 211, "y": 162, "width": 96, "height": 19, "text": "SCAN", "fontSize": 10, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "campsite-card",
+      "name": "Campsite Card",
+      "category": "travel",
+      "tags": ["camping","campsite","reservation","travel","date"],
+      "labelSize": { "width": 50, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 8, "y": 8, "width": 384, "height": 224, "fill": "white", "stroke": "black", "strokeWidth": 3, "cornerRadius": 14 },
+        { "type": "text", "x": 14, "y": 24, "width": 372, "height": 19, "text": "CAMP / REST", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 55, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 72, "width": 372, "height": 58, "text": "SITE {{Site}}", "fontSize": 34, "fontFamily": "Georgia, serif", "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 14, "y": 139, "width": 372, "height": 26, "text": "{{Campground}}", "fontSize": 14, "fontStyle": "italic", "align": "center", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 112, "y": 175, "width": 176, "height": 6, "stroke": "black", "strokeWidth": 2 },
+        { "type": "text", "x": 14, "y": 192, "width": 372, "height": 19, "text": "{{Arrival}} → {{Departure}}", "fontSize": 11, "fontWeight": "bold", "align": "center", "noWrap": true, "autoScale": true }
+      ]
+    },
+    {
+      "id": "passport-owner",
+      "name": "Passport Owner ID",
+      "category": "travel",
+      "tags": ["passport","travel","owner","emergency","qr"],
+      "labelSize": { "width": 50, "height": 25 },
+      "elements": [
+        { "type": "text", "x": 16, "y": 20, "width": 256, "height": 16, "text": "TRAVEL ID", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true },
+        { "type": "text", "x": 16, "y": 46, "width": 256, "height": 46, "text": "{{Name}}", "fontSize": 24, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 16, "y": 100, "width": 256, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 16, "y": 114, "width": 256, "height": 36, "text": "NATIONALITY {{Country}}", "fontSize": 12, "align": "left", "verticalAlign": "top" },
+        { "type": "text", "x": 16, "y": 160, "width": 256, "height": 16, "text": "ICE {{Phone}}", "fontSize": 9, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "qr", "x": 288, "y": 50, "width": 96, "height": 96, "qrData": "{{ContactURL}}" },
+        { "type": "text", "x": 288, "y": 152, "width": 96, "height": 16, "text": "SCAN", "fontSize": 8, "fontWeight": "bold", "align": "center", "noWrap": true }
+      ]
+    },
+    {
+      "id": "gear-maintenance",
+      "name": "Gear Maintenance",
+      "category": "travel",
+      "tags": ["gear","maintenance","outdoors","date","service"],
+      "labelSize": { "width": 40, "height": 30 },
+      "elements": [
+        { "type": "shape", "shapeType": "rectangle", "x": 0, "y": 0, "width": 77, "height": 240, "fill": "black" },
+        { "type": "text", "x": 12, "y": 82, "width": 54, "height": 77, "text": "FIELD", "fontSize": 24, "fontWeight": "bold", "align": "center", "color": "white", "rotation": 90, "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 24, "width": 211, "height": 53, "text": "{{Gear}}", "fontSize": 31, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "shape", "shapeType": "line", "x": 93, "y": 89, "width": 211, "height": 6, "stroke": "black", "strokeWidth": 3 },
+        { "type": "text", "x": 93, "y": 106, "width": 211, "height": 41, "text": "SERVICE {{Service}}", "fontSize": 17, "align": "left", "noWrap": true, "autoScale": true },
+        { "type": "text", "x": 93, "y": 161, "width": 211, "height": 38, "text": "DONE [[date]] · DUE {{Due}}", "fontSize": 13, "fontWeight": "bold", "align": "left", "noWrap": true, "autoScale": true }
       ]
     }
   ]

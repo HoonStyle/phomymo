@@ -13,17 +13,47 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#templates-btn');
     await expect(page.locator('#template-gallery-dialog')).toBeVisible();
 
-    // Category chips render (All + 9 categories; My Templates chip only shows when user templates exist)
-    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(10);
+    // Category chips render (All + 18 categories; My Templates chip only shows when user templates exist)
+    await expect(page.locator('#template-category-chips .gallery-chip')).toHaveCount(19);
 
     // Template cards render with thumbnails
     const cards = page.locator('#template-grid .template-card');
     await expect(cards.first()).toBeVisible();
-    expect(await cards.count()).toBeGreaterThanOrEqual(30);
+    expect(await cards.count()).toBeGreaterThanOrEqual(160);
 
     // Wait for async barcode/QR thumbnails to settle
     await page.waitForTimeout(1000);
     await screenshot(page, CH, 1, 'gallery-open');
+  });
+
+  test('library manifest stays internally consistent', async ({ request }) => {
+    const response = await request.get('/template-library.json');
+    expect(response.ok()).toBeTruthy();
+
+    const data = await response.json();
+    expect(data.categories).toHaveLength(18);
+    expect(data.templates).toHaveLength(160);
+
+    const categoryIds = new Set(data.categories.map((category: any) => category.id));
+    const templateIds = data.templates.map((template: any) => template.id);
+    expect(new Set(templateIds).size).toBe(templateIds.length);
+
+    for (const template of data.templates) {
+      expect(categoryIds.has(template.category)).toBeTruthy();
+      expect(template.elements.length).toBeGreaterThan(0);
+
+      const canvasWidth = template.labelSize.width * 8;
+      const canvasHeight = template.labelSize.height * 8;
+      for (const element of template.elements) {
+        expect(['text', 'shape', 'barcode', 'qr', 'image']).toContain(element.type);
+        if ((element.rotation ?? 0) === 0) {
+          expect(element.x).toBeGreaterThanOrEqual(0);
+          expect(element.y).toBeGreaterThanOrEqual(0);
+          expect(element.x + element.width).toBeLessThanOrEqual(canvasWidth);
+          expect(element.y + element.height).toBeLessThanOrEqual(canvasHeight);
+        }
+      }
+    }
   });
 
   test('category filter narrows the grid', async ({ page }) => {
@@ -55,7 +85,7 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#templates-btn');
     await expect(page.locator('#template-grid .template-card').first()).toBeVisible();
 
-    await page.fill('#template-search', 'wifi');
+    await page.fill('#template-search', 'Wi-Fi QR');
     const cards = page.locator('#template-grid .template-card');
     await expect(cards).toHaveCount(1);
     await expect(cards.first()).toContainText('Wi-Fi QR');
@@ -65,7 +95,7 @@ test.describe.serial('Template Gallery', () => {
     await expect(page.locator('#template-grid')).toContainText('No templates match');
 
     await page.fill('#template-search', '');
-    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(30);
+    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(160);
   });
 
   test('applying a template loads elements and label size', async ({ page }) => {
@@ -132,15 +162,16 @@ test.describe.serial('Template Gallery', () => {
     await page.click('#template-category-chips .gallery-chip[data-category="korean"]');
     const cards = page.locator('#template-grid .template-card');
     await expect(cards.first()).toBeVisible();
-    expect(await cards.count()).toBeGreaterThanOrEqual(8);
+    expect(await cards.count()).toBeGreaterThanOrEqual(20);
     await expect(page.locator('#template-grid')).toContainText('이름표');
 
     await page.waitForTimeout(500);
     await screenshot(page, CH, 6, 'korean-category');
 
-    // Korean search works via tags
+    // Korean search works via tags (택배 라벨 + 택배 취급주의)
     await page.fill('#template-search', '택배');
-    await expect(page.locator('#template-grid .template-card')).toHaveCount(1);
+    await expect(page.locator('#template-grid .template-card')).toHaveCount(2);
+    await expect(page.locator('#template-grid')).toContainText('택배 라벨');
   });
 
   test('save current design as user template and delete it', async ({ page }) => {
@@ -172,7 +203,7 @@ test.describe.serial('Template Gallery', () => {
     page.once('dialog', d => d.accept());
     await page.click('.user-template-delete');
     await expect(page.locator('#template-category-chips .gallery-chip[data-category="custom"]')).toHaveCount(0);
-    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(30);
+    expect(await page.locator('#template-grid .template-card').count()).toBeGreaterThanOrEqual(160);
   });
 
   test('fit to current label size scales the template', async ({ page }) => {

@@ -46,7 +46,7 @@ The fastest way to start a label is from a ready-made template. Click **Template
 
 ![Template gallery](screenshots/07-template-gallery/01-gallery-open.png)
 
-The gallery ships with 48 professionally designed templates across nine categories - price tags, food and kitchen labels, home storage, office filing, cable flags, name tags, shipping labels, QR labels, and Korean-language labels (한국어). Every thumbnail is a live preview rendered from the actual design, so what you see is exactly what prints.
+The gallery ships with 160 professionally designed templates across 18 categories - price tags, food and kitchen labels, home storage, office filing, cables and tech, names and school, shipping labels, QR labels, Korean-language labels (한국어), health and care, safety and compliance, gifts and events, craft and garden, cafe and hospitality, beauty and wellness, pets and animal care, warehouse and logistics, and travel and outdoors. Every thumbnail is a live preview rendered from the actual design, so what you see is exactly what prints.
 
 ### Browsing and Searching
 
