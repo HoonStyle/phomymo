@@ -7828,6 +7828,13 @@ function init() {
 
     // Update UI based on printer model (for P12 length buttons and label sizes)
     const deviceName = state.transport?.getDeviceName?.() || '';
+    // Remember an explicit model choice for the connected device. Without
+    // this, only the "Select Your Printer" prompt saved a mapping — a model
+    // picked here was forgotten once the setting went back to auto, and
+    // unrecognized devices (serial-style BLE names) got re-prompted.
+    if (deviceName && state.printSettings.printerModel !== 'auto' && !isDeviceRecognized(deviceName)) {
+      saveDeviceMapping(deviceName, state.printSettings.printerModel);
+    }
     updateLabelSizeDropdown(deviceName, state.printSettings.printerModel);
     updateLengthAdjustButtons();
 
