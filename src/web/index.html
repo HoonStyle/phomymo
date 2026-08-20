@@ -301,6 +301,46 @@
       width: 100%;
     }
 
+    /* Border-style visual picker */
+    .border-swatch-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+      max-height: 236px;
+      overflow-y: auto;
+      padding: 2px;
+      margin-top: 4px;
+    }
+    .border-swatch {
+      padding: 0;
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      background: #ffffff;
+      cursor: pointer;
+      overflow: hidden;
+      line-height: 0;
+    }
+    .border-swatch canvas {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .border-swatch.selected {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 1px #3b82f6;
+    }
+    @media (max-width: 767px) {
+      .border-swatch-grid {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        max-height: 210px;
+      }
+      .border-swatch { border-color: #322f3b; }
+      .border-swatch.selected {
+        border-color: #e3a44a;
+        box-shadow: 0 0 0 1px #e3a44a;
+      }
+    }
+
     /* Mobile menu */
     #mobile-menu-panel {
       transition: transform 0.3s ease-out;
@@ -1284,9 +1324,12 @@
           <!-- Border Style (for border/frame shapes) -->
           <div id="prop-border-style-group" class="hidden">
             <label class="text-[10px] text-gray-400 uppercase tracking-wide">Border Style</label>
-            <select id="prop-border-style" class="prop-input">
+            <!-- Hidden select keeps the value/binding; the swatch grid is the picker -->
+            <select id="prop-border-style" class="prop-input hidden">
               <option value="classic-thin">Classic Thin</option>
             </select>
+            <div id="prop-border-swatches" class="border-swatch-grid"></div>
+            <div id="prop-border-style-name" class="text-xs text-gray-500 mt-1">Classic Thin</div>
           </div>
           <!-- Fill -->
           <div>
@@ -2402,7 +2445,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=158"></script>
+  <script type="module" src="app.js?v=159"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {

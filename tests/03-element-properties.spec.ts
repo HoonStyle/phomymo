@@ -90,8 +90,14 @@ test.describe.serial('Element Properties', () => {
     await expect(page.locator('#prop-border-style-group')).toBeVisible();
     await expect(page.locator('#prop-border-style option')).toHaveCount(50);
 
-    await page.locator('#prop-border-style').selectOption('deco-diamond');
+    // Visual picker renders one preview swatch per preset
+    await expect(page.locator('#prop-border-swatches .border-swatch')).toHaveCount(50);
+
+    // Clicking a swatch selects the preset (hidden select carries the value)
+    await page.locator('.border-swatch[data-value="deco-diamond"]').click();
     await expect(page.locator('#prop-border-style')).toHaveValue('deco-diamond');
+    await expect(page.locator('.border-swatch[data-value="deco-diamond"]')).toHaveClass(/selected/);
+    await expect(page.locator('#prop-border-style-name')).toHaveText('Art Deco Diamond');
   });
 
   test('position and size properties', async ({ page }) => {

@@ -2466,6 +2466,16 @@ function updatePropertiesPanel() {
       const showBorderStyle = element.shapeType === 'border';
       $('#prop-corner-radius-group').classList.toggle('hidden', !showCornerRadius);
       $('#prop-border-style-group').classList.toggle('hidden', !showBorderStyle);
+      if (showBorderStyle) {
+        const currentBorder = element.borderStyle || 'classic-thin';
+        $('#prop-border-style-name').textContent = borderPresetLabel(currentBorder);
+        renderBorderSwatchGrid($('#prop-border-swatches'), currentBorder, (value) => {
+          const select = $('#prop-border-style');
+          select.value = value;
+          select.dispatchEvent(new Event('change'));
+          $('#prop-border-style-name').textContent = borderPresetLabel(value);
+        });
+      }
       // Update fill dropdown (map legacy values to new ones)
       let fillValue = element.fill || 'black';
       if (fillValue === 'dither-light') fillValue = 'dither-25';
@@ -4818,6 +4828,80 @@ function getPrintOffsetY() {
   return (state.printSettings.offsetY || 0) * 8;
 }
 
+/**
+ * Draw a border-preset preview into a small canvas (rendered 2x for crispness)
+ */
+function drawBorderSwatch(canvas, styleValue) {
+  const w = 84;
+  const h = 54;
+  const pad = 9;
+  canvas.width = w * 2;
+  canvas.height = h * 2;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(2, 2);
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, w, h);
+  ctx.save();
+  ctx.translate(w / 2, h / 2);
+  // Reuse the real border renderer so previews match print output exactly
+  const renderer = state.renderer;
+  const originalCtx = renderer.ctx;
+  renderer.ctx = ctx;
+  try {
+    renderer.drawBorderStyle(w - pad * 2, h - pad * 2, styleValue, 2);
+  } finally {
+    renderer.ctx = originalCtx;
+  }
+  ctx.restore();
+}
+
+/**
+ * Render (or refresh) the visual border-style picker in a container.
+ * Swatches are drawn once per container; re-calls only move the selection
+ * and swap in the latest pick handler (click handling is delegated).
+ */
+function renderBorderSwatchGrid(container, current, onPick) {
+  if (!container || !state.renderer) return;
+  container._onPick = onPick;
+
+  if (container.childElementCount !== BORDER_PRESETS.length) {
+    container.innerHTML = '';
+    for (const preset of BORDER_PRESETS) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'border-swatch';
+      btn.title = preset.label;
+      btn.dataset.value = preset.value;
+      const cv = document.createElement('canvas');
+      btn.appendChild(cv);
+      container.appendChild(btn);
+      drawBorderSwatch(cv, preset.value);
+    }
+    if (!container._delegated) {
+      container._delegated = true;
+      container.addEventListener('click', (e) => {
+        const btn = e.target.closest('.border-swatch');
+        if (!btn) return;
+        container.querySelectorAll('.border-swatch.selected').forEach(el => el.classList.remove('selected'));
+        btn.classList.add('selected');
+        if (container._onPick) container._onPick(btn.dataset.value);
+      });
+    }
+  }
+
+  container.querySelectorAll('.border-swatch').forEach(el => {
+    el.classList.toggle('selected', el.dataset.value === current);
+  });
+}
+
+/**
+ * Display label for a border preset value
+ */
+function borderPresetLabel(value) {
+  const preset = BORDER_PRESETS.find(p => p.value === value);
+  return preset ? preset.label : value;
+}
+
 async function handlePrint() {
   const btn = $('#print-btn');
   const originalText = btn.textContent;
@@ -6651,9 +6735,10 @@ function populateMobileProps() {
       ${shapeType === 'border' ? `
       <div class="prop-group">
         <div class="prop-label">Border Style</div>
-        <select id="mobile-prop-borderStyle" class="prop-input">
+        <select id="mobile-prop-borderStyle" class="prop-input hidden">
           ${groupedOptionsHtml(BORDER_PRESETS, BORDER_GROUP_LABELS, selected.borderStyle || 'classic-thin')}
         </select>
+        <div id="mobile-border-swatches" class="border-swatch-grid"></div>
       </div>
       ` : ''}
       <div class="prop-group">
@@ -6995,6 +7080,14 @@ function wireUpMobilePropHandlers(element) {
     populateMobileProps(); // Refresh shape-specific controls.
   });
   $('#mobile-prop-borderStyle')?.addEventListener('change', (e) => updateProp('borderStyle', e.target.value));
+  const mobileBorderSwatches = $('#mobile-border-swatches');
+  if (mobileBorderSwatches) {
+    renderBorderSwatchGrid(mobileBorderSwatches, element.borderStyle || 'classic-thin', (value) => {
+      updateProp('borderStyle', value);
+      const select = $('#mobile-prop-borderStyle');
+      if (select) select.value = value;
+    });
+  }
   $('#mobile-prop-fill')?.addEventListener('change', (e) => updateProp('fill', e.target.value));
   $('#mobile-prop-strokeWidth')?.addEventListener('change', (e) => updateProp('strokeWidth', parseInt(e.target.value)));
   $('#mobile-prop-cornerRadius')?.addEventListener('change', (e) => updateProp('cornerRadius', parseInt(e.target.value)));
