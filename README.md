@@ -130,7 +130,7 @@ phomymo/
 
 ## Known Issues
 
-- **M110: print output shifted ~2-3mm to the left** (observed printing from iPhone/Bluefy; not yet verified on desktop Chrome). Likely a per-printer alignment calibration rather than a rendering bug. **Workaround**: set a horizontal **Print Offset** in Print Settings (e.g. +2.5mm) to compensate.
+- ~~**M110: print output shifted ~2-3mm to the left**~~ **Resolved.** Root cause: the M110 holds its label roll against the right side of the 48mm print head, while the app placed the image assuming a centered roll — so narrow labels printed shifted by (48 − label width) / 2 mm and wider labels barely at all. The M110/M120 profile now right-aligns the raster (verified on a real M110: 40×30 and 50mm round both center with Print Offset 0). If your unit's roll sits differently, pick another model profile or use Print Offset to trim.
 
 ## Acknowledgments
 
