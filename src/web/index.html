@@ -450,6 +450,15 @@
       .mobile-tool-btn.danger { color: #f87171; }
       .mobile-divider { background: #2b2833; }
 
+      /* iOS zooms the page when a focused input's font is under 16px,
+         which jolts the layout when the keyboard opens. Keep every
+         editable control at 16px on mobile to suppress the auto-zoom. */
+      #mobile-props-panel input, #mobile-props-panel select, #mobile-props-panel textarea,
+      #mobile-menu-panel input, #mobile-menu-panel select, #mobile-menu-panel textarea,
+      div[id$="-dialog"] input, div[id$="-dialog"] select, div[id$="-dialog"] textarea {
+        font-size: 16px !important;
+      }
+
       /* ---- Slide-up properties panel ---- */
       .mobile-props-panel {
         background: #1e1c24;
@@ -2459,7 +2468,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=163"></script>
+  <script type="module" src="app.js?v=164"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {

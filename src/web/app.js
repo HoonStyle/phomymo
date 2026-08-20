@@ -6205,7 +6205,48 @@ function handleViewportChange() {
 /**
  * Initialize mobile UI event handlers
  */
+// iOS scrolls the whole window when the keyboard opens over a fixed bottom
+// sheet, leaving the app shell pushed off-screen with blank space below.
+// Counteract it: pin the window scroll back to 0 and lift the sheet above
+// the keyboard instead (visualViewport tracks the keyboard's size).
+function initMobileKeyboardFix() {
+  const vv = window.visualViewport;
+  if (!vv) return;
+  const panel = $('#mobile-props-panel');
+  let applied = false;
+
+  const adjust = () => {
+    const ae = document.activeElement;
+    const editing = ae && /^(INPUT|SELECT|TEXTAREA)$/.test(ae.tagName);
+    // Ignore pinch-zoom viewports — only a same-scale height loss is a keyboard
+    const keyboard = vv.scale > 1.01 ? 0 : Math.max(0, window.innerHeight - vv.height);
+
+    if (editing && keyboard > 0) {
+      applied = true;
+      window.scrollTo(0, 0);
+      if (panel && panel.contains(ae)) {
+        panel.style.transform = `translateY(-${keyboard}px)`;
+        panel.style.maxHeight = `${Math.max(160, vv.height - 8)}px`;
+      }
+    } else if (applied) {
+      applied = false;
+      if (panel) {
+        panel.style.transform = '';
+        panel.style.maxHeight = '';
+      }
+      window.scrollTo(0, 0);
+    }
+  };
+
+  vv.addEventListener('resize', adjust);
+  vv.addEventListener('scroll', adjust);
+  // Keyboard dismissal doesn't always fire a resize before focus moves on
+  document.addEventListener('focusout', () => setTimeout(adjust, 60));
+}
+
 function initMobileUI() {
+  initMobileKeyboardFix();
+
   // Menu toggle
   $('#mobile-menu-btn')?.addEventListener('click', openMobileMenu);
   $('#mobile-menu-close')?.addEventListener('click', closeMobileMenu);
