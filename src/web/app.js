@@ -4,7 +4,7 @@
  * v116
  */
 
-import { CanvasRenderer } from './canvas.js?v=122';
+import { CanvasRenderer } from './canvas.js?v=123';
 import { BLETransport } from './ble.js?v=104';
 import { USBTransport } from './usb.js?v=101';
 import { print, printDensityTest, isDSeriesPrinter, isP12Printer, isA30Printer, isTapePrinter, isPM241Printer, isTSPLPrinter, isRotatedPrinter, getPrinterWidthBytes, getPrinterDpi, getPrinterAlignment, getPrinterDescription, isDeviceRecognized, getMatchedPattern, loadPrinterDefinitions, getAllPrinterDefinitions, getPrinterDefinition, getCustomPrinterDefinitions, saveCustomPrinterDefinition, deleteCustomPrinterDefinition, isBuiltinPrinter, resetBuiltinPrinter, getAvailableProtocols, getAvailableLabelPresets, getDetectedDefinition } from './printer.js?v=128';
@@ -14,6 +14,7 @@ import {
   createBarcodeElement,
   createQRElement,
   createShapeElement,
+  createIconElement,
   updateElement,
   deleteElement,
   duplicateElement,
@@ -36,7 +37,7 @@ import {
   collapseToSingleZone,
   hasElementsInHigherZones,
   removeElementsInHigherZones,
-} from './elements.js?v=101';
+} from './elements.js?v=102';
 import {
   HandleType,
   getHandleAtPoint,
@@ -75,7 +76,7 @@ import {
   getGalleryCategories,
   saveUserTemplate,
   deleteUserTemplate,
-} from './gallery.js?v=103';
+} from './gallery.js?v=104';
 import {
   ZOOM,
   TEXT,
@@ -97,7 +98,8 @@ import {
   PM241_LABEL_SIZES,
   FONTS,
   BORDER_PRESETS,
-} from './constants.js?v=108';
+} from './constants.js?v=109';
+import { ICONS, ICON_CATEGORIES, getIconById, filterIcons, iconToSvg } from './icon-library.js?v=100';
 import {
   bindCheckbox,
   bindToggleButton,
@@ -2393,6 +2395,7 @@ function updatePropertiesPanel() {
   $('#props-image').classList.add('hidden');
   $('#props-barcode').classList.add('hidden');
   $('#props-qr').classList.add('hidden');
+  $('#props-icon').classList.add('hidden');
   $('#props-shape').classList.add('hidden');
 
   // Show and populate type-specific panel
@@ -2464,6 +2467,15 @@ function updatePropertiesPanel() {
       $('#props-qr').classList.remove('hidden');
       $('#prop-qr-data').value = element.qrData || '';
       break;
+
+    case 'icon': {
+      $('#props-icon').classList.remove('hidden');
+      const icon = getIconById(element.iconId);
+      $('#prop-icon-name').textContent = `${icon.label} · ${icon.labelKo}`;
+      $('#prop-icon-color').value = element.color || 'black';
+      $('#prop-icon-stroke-width').value = element.strokeWidth || 2;
+      break;
+    }
 
     case 'shape':
       $('#props-shape').classList.remove('hidden');
@@ -4641,6 +4653,26 @@ function addShapeElement(shapeType = 'rectangle') {
 }
 
 /**
+ * Add a vector icon element from the asset library.
+ */
+function addIconElement(iconId = 'package') {
+  saveHistory();
+  const dims = state.renderer.getSingleLabelDimensions();
+  const size = Math.max(48, Math.min(112, Math.min(dims.width, dims.height) * 0.5));
+  const element = createIconElement(iconId, {
+    x: dims.width / 2 - size / 2,
+    y: dims.height / 2 - size / 2,
+    width: size,
+    height: size,
+    zone: state.activeZone,
+  });
+  state.elements.push(element);
+  autoCloneIfEnabled();
+  selectElement(element.id);
+  setStatus(`${getIconById(iconId).label} icon added`);
+}
+
+/**
  * Show printer model selection prompt for unrecognized devices
  * @param {string} deviceName - The connected device name
  */
@@ -5151,6 +5183,107 @@ function showLoadDialog() {
  */
 function hideLoadDialog() {
   $('#load-dialog').classList.add('hidden');
+}
+
+// =============================================================================
+// ICON ASSET LIBRARY
+// =============================================================================
+
+const iconLibraryUI = {
+  category: 'all',
+  query: '',
+  replaceId: null,
+  favorites: new Set(safeJsonParse(safeStorageGet(STORAGE_KEYS.ICON_FAVORITES), [])),
+  recent: safeJsonParse(safeStorageGet(STORAGE_KEYS.ICON_RECENTS), []),
+};
+
+function persistIconLibraryPreferences() {
+  safeStorageSet(STORAGE_KEYS.ICON_FAVORITES, safeJsonStringify([...iconLibraryUI.favorites]));
+  safeStorageSet(STORAGE_KEYS.ICON_RECENTS, safeJsonStringify(iconLibraryUI.recent));
+}
+
+function showIconLibrary(replaceId = null) {
+  iconLibraryUI.replaceId = replaceId;
+  const dialog = $('#icon-library-dialog');
+  dialog.classList.remove('hidden');
+  $('#icon-library-title').textContent = replaceId ? 'Replace Icon' : 'Icon Library';
+  renderIconLibraryChips();
+  renderIconLibraryGrid();
+  setTimeout(() => $('#icon-search')?.focus(), 0);
+}
+
+function hideIconLibrary() {
+  $('#icon-library-dialog').classList.add('hidden');
+  iconLibraryUI.replaceId = null;
+}
+
+function renderIconLibraryChips() {
+  const container = $('#icon-category-chips');
+  const categories = [
+    { id: 'all', label: `All ${ICONS.length}` },
+    { id: 'recent', label: 'Recent' },
+    { id: 'favorites', label: 'Favorites' },
+    ...ICON_CATEGORIES.map(category => ({ id: category.id, label: `${category.label} · ${category.labelKo}` })),
+  ];
+  container.innerHTML = categories.map(category =>
+    `<button class="icon-category-chip whitespace-nowrap px-3 py-1.5 text-xs rounded-full border transition-colors ${iconLibraryUI.category === category.id ? 'bg-gray-900 text-white border-gray-900' : 'bg-white text-gray-600 border-gray-300 hover:bg-gray-100'}" data-icon-category="${category.id}">${escapeHtml(category.label)}</button>`
+  ).join('');
+  container.querySelectorAll('[data-icon-category]').forEach(button => {
+    button.addEventListener('click', () => {
+      iconLibraryUI.category = button.dataset.iconCategory;
+      renderIconLibraryChips();
+      renderIconLibraryGrid();
+    });
+  });
+}
+
+function renderIconLibraryGrid() {
+  const grid = $('#icon-grid');
+  const icons = filterIcons(iconLibraryUI.query, iconLibraryUI.category, iconLibraryUI.favorites, iconLibraryUI.recent);
+  $('#icon-result-count').textContent = `${icons.length} item${icons.length === 1 ? '' : 's'}`;
+  if (!icons.length) {
+    grid.innerHTML = '<div class="col-span-full py-12 text-center text-sm text-gray-400">No matching icons</div>';
+    return;
+  }
+  grid.innerHTML = icons.map(icon => {
+    const favorite = iconLibraryUI.favorites.has(icon.id);
+    return `<article class="icon-card group relative rounded-xl border border-gray-200 bg-white hover:border-gray-400 hover:shadow-sm transition-all">
+      <button type="button" class="icon-pick w-full min-h-[118px] p-3 flex flex-col items-center justify-center gap-2 text-gray-800" data-icon-id="${icon.id}" title="${escapeHtml(icon.label)} · ${escapeHtml(icon.labelKo)}">
+        <span class="icon-preview flex items-center justify-center">${iconToSvg(icon, { size: 44 })}</span>
+        <span class="text-xs font-medium leading-tight text-center">${escapeHtml(icon.label)}</span>
+        <span class="text-[10px] text-gray-400 leading-none">${escapeHtml(icon.labelKo)}</span>
+      </button>
+      <button type="button" class="icon-favorite absolute top-1.5 right-1.5 w-7 h-7 rounded-full bg-white/90 border border-gray-200 text-sm hover:bg-amber-50 ${favorite ? 'text-amber-500' : 'text-gray-300'}" data-favorite-icon="${icon.id}" aria-label="${favorite ? 'Remove from favorites' : 'Add to favorites'}">${favorite ? '★' : '☆'}</button>
+    </article>`;
+  }).join('');
+
+  grid.querySelectorAll('[data-icon-id]').forEach(button => {
+    button.addEventListener('click', () => chooseLibraryIcon(button.dataset.iconId));
+  });
+  grid.querySelectorAll('[data-favorite-icon]').forEach(button => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const id = button.dataset.favoriteIcon;
+      if (iconLibraryUI.favorites.has(id)) iconLibraryUI.favorites.delete(id);
+      else iconLibraryUI.favorites.add(id);
+      persistIconLibraryPreferences();
+      renderIconLibraryChips();
+      renderIconLibraryGrid();
+    });
+  });
+}
+
+function chooseLibraryIcon(iconId) {
+  iconLibraryUI.recent = [iconId, ...iconLibraryUI.recent.filter(id => id !== iconId)].slice(0, 20);
+  persistIconLibraryPreferences();
+  if (iconLibraryUI.replaceId) {
+    modifyElement(iconLibraryUI.replaceId, { iconId });
+    setStatus(`Icon changed to ${getIconById(iconId).label}`);
+  } else {
+    addIconElement(iconId);
+  }
+  hideIconLibrary();
+  if (state.mobile.propsOpen) populateMobileProps();
 }
 
 // =============================================================================
@@ -5668,6 +5801,7 @@ function getElementIcon(type) {
     barcode: '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m10 0h2"/></svg>',
     qr: '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m10 0h2"/></svg>',
     shape: '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v14a1 1 0 01-1 1H5a1 1 0 01-1-1V5z"/></svg>',
+    icon: '<svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l2.4 4.9L20 9l-4 3.9.9 5.6-4.9-2.6-4.9 2.6.9-5.6L4 9l5.6-1.1z"/></svg>',
   };
   return icons[type] || icons.shape;
 }
@@ -5685,6 +5819,10 @@ function getElementLabel(el) {
       return el.barcodeData ? `Barcode: ${el.barcodeData.substring(0, 10)}` : 'Barcode';
     case 'qr':
       return el.qrData ? `QR: ${el.qrData.substring(0, 15)}` : 'QR Code';
+    case 'icon': {
+      const icon = getIconById(el.iconId);
+      return `${icon.label} · ${icon.labelKo}`;
+    }
     case 'shape':
       const shapeNames = { rectangle: 'Rectangle', ellipse: 'Ellipse', triangle: 'Triangle', line: 'Line', border: 'Border / Frame' };
       return shapeNames[el.shapeType] || 'Shape';
@@ -6450,6 +6588,7 @@ function initMobileUI() {
   // Fixed toolbar - add element buttons
   $('#mobile-add-text')?.addEventListener('click', () => addTextElement());
   $('#mobile-add-image')?.addEventListener('click', () => $('#image-file-input').click());
+  $('#mobile-add-icon')?.addEventListener('click', () => showIconLibrary());
   $('#mobile-add-rect')?.addEventListener('click', () => addShapeElement('rectangle'));
   $('#mobile-add-ellipse')?.addEventListener('click', () => addShapeElement('ellipse'));
   $('#mobile-add-line')?.addEventListener('click', () => addShapeElement('line'));
@@ -6583,6 +6722,7 @@ function populateMobileProps() {
     shape: selected.shapeType ? selected.shapeType.charAt(0).toUpperCase() + selected.shapeType.slice(1) : 'Shape',
     barcode: 'Barcode',
     qr: 'QR Code',
+    icon: 'Icon',
   };
   title.textContent = typeNames[selected.type] || 'Properties';
 
@@ -6774,6 +6914,29 @@ function populateMobileProps() {
           </div>
         </div>
         <textarea id="mobile-prop-value" class="prop-input" rows="3">${escapeHtml(selected.value || selected.qrData || '')}</textarea>
+      </div>
+    `;
+  } else if (selected.type === 'icon') {
+    const icon = getIconById(selected.iconId);
+    html += `
+      <div class="prop-group">
+        <div class="prop-label">Icon</div>
+        <div class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 bg-gray-50">
+          ${iconToSvg(icon, { size: 42 })}
+          <div class="flex-1"><div class="text-sm font-medium">${escapeHtml(icon.label)}</div><div class="text-xs text-gray-400">${escapeHtml(icon.labelKo)}</div></div>
+          <button id="mobile-change-icon" class="px-3 py-2 text-xs border border-gray-300 rounded-lg bg-white">Change</button>
+        </div>
+      </div>
+      <div class="prop-group">
+        <div class="prop-label">Color</div>
+        <select id="mobile-prop-icon-color" class="prop-input">
+          <option value="black" ${(selected.color || 'black') === 'black' ? 'selected' : ''}>Black</option>
+          <option value="white" ${selected.color === 'white' ? 'selected' : ''}>White</option>
+        </select>
+      </div>
+      <div class="prop-group">
+        <div class="prop-label">Stroke Width</div>
+        <input type="number" id="mobile-prop-icon-strokeWidth" class="prop-input" value="${selected.strokeWidth || 2}" min="0.5" max="8" step="0.5">
       </div>
     `;
   } else if (selected.type === 'shape') {
@@ -7132,6 +7295,11 @@ function wireUpMobilePropHandlers(element) {
     // Change event (mobile Done/checkmark button)
     input.addEventListener('change', insertNewField);
   });
+
+  // Icon properties
+  $('#mobile-change-icon')?.addEventListener('click', () => showIconLibrary(element.id));
+  $('#mobile-prop-icon-color')?.addEventListener('change', (e) => updateProp('color', e.target.value));
+  $('#mobile-prop-icon-strokeWidth')?.addEventListener('change', (e) => updateProp('strokeWidth', Math.max(0.5, Math.min(8, parseFloat(e.target.value) || 2))));
 
   // Shape properties
   $('#mobile-prop-shapeType')?.addEventListener('change', (e) => {
@@ -7890,6 +8058,7 @@ function init() {
   // Add element buttons
   $('#add-text').addEventListener('click', addTextElement);
   $('#add-image').addEventListener('click', () => $('#image-file-input').click());
+  $('#add-icon').addEventListener('click', () => showIconLibrary());
   $('#image-file-input').addEventListener('change', (e) => {
     if (e.target.files[0]) {
       addImageElement(e.target.files[0]);  // Validation inside function
@@ -7997,6 +8166,16 @@ function init() {
     renderGalleryGrid();
   });
   $('#template-save-current').addEventListener('click', handleSaveAsTemplate);
+
+  // Icon library
+  $('#icon-library-close').addEventListener('click', hideIconLibrary);
+  $('#icon-library-dialog').addEventListener('click', (e) => {
+    if (e.target.id === 'icon-library-dialog') hideIconLibrary();
+  });
+  $('#icon-search').addEventListener('input', (e) => {
+    iconLibraryUI.query = e.target.value;
+    renderIconLibraryGrid();
+  });
 
   // Import from file
   $('#import-file-btn').addEventListener('click', () => $('#import-file-input').click());
@@ -8157,6 +8336,14 @@ function init() {
   // Button groups
   bindButtonGroup('.bg-btn', 'background', 'bg', 'text', bindCtx);
   bindButtonGroup('.color-btn', 'color', 'color', 'text', bindCtx);
+
+  // === ICON ELEMENT BINDINGS ===
+  bindSelect('#prop-icon-color', 'color', 'icon', bindCtx);
+  bindNumericInput('#prop-icon-stroke-width', 'strokeWidth', 'icon', bindCtx, { min: 0.5, max: 8, defaultVal: 2 });
+  $('#prop-change-icon').addEventListener('click', () => {
+    const element = getSelected();
+    if (element?.type === 'icon') showIconLibrary(element.id);
+  });
 
   // === SHAPE ELEMENT BINDINGS ===
   // Shape type dropdown (with special handling for corner radius visibility)

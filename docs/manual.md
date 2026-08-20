@@ -16,7 +16,9 @@ A guide to designing and printing labels with the Phomymo label designer.
 
 ## Getting Started
 
-Open [phomymo.affordablemagic.net](https://phomymo.affordablemagic.net) in Chrome, Edge, or another Chromium-based browser. The app works on desktop and Android - iOS is not supported due to Web Bluetooth limitations.
+From the repository root, run `./scripts/serve-local.sh`, then open [http://localhost:8080](http://localhost:8080) in Chrome, Edge, or another Chromium-based browser. The app works on desktop and Android - iOS is not supported due to Web Bluetooth limitations.
+
+For private access from another device, run `./scripts/serve-tailscale.sh` and open the HTTPS URL printed by Tailscale from a device in the same tailnet.
 
 ![App loaded](screenshots/01-getting-started/01-app-loaded.png)
 
@@ -91,6 +93,17 @@ Use the toolbar buttons to add elements to your label. Each element appears on t
 Click **Text** to add a text element. It starts in inline edit mode - type your text and click outside to finish.
 
 ![Text element added](screenshots/02-adding-elements/01-text-element-added.png)
+
+### Icons
+
+Click **Icons** to open the asset browser. The library contains 100 editable monochrome vectors across shipping, retail, food, home, safety, office, health, craft, lifestyle, and communication categories.
+
+- Search with English or Korean words such as `package`, `배송`, `safety`, or `식품`
+- Use **☆** to keep favorites and **Recent** to revisit recently used icons
+- After adding an icon, change its color and stroke width in the properties panel
+- Click **Change** to swap the artwork without losing its position, size, or rotation
+
+Icons remain vector-sharp in canvas previews, PNG/PDF exports, saved designs, templates, and thermal printing.
 
 ### Barcodes
 

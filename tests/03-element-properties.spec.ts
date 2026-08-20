@@ -60,7 +60,7 @@ test.describe.serial('Element Properties', () => {
     await expect(page.locator('#props-qr')).toBeVisible();
     await elementScreenshot(page, '#props-panel', CH, 5, 'qr-properties-panel');
 
-    await page.locator('#prop-qr-data').fill('https://phomymo.affordablemagic.net');
+    await page.locator('#prop-qr-data').fill('https://example.com/phomymo');
     await page.locator('#prop-qr-data').dispatchEvent('input');
     await page.waitForTimeout(200);
 
@@ -100,6 +100,32 @@ test.describe.serial('Element Properties', () => {
     await expect(page.locator('#prop-border-style')).toHaveValue('badge-shield');
     await expect(page.locator('.border-swatch[data-value="badge-shield"]')).toHaveClass(/selected/);
     await expect(page.locator('#prop-border-style-name')).toHaveText('Shield Badge');
+  });
+
+
+  test('icon asset browser adds and edits a vector icon', async ({ page }) => {
+    await page.click('#add-icon');
+    await expect(page.locator('#icon-library-dialog')).toBeVisible();
+    await expect(page.locator('#icon-grid .icon-card')).toHaveCount(100);
+    await expect(page.locator('#icon-category-chips [data-icon-category]')).toHaveCount(13);
+
+    await page.locator('#icon-search').fill('배송');
+    await expect(page.locator('#icon-grid .icon-card')).toHaveCount(10);
+    await page.locator('[data-icon-id="package"]').click();
+
+    await expect(page.locator('#icon-library-dialog')).toBeHidden();
+    await expect(page.locator('#props-icon')).toBeVisible();
+    await expect(page.locator('#prop-icon-name')).toContainText('Package');
+    await page.locator('#prop-icon-color').selectOption('white');
+    await page.locator('#prop-icon-stroke-width').fill('3');
+    await page.locator('#prop-icon-stroke-width').dispatchEvent('change');
+    await expect(page.locator('#prop-icon-color')).toHaveValue('white');
+    await expect(page.locator('#prop-icon-stroke-width')).toHaveValue('3');
+
+    await page.locator('#prop-change-icon').click();
+    await page.locator('#icon-search').fill('고양이');
+    await page.locator('[data-icon-id="cat"]').click();
+    await expect(page.locator('#prop-icon-name')).toContainText('Cat');
   });
 
   test('position and size properties', async ({ page }) => {

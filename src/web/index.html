@@ -12,25 +12,18 @@
   <meta name="description" content="Free browser-based label designer for Phomemo thermal printers. Create custom labels with text, barcodes, QR codes, and images. No drivers needed - connects via Bluetooth. Works with M02, M03, M110, M120, M200, M220, M260, D30, D35, D50, Q30 and more.">
   <meta name="keywords" content="Phomemo, label printer, thermal printer, label designer, barcode generator, QR code, P12, P12 Pro, M02, M02S, M02X, M02 Pro, M03, M04S, M110, M110S, M120, M200, M220, M250, M260, D30, D35, D50, Q30, Q30S, T02, bluetooth printer, label maker, free label software, Phomemo alternative, thermal label printer software">
   <meta name="author" content="Phomymo">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://phomymo.affordablemagic.net/">
+  <meta name="robots" content="noindex, nofollow">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://phomymo.affordablemagic.net/">
   <meta property="og:title" content="Phomymo - Free Label Designer for Phomemo Thermal Printers">
   <meta property="og:description" content="Free browser-based label designer for Phomemo printers. Create labels with text, barcodes, QR codes. No drivers - connects via Bluetooth.">
   <meta property="og:site_name" content="Phomymo">
-  <meta property="og:image" content="https://phomymo.affordablemagic.net/screenshot.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://phomymo.affordablemagic.net/">
+  <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Phomymo - Free Label Designer for Phomemo Thermal Printers">
   <meta name="twitter:description" content="Free browser-based label designer for Phomemo printers. Create labels with text, barcodes, QR codes. No drivers - connects via Bluetooth.">
-  <meta name="twitter:image" content="https://phomymo.affordablemagic.net/screenshot.png">
 
   <!-- Additional SEO -->
   <meta name="application-name" content="Phomymo Label Designer">
@@ -42,7 +35,6 @@
     "@context": "https://schema.org",
     "@type": "WebApplication",
     "name": "Phomymo Label Designer",
-    "url": "https://phomymo.affordablemagic.net/",
     "description": "Free browser-based label designer for Phomemo thermal printers. Create custom labels with text, barcodes, QR codes, and images.",
     "applicationCategory": "DesignApplication",
     "operatingSystem": "Any (Web Browser)",
@@ -60,7 +52,6 @@
       "Bluetooth connectivity",
       "No drivers required"
     ],
-    "screenshot": "https://phomymo.affordablemagic.net/screenshot.png",
     "softwareHelp": "https://github.com/transcriptionstream/phomymo"
   }
   </script>
@@ -601,6 +592,18 @@
       div[id$="-dialog"] .text-purple-700 { color: #c9a0f0 !important; }
       .user-template-delete { background-color: #322f3b !important; color: #b9b4c4 !important; }
     }
+
+    /* Asset browser */
+    .icon-card { min-width: 0; }
+    .icon-card:focus-within { outline: 2px solid #3b82f6; outline-offset: 2px; }
+    .icon-preview svg { width: 44px; height: 44px; }
+    #icon-category-chips { scrollbar-width: thin; }
+    #icon-grid { grid-template-columns: repeat(auto-fill, minmax(112px, 1fr)); }
+    @media (max-width: 640px) {
+      #icon-library-dialog > div { height: min(92vh, 760px); }
+      #icon-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .icon-pick { min-height: 108px; }
+    }
   </style>
 </head>
 <body class="bg-gray-100 h-screen flex flex-col overflow-hidden">
@@ -757,6 +760,10 @@
       <button id="add-image" class="toolbar-btn" title="Add Image">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
         <span class="hidden sm:inline">Image</span>
+      </button>
+      <button id="add-icon" class="toolbar-btn" title="Browse 100 editable vector icons">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l2.4 4.9L20 9l-4 3.9.9 5.6-4.9-2.6-4.9 2.6.9-5.6L4 9l5.6-1.1z"/></svg>
+        <span class="hidden sm:inline">Icons</span>
       </button>
       <button id="add-barcode" class="toolbar-btn" title="Add Barcode">
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v1m6 11h2m-6 0h-2v4m0-11v3m0 0h.01M12 12h4.01M16 20h2M4 12h2m10 0h2M4 8h2m10 0h2m2-4H6a2 2 0 00-2 2v12a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2z"/></svg>
@@ -1346,6 +1353,28 @@
           </div>
         </div>
 
+        <!-- Icon Properties -->
+        <div id="props-icon" class="hidden space-y-3">
+          <div>
+            <label class="text-[10px] text-gray-400 uppercase tracking-wide">Icon</label>
+            <div class="mt-1 flex items-center justify-between gap-2">
+              <span id="prop-icon-name" class="text-xs font-medium text-gray-700 truncate">Package · 택배 상자</span>
+              <button id="prop-change-icon" class="px-2.5 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 whitespace-nowrap">Change</button>
+            </div>
+          </div>
+          <div>
+            <label class="text-[10px] text-gray-400 uppercase tracking-wide">Color</label>
+            <select id="prop-icon-color" class="prop-input">
+              <option value="black">Black</option>
+              <option value="white">White</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[10px] text-gray-400 uppercase tracking-wide">Stroke Width</label>
+            <input type="number" id="prop-icon-stroke-width" class="prop-input" min="0.5" max="8" step="0.5" value="2">
+          </div>
+        </div>
+
         <!-- Shape Properties -->
         <div id="props-shape" class="hidden space-y-2">
           <!-- Shape Type -->
@@ -1471,6 +1500,33 @@
       <div class="flex gap-2">
         <button id="load-cancel" class="flex-1 px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Cancel</button>
       </div>
+    </div>
+  </div>
+
+  <!-- Icon Asset Library Dialog -->
+  <div id="icon-library-dialog" class="hidden fixed inset-0 bg-gray-900 bg-opacity-55 flex items-center justify-center z-[75] p-2 sm:p-4">
+    <div class="bg-white rounded-xl w-full max-w-4xl shadow-2xl max-h-[92vh] sm:max-h-[86vh] flex flex-col overflow-hidden">
+      <div class="flex items-center justify-between px-4 sm:px-5 pt-4 sm:pt-5 pb-2">
+        <div>
+          <h3 id="icon-library-title" class="text-lg font-semibold text-gray-900">Icon Library</h3>
+          <p class="text-xs text-gray-400">100 editable monochrome vectors · English + 한국어 search</p>
+        </div>
+        <button id="icon-library-close" class="text-gray-400 hover:text-gray-700 p-2 rounded-lg hover:bg-gray-100" aria-label="Close icon library">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div class="px-4 sm:px-5 pb-3">
+        <div class="relative">
+          <svg class="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="search" id="icon-search" class="w-full pl-9 pr-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Search package, 배송, safety, 식품...">
+        </div>
+      </div>
+      <div id="icon-category-chips" class="px-4 sm:px-5 pb-3 flex gap-1.5 overflow-x-auto"></div>
+      <div class="px-4 sm:px-5 pb-2 flex items-center justify-between text-xs text-gray-400">
+        <span id="icon-result-count">100 items</span>
+        <span>☆ saves favorites</span>
+      </div>
+      <div id="icon-grid" class="flex-1 overflow-y-auto px-4 sm:px-5 pb-4 sm:pb-5 grid gap-2.5 content-start min-h-[240px]"></div>
     </div>
   </div>
 
@@ -2424,6 +2480,12 @@
         </svg>
         <span>Image</span>
       </button>
+      <button id="mobile-add-icon" class="mobile-tool-btn">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3l2.4 4.9L20 9l-4 3.9.9 5.6-4.9-2.6-4.9 2.6.9-5.6L4 9l5.6-1.1z"/>
+        </svg>
+        <span>Icons</span>
+      </button>
       <div class="mobile-divider"></div>
       <button id="mobile-add-rect" class="mobile-tool-btn">
         <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -2483,7 +2545,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=165"></script>
+  <script type="module" src="app.js?v=166"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {
