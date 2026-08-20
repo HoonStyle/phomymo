@@ -1422,10 +1422,6 @@ export class CanvasRenderer {
     const bottom = height / 2;
     const minSide = Math.min(width, height);
     const unit = Math.max(2, Math.min(10, minSide / 18));
-    // Presets are designed at strokeWidth 2; scale every line proportionally
-    // so the element's Width property actually changes the frame weight.
-    const widthScale = Math.max(0.5, strokeWidth / 2);
-    const lw = (w) => Math.max(0.75, w * widthScale);
 
     const roundedRectPath = (inset = 0, radius = 0) => {
       const x = left + inset;
@@ -1449,8 +1445,8 @@ export class CanvasRenderer {
       }
       ctx.closePath();
     };
-    const strokeRect = (inset = 0, lineWidth = 2, radius = 0, dash = []) => {
-      ctx.lineWidth = lw(lineWidth);
+    const strokeRect = (inset = 0, lineWidth = strokeWidth, radius = 0, dash = []) => {
+      ctx.lineWidth = lineWidth;
       ctx.setLineDash(dash);
       roundedRectPath(inset, radius);
       ctx.stroke();
@@ -1623,11 +1619,11 @@ export class CanvasRenderer {
       repeatEdges(step, (x, y) => { ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); style === 'stamp' ? ctx.fill() : ctx.stroke(); });
       if (style === 'postage' || style === 'stamp') strokeRect(unit * 2.4, style === 'stamp' ? 2 : 1);
     } else if (style === 'notebook') {
-      strokeRect(unit, 2); ctx.lineWidth = lw(1);
+      strokeRect(unit, 2); ctx.lineWidth = 1;
       for (let y = top + unit * 4; y < bottom - unit * 2; y += unit * 3) { ctx.beginPath(); ctx.moveTo(left + unit * 3, y); ctx.lineTo(right - unit * 2, y); ctx.stroke(); }
-      ctx.lineWidth = lw(3); ctx.beginPath(); ctx.moveTo(left + unit * 5, top + unit * 2); ctx.lineTo(left + unit * 5, bottom - unit * 2); ctx.stroke();
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(left + unit * 5, top + unit * 2); ctx.lineTo(left + unit * 5, bottom - unit * 2); ctx.stroke();
     } else if (style === 'ledger') {
-      strokeRect(unit, 2); ctx.lineWidth = lw(1);
+      strokeRect(unit, 2); ctx.lineWidth = 1;
       [0.28,0.56,0.78].forEach(f => { ctx.beginPath(); ctx.moveTo(left + width*f, top + unit*2); ctx.lineTo(left + width*f, bottom - unit*2); ctx.stroke(); });
       ctx.beginPath(); ctx.moveTo(left+unit*2, top+height*.3); ctx.lineTo(right-unit*2, top+height*.3); ctx.stroke();
     } else if (style === 'blueprint') {
@@ -1636,10 +1632,10 @@ export class CanvasRenderer {
       ctx.beginPath(); ctx.moveTo(0, top + unit * 2.5); ctx.lineTo(0, top + unit * 5); ctx.moveTo(left + unit * 2.5, 0); ctx.lineTo(left + unit * 5, 0); ctx.stroke();
     } else if (style === 'index-card') {
       strokeRect(unit, 2);
-      ctx.lineWidth = lw(1); ctx.beginPath(); ctx.moveTo(left+unit, top+height*.28); ctx.lineTo(right-unit, top+height*.28); ctx.stroke();
+      ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(left+unit, top+height*.28); ctx.lineTo(right-unit, top+height*.28); ctx.stroke();
       for (let y = top + height*.46; y < bottom-unit; y += unit*3) { ctx.beginPath(); ctx.moveTo(left+unit*2,y); ctx.lineTo(right-unit*2,y); ctx.stroke(); }
     } else if (style === 'corner-brackets' || style === 'corner-round' || style === 'corner-square' || style === 'crop-marks') {
-      ctx.lineWidth = lw(style === 'corner-square' ? 5 : 2.5);
+      ctx.lineWidth = style === 'corner-square' ? 5 : 2.5;
       drawCorners(style === 'crop-marks' ? unit * 5 : unit * 4, style === 'crop-marks' ? unit * 2 : unit, style === 'corner-round');
       if (style === 'corner-brackets') drawCorners(unit * 2, unit * 2.3);
     } else if (style === 'deco-step') {
@@ -1656,26 +1652,14 @@ export class CanvasRenderer {
         for(let i=0;i<rays;i++){const a=(Math.PI/2)*(i/(rays-1));ctx.beginPath();ctx.moveTo(cx,cy);ctx.lineTo(cx+sx*Math.cos(a)*unit*4,cy+sy*Math.sin(a)*unit*4);ctx.stroke();}
       }
     } else if (style === 'vintage-single' || style === 'vintage-double' || style === 'victorian-corners') {
-      // Outer frame (follows Width), fine inner frame, and a tidy corner
-      // ornament: an arc that spans the inner frame's corner, with a small
-      // circle tucked between arc and corner — nothing crosses or overshoots.
       strokeRect(unit, 2, unit);
-      if (style !== 'vintage-single') strokeRect(unit * 2.5, 1, unit * 0.5);
-      ctx.lineWidth = lw(1);
-      const inset = unit * 2.5;
-      for (const [cx, cy, sx, sy] of [[left+inset,top+inset,1,1],[right-inset,top+inset,-1,1],[right-inset,bottom-inset,-1,-1],[left+inset,bottom-inset,1,-1]]) {
-        ctx.beginPath();
-        ctx.moveTo(cx + sx * unit * 5, cy);
-        ctx.quadraticCurveTo(cx + sx * unit * 0.6, cy + sy * unit * 0.6, cx, cy + sy * unit * 5);
-        ctx.stroke();
-        if (style === 'victorian-corners') {
-          ctx.beginPath();
-          ctx.arc(cx + sx * unit * 1.15, cy + sy * unit * 1.15, unit * 0.7, 0, Math.PI * 2);
-          ctx.stroke();
-        }
+      if (style !== 'vintage-single') strokeRect(unit*2.5, 1, unit*.5);
+      for (const [x,y,sx,sy] of [[left+unit*2,top+unit*2,1,1],[right-unit*2,top+unit*2,-1,1],[right-unit*2,bottom-unit*2,-1,-1],[left+unit*2,bottom-unit*2,1,-1]]) {
+        ctx.beginPath(); ctx.moveTo(x,y+sy*unit*3); ctx.bezierCurveTo(x+sx*unit*3,y+sy*unit*3,x+sx*unit*3,y,x+sx*unit*5,y); ctx.stroke();
+        if(style==='victorian-corners'){ctx.beginPath();ctx.arc(x+sx*unit*2,y+sy*unit*2,unit,0,Math.PI*2);ctx.stroke();}
       }
     } else if (style === 'zigzag' || style === 'sawtooth') {
-      ctx.lineWidth = lw(style === 'sawtooth' ? 3 : 2);
+      ctx.lineWidth = style === 'sawtooth' ? 3 : 2;
       zigzagEdge(style === 'sawtooth' ? unit*2 : unit, style === 'sawtooth' ? unit*2.5 : unit*1.8);
     } else if (style === 'confetti') {
       repeatEdges(unit*4,(x,y,edge)=>{ctx.save();ctx.translate(x,y);ctx.rotate((edge==='top'||edge==='bottom')?Math.PI/4:-Math.PI/4);ctx.fillRect(-unit*.6,-1,unit*1.2,2);ctx.restore();});
@@ -1692,7 +1676,7 @@ export class CanvasRenderer {
       for(const [x,y] of [[left+unit*2,top+unit*2],[right-unit*2,top+unit*2],[right-unit*2,bottom-unit*2],[left+unit*2,bottom-unit*2]]){ctx.beginPath();ctx.arc(x,y,unit*.65,0,Math.PI*2);ctx.fill();}
     } else if (style === 'caution') {
       strokeRect(unit,3);
-      ctx.lineWidth = lw(3);
+      ctx.lineWidth = 3;
       const step=unit*4;
       for(let x=left+unit;x<right;x+=step){ctx.beginPath();ctx.moveTo(x,top+unit);ctx.lineTo(Math.min(x+unit*2,right-unit),top+unit*3);ctx.stroke();ctx.beginPath();ctx.moveTo(x,bottom-unit);ctx.lineTo(Math.min(x+unit*2,right-unit),bottom-unit*3);ctx.stroke();}
       for(let y=top+unit;y<bottom;y+=step){ctx.beginPath();ctx.moveTo(left+unit,y);ctx.lineTo(left+unit*3,Math.min(y+unit*2,bottom-unit));ctx.stroke();ctx.beginPath();ctx.moveTo(right-unit,y);ctx.lineTo(right-unit*3,Math.min(y+unit*2,bottom-unit));ctx.stroke();}
@@ -1739,14 +1723,14 @@ export class CanvasRenderer {
     } else if (style === 'badge-capsule') {
       strokeRect(unit, 3, minSide/2);
     } else if (style === 'badge-shield') {
-      ctx.lineWidth = lw(3); ctx.beginPath(); ctx.moveTo(left+unit,top+unit); ctx.lineTo(right-unit,top+unit); ctx.lineTo(right-unit*1.2,top+height*.48); ctx.quadraticCurveTo(right-unit*2,bottom-unit*2,0,bottom-unit); ctx.quadraticCurveTo(left+unit*2,bottom-unit*2,left+unit*1.2,top+height*.48); ctx.closePath(); ctx.stroke();
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(left+unit,top+unit); ctx.lineTo(right-unit,top+unit); ctx.lineTo(right-unit*1.2,top+height*.48); ctx.quadraticCurveTo(right-unit*2,bottom-unit*2,0,bottom-unit); ctx.quadraticCurveTo(left+unit*2,bottom-unit*2,left+unit*1.2,top+height*.48); ctx.closePath(); ctx.stroke();
     } else if (style === 'badge-crest') {
-      ctx.lineWidth = lw(3); ctx.beginPath(); ctx.moveTo(left+unit,top+unit*2); ctx.quadraticCurveTo(left+width*.25,top-unit*.2,0,top+unit*2); ctx.quadraticCurveTo(right-width*.25,top-unit*.2,right-unit,top+unit*2); ctx.lineTo(right-unit,top+height*.48); ctx.quadraticCurveTo(right-unit*2,bottom-unit*2,0,bottom-unit); ctx.quadraticCurveTo(left+unit*2,bottom-unit*2,left+unit,top+height*.48); ctx.closePath(); ctx.stroke();
+      ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(left+unit,top+unit*2); ctx.quadraticCurveTo(left+width*.25,top-unit*.2,0,top+unit*2); ctx.quadraticCurveTo(right-width*.25,top-unit*.2,right-unit,top+unit*2); ctx.lineTo(right-unit,top+height*.48); ctx.quadraticCurveTo(right-unit*2,bottom-unit*2,0,bottom-unit); ctx.quadraticCurveTo(left+unit*2,bottom-unit*2,left+unit,top+height*.48); ctx.closePath(); ctx.stroke();
     } else if (style === 'badge-diamond') {
       strokePolygon([[0,top+unit],[right-unit,0],[0,bottom-unit],[left+unit,0]], 3);
       strokePolygon([[0,top+unit*2.5],[right-unit*2.5,0],[0,bottom-unit*2.5],[left+unit*2.5,0]], 1);
     } else if (style === 'badge-cloud') {
-      ctx.lineWidth = lw(2.5); ctx.beginPath(); ctx.moveTo(left+unit*2,unit);
+      ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(left+unit*2,unit);
       ctx.bezierCurveTo(left-unit,unit,left,top+height*.25,left+unit*3,top+height*.28);
       ctx.bezierCurveTo(left+unit,top-unit,right-unit,top-unit,right-unit*0.65,top+height*.3);
       ctx.bezierCurveTo(right+unit,top+height*.22,right+unit,bottom-height*.2,right-unit*0.55,bottom-height*.28);
