@@ -17,7 +17,8 @@ test.describe.serial('Element Properties', () => {
     await page.waitForTimeout(200);
 
     await expect(page.locator('#props-text')).toBeVisible();
-    await expect(page.locator('#prop-font-family option')).toHaveCount(50);
+    await expect(page.locator('#prop-font-family option')).toHaveCount(100);
+    await expect(page.locator('#prop-font-family optgroup[label^="Korean"] option')).toHaveCount(47);
     await page.locator('#prop-font-family').selectOption('Poppins, sans-serif');
     await expect(page.locator('#prop-font-family')).toHaveValue('Poppins, sans-serif');
     await elementScreenshot(page, '#props-panel', CH, 1, 'text-properties-panel');
@@ -80,7 +81,7 @@ test.describe.serial('Element Properties', () => {
     await screenshot(page, CH, 8, 'shape-properties-modified');
   });
 
-  test('border element exposes 50 frame presets', async ({ page }) => {
+  test('border element exposes 100 frame presets', async ({ page }) => {
     await page.click('#add-shape-btn');
     await page.click('button[data-shape="border"]');
     await page.waitForTimeout(200);
@@ -88,16 +89,17 @@ test.describe.serial('Element Properties', () => {
     await expect(page.locator('#props-shape')).toBeVisible();
     await expect(page.locator('#prop-shape-type')).toHaveValue('border');
     await expect(page.locator('#prop-border-style-group')).toBeVisible();
-    await expect(page.locator('#prop-border-style option')).toHaveCount(50);
+    await expect(page.locator('#prop-border-style option')).toHaveCount(100);
 
     // Visual picker renders one preview swatch per preset
-    await expect(page.locator('#prop-border-swatches .border-swatch')).toHaveCount(50);
+    await expect(page.locator('#prop-border-swatches .border-swatch')).toHaveCount(100);
+    await expect(page.locator('#prop-border-swatches .border-swatch-group')).toHaveCount(12);
 
     // Clicking a swatch selects the preset (hidden select carries the value)
-    await page.locator('.border-swatch[data-value="deco-diamond"]').click();
-    await expect(page.locator('#prop-border-style')).toHaveValue('deco-diamond');
-    await expect(page.locator('.border-swatch[data-value="deco-diamond"]')).toHaveClass(/selected/);
-    await expect(page.locator('#prop-border-style-name')).toHaveText('Art Deco Diamond');
+    await page.locator('.border-swatch[data-value="badge-shield"]').click();
+    await expect(page.locator('#prop-border-style')).toHaveValue('badge-shield');
+    await expect(page.locator('.border-swatch[data-value="badge-shield"]')).toHaveClass(/selected/);
+    await expect(page.locator('#prop-border-style-name')).toHaveText('Shield Badge');
   });
 
   test('position and size properties', async ({ page }) => {

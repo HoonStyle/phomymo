@@ -106,7 +106,7 @@ Click **QR** to add a QR code. Enter any text or URL in the properties panel.
 
 ### Shapes
 
-Click **Shape** to open the shape menu, then pick from rectangle, ellipse, triangle, line, or **Border / Frame**. Border elements start inset from the label edge and offer 50 thermal-friendly presets grouped as Classic Lines, Dashes & Dots, Paper & Tickets, Corners & Vintage, Decorative, and Utility.
+Click **Shape** to open the shape menu, then pick from rectangle, ellipse, triangle, line, or **Border / Frame**. Border elements start inset from the label edge and offer 100 thermal-friendly presets. Alongside classic lines, dots, stationery, vintage, decorative, and utility frames, the expanded library includes labels and tabs, badges and seals, arches and windows, ribbons and banners, speech and photo frames, and organic silhouettes.
 
 ![Shape dropdown](screenshots/02-adding-elements/04-shape-dropdown.png)
 
@@ -132,7 +132,7 @@ Click any element on the canvas to select it. The properties panel on the right 
 
 ### Text Properties
 
-Text elements have the most options: choose from 50 built-in fonts grouped by Sans-Serif, Serif, Display & Handwritten, Monospace, and Korean, or load optional local system fonts. You can also control size, bold/italic/underline, text color, background color, horizontal and vertical alignment, word wrap, and auto-scale.
+Text elements have the most options: choose from 100 built-in fonts—53 Latin/system families and 47 Korean families—or load optional local system fonts. Latin fonts are grouped by Sans-Serif, Serif, Display & Handwritten, and Monospace; Korean fonts are grouped by Sans-Serif, Serif, Display, Handwritten, and Monospace. You can also control size, bold/italic/underline, text color, background color, horizontal and vertical alignment, word wrap, and auto-scale.
 
 ![Text properties panel](screenshots/03-element-properties/01-text-properties-panel.png)
 
@@ -158,7 +158,7 @@ Enter the data to encode. The QR code auto-sizes based on content length.
 
 ### Shape Properties
 
-Choose the shape type, fill style (solid, dithered grayscale, or none), stroke color, stroke width, and corner radius (rectangles only). When the shape type is **Border / Frame**, a Border Style selector appears with 50 presets. Border style and stroke width remain editable after saving or reopening a design.
+Choose the shape type, fill style (solid, dithered grayscale, or none), stroke color, stroke width, and corner radius (rectangles only). When the shape type is **Border / Frame**, a Border Style selector appears with 100 presets. Border style and stroke width remain editable after saving or reopening a design.
 
 ![Shape properties](screenshots/03-element-properties/07-shape-properties-panel.png)
 

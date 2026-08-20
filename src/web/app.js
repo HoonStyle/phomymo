@@ -4,7 +4,7 @@
  * v116
  */
 
-import { CanvasRenderer } from './canvas.js?v=118';
+import { CanvasRenderer } from './canvas.js?v=119';
 import { BLETransport } from './ble.js?v=104';
 import { USBTransport } from './usb.js?v=101';
 import { print, printDensityTest, isDSeriesPrinter, isP12Printer, isA30Printer, isTapePrinter, isPM241Printer, isTSPLPrinter, isRotatedPrinter, getPrinterWidthBytes, getPrinterDpi, getPrinterAlignment, getPrinterDescription, isDeviceRecognized, getMatchedPattern, loadPrinterDefinitions, getAllPrinterDefinitions, getPrinterDefinition, getCustomPrinterDefinitions, saveCustomPrinterDefinition, deleteCustomPrinterDefinition, isBuiltinPrinter, resetBuiltinPrinter, getAvailableProtocols, getAvailableLabelPresets, getDetectedDefinition } from './printer.js?v=128';
@@ -75,7 +75,7 @@ import {
   getGalleryCategories,
   saveUserTemplate,
   deleteUserTemplate,
-} from './gallery.js?v=102';
+} from './gallery.js?v=103';
 import {
   ZOOM,
   TEXT,
@@ -97,7 +97,7 @@ import {
   PM241_LABEL_SIZES,
   FONTS,
   BORDER_PRESETS,
-} from './constants.js?v=107';
+} from './constants.js?v=108';
 import {
   bindCheckbox,
   bindToggleButton,
@@ -153,7 +153,11 @@ const FONT_GROUP_LABELS = {
   serif: 'Serif',
   display: 'Display & Handwritten',
   mono: 'Monospace',
-  korean: 'Korean',
+  koreanSans: 'Korean · Sans-Serif',
+  koreanSerif: 'Korean · Serif',
+  koreanDisplay: 'Korean · Display',
+  koreanHand: 'Korean · Handwritten',
+  koreanMono: 'Korean · Monospace',
 };
 
 const BORDER_GROUP_LABELS = {
@@ -163,6 +167,12 @@ const BORDER_GROUP_LABELS = {
   corner: 'Corners & Art Deco',
   decorative: 'Decorative',
   utility: 'Utility & Industrial',
+  silhouette: 'Labels & Tabs',
+  badge: 'Badges & Seals',
+  arch: 'Arches & Windows',
+  ribbon: 'Ribbons & Banners',
+  media: 'Speech & Photo',
+  organic: 'Organic Shapes',
 };
 
 function populateGroupedSelect(select, items, groupLabels, selectedValue) {
@@ -4864,9 +4874,17 @@ function renderBorderSwatchGrid(container, current, onPick) {
   if (!container || !state.renderer) return;
   container._onPick = onPick;
 
-  if (container.childElementCount !== BORDER_PRESETS.length) {
+  if (container.querySelectorAll('.border-swatch').length !== BORDER_PRESETS.length) {
     container.innerHTML = '';
+    let currentGroup = null;
     for (const preset of BORDER_PRESETS) {
+      if (preset.group !== currentGroup) {
+        currentGroup = preset.group;
+        const heading = document.createElement('div');
+        heading.className = 'border-swatch-group';
+        heading.textContent = BORDER_GROUP_LABELS[currentGroup] || currentGroup;
+        container.appendChild(heading);
+      }
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'border-swatch';

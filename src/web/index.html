@@ -68,9 +68,12 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Poppins&family=Nunito&family=Raleway&family=Work+Sans&family=DM+Sans&family=Manrope&family=Space+Grotesk&family=IBM+Plex+Sans&family=Playfair+Display&family=Merriweather&family=Lora&family=Libre+Baskerville&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=DM+Serif+Display&family=Bodoni+Moda&family=Bebas+Neue&family=Anton&family=Abril+Fatface&family=Lobster&family=Pacifico&family=Caveat&family=Permanent+Marker&family=Cinzel&family=Josefin+Sans&family=Quicksand&family=Comfortaa&family=Roboto+Mono&family=Source+Code+Pro&family=IBM+Plex+Mono&family=JetBrains+Mono&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&family=Noto+Serif+KR&family=Nanum+Gothic&family=Nanum+Myeongjo&family=Black+Han+Sans&family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Roboto&family=Open+Sans&family=Lato&family=Montserrat&family=Oswald&family=Poppins&family=Nunito&family=Raleway&family=Work+Sans&family=DM+Sans&family=Manrope&family=Space+Grotesk&family=IBM+Plex+Sans&family=Playfair+Display&family=Merriweather&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lora&family=Libre+Baskerville&family=Cormorant+Garamond&family=DM+Serif+Display&family=Bodoni+Moda&family=Bebas+Neue&family=Anton&family=Abril+Fatface&family=Lobster&family=Pacifico&family=Caveat&family=Permanent+Marker&family=Cinzel&family=Josefin+Sans&family=Quicksand&family=Comfortaa&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&family=Source+Code+Pro&family=IBM+Plex+Mono&family=JetBrains+Mono&family=Roboto+Condensed&family=Urbanist&family=Sora&family=Outfit&family=Lexend&family=Plus+Jakarta+Sans&family=Bricolage+Grotesque&family=Roboto+Slab&family=Fraunces&family=Montserrat+Alternates&family=Jua&family=Gugi&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gulim&family=Dokdo&family=Gaegu&family=Orbit&family=Dotum&family=Batang&family=Dongle&family=Gungsuh&family=Stylish&family=Do+Hyeon&family=Hahmlet&family=GulimChe&family=Cute+Font&family=Gothic+A1&family=Hi+Melody&family=DotumChe&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Asta+Sans&family=Yeon+Sung&family=Gasoek+One&family=42dot+Sans&family=Song+Myung&family=BatangChe&family=Sunflower&family=Moirai+One&family=Poor+Story&family=Single+Day&family=Diphylleia&family=Gowun+Dodum&family=GungsuhChe&family=Noto+Sans+KR&family=Noto+Serif+KR&family=Gowun+Batang&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Gamja+Flower&family=Nanum+Gothic&family=East+Sea+Dokdo&family=Black+Han+Sans&family=Kirang+Haerang&family=IBM+Plex+Sans+KR&family=Nanum+Myeongjo&family=Grandiflora+One&family=Nanum+Pen+Script&family=Nanum+Brush+Script&family=Nanum+Gothic+Coding&family=Black+And+White+Picture&display=swap" rel="stylesheet">
   <style>
     /* Hide body until styles are ready to prevent FOUC */
     body { opacity: 0; font-family: 'Inter', system-ui, sans-serif; }
@@ -311,6 +314,16 @@
       padding: 2px;
       margin-top: 4px;
     }
+    .border-swatch-group {
+      grid-column: 1 / -1;
+      padding: 6px 2px 2px;
+      color: #6b7280;
+      font-size: 10px;
+      font-weight: 700;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
     .border-swatch {
       padding: 0;
       border: 2px solid #e5e7eb;
@@ -334,6 +347,7 @@
         grid-template-columns: repeat(4, minmax(0, 1fr));
         max-height: 210px;
       }
+      .border-swatch-group { color: #a9a3b5; }
       .border-swatch { border-color: #322f3b; }
       .border-swatch.selected {
         border-color: #e3a44a;
@@ -2445,7 +2459,7 @@
     pdfjsModule.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.worker.min.mjs';
     window.pdfjsLib = pdfjsModule;
   </script>
-  <script type="module" src="app.js?v=159"></script>
+  <script type="module" src="app.js?v=160"></script>
   <script>
     // Show body once styles are ready
     requestAnimationFrame(() => {
