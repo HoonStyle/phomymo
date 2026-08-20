@@ -2311,33 +2311,47 @@ export class CanvasRenderer {
    * Render elements to a temporary canvas and return pixel data
    * Shared helper for getRasterData and getRasterDataRaw
    */
-  _renderToPixels(elements, offsetX = 0, offsetY = 0) {
+  _renderToPixels(elements, offsetX = 0, offsetY = 0, canvasWidth = null) {
     const width = this.labelWidth;
     const height = this.labelHeight;
     const tempCanvas = document.createElement('canvas');
-    tempCanvas.width = width;
+    tempCanvas.width = canvasWidth ?? width;
     tempCanvas.height = height;
     const tempCtx = tempCanvas.getContext('2d');
 
     // Fill with white background
     tempCtx.fillStyle = 'white';
-    tempCtx.fillRect(0, 0, width, height);
+    tempCtx.fillRect(0, 0, tempCanvas.width, height);
 
-    // For round labels, set up circular clipping
-    if (this.isRound) {
+    if (canvasWidth != null) {
+      // Print-head-width canvas: the whole label (content + die-cut mask) is
+      // placed at offsetX inside the head width, so print offset calibration
+      // shifts the label within the head instead of clipping at the label edge.
       tempCtx.save();
-      tempCtx.beginPath();
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const radius = Math.min(width, height) / 2;
-      tempCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-      tempCtx.clip();
-    }
-
-    // Print offset calibration: shift content within the label to compensate
-    // for printers that feed the media slightly off-center (px at 203 DPI)
-    if (offsetX || offsetY) {
       tempCtx.translate(offsetX, offsetY);
+      if (this.isRound) {
+        tempCtx.beginPath();
+        tempCtx.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, Math.PI * 2);
+        tempCtx.clip();
+      }
+    } else {
+      // Label-width canvas (D-series raw / high-DPI paths)
+      // For round labels, set up circular clipping
+      if (this.isRound) {
+        tempCtx.save();
+        tempCtx.beginPath();
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const radius = Math.min(width, height) / 2;
+        tempCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+        tempCtx.clip();
+      }
+
+      // Print offset calibration: shift content within the label to compensate
+      // for printers that feed the media slightly off-center (px at 203 DPI)
+      if (offsetX || offsetY) {
+        tempCtx.translate(offsetX, offsetY);
+      }
     }
 
     // Render elements to temp canvas (with zone offsets if multi-label mode)
@@ -2362,14 +2376,14 @@ export class CanvasRenderer {
     }
     this.ctx = originalCtx;
 
-    // Restore context if we applied circular clipping
-    if (this.isRound) {
+    // Restore context if we applied translation/clipping via save()
+    if (canvasWidth != null || this.isRound) {
       tempCtx.restore();
     }
 
     // Get image data
-    const imageData = tempCtx.getImageData(0, 0, width, height);
-    return { pixels: imageData.data, width, height };
+    const imageData = tempCtx.getImageData(0, 0, tempCanvas.width, height);
+    return { pixels: imageData.data, width: tempCanvas.width, height };
   }
 
   /**
@@ -2747,10 +2761,31 @@ export class CanvasRenderer {
    * @param {'left' | 'center' | 'right'} alignment - How to align label within printer width (default: 'center')
    */
   getRasterData(elements, printerWidthBytes = DEFAULT_PRINTER_WIDTH_BYTES, printerDpi = 203, ditherMode = 'auto', alignment = 'center', offsetX = 0, offsetY = 0) {
-    let { pixels, width, height } = this._renderToPixels(elements, offsetX, offsetY);
+    // 203 DPI printers: render directly into a print-head-width canvas so the
+    // print offset shifts the whole label within the head. Content only clips
+    // at the physical head edge, never at the label boundary.
+    if (printerDpi <= 203) {
+      const headWidthPx = printerWidthBytes * 8;
+      let basePx = 0;
+      if (alignment === 'center') {
+        basePx = Math.floor((headWidthPx - this.labelWidth) / 2);
+      } else if (alignment === 'right') {
+        basePx = headWidthPx - this.labelWidth;
+      }
+      const { pixels, width, height } = this._renderToPixels(elements, basePx + offsetX, offsetY, headWidthPx);
+      const data = this._pixelsToRaster(pixels, width, height, printerWidthBytes, 'left', ditherMode);
 
-    // Scale up for higher DPI printers (e.g., M02 Pro at 300 DPI)
-    if (printerDpi > 203) {
+      return {
+        data,
+        widthBytes: printerWidthBytes,
+        heightLines: height,
+      };
+    }
+
+    // Higher DPI printers (e.g., M02 Pro at 300 DPI): render at label size,
+    // scale up, then pack left-aligned
+    let { pixels, width, height } = this._renderToPixels(elements, offsetX, offsetY);
+    {
       const scale = printerDpi / 203;
       const scaledWidth = Math.round(width * scale);
       const scaledHeight = Math.round(height * scale);
@@ -2791,14 +2826,6 @@ export class CanvasRenderer {
         heightLines: height,
       };
     }
-
-    const data = this._pixelsToRaster(pixels, width, height, printerWidthBytes, alignment, ditherMode);
-
-    return {
-      data,
-      widthBytes: printerWidthBytes,
-      heightLines: height,
-    };
   }
 
   /**
