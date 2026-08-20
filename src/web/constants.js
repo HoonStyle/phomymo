@@ -140,6 +140,8 @@ export const STORAGE_KEYS = {
   LOCAL_FONTS_ENABLED: 'phomymo_local_fonts_enabled',
   CUSTOM_PRINTERS: 'phomymo_custom_printers',
   USER_TEMPLATES: 'phomymo_user_templates',
+  ICON_FAVORITES: 'phomymo_icon_favorites',
+  ICON_RECENTS: 'phomymo_icon_recents',
 };
 
 // =============================================================================

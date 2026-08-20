@@ -4,6 +4,7 @@
  */
 
 import { drawHandles, drawGroupHandles } from './handles.js?v=5';
+import { getIconById } from './icon-library.js?v=100';
 import { logError, ErrorLevel } from './utils/errors.js';
 
 // Pixels per mm (203 DPI ≈ 8 px/mm)
@@ -21,6 +22,7 @@ const OVERFLOW_PADDING = 120;
 // Maximum cache entries to prevent memory leaks
 const MAX_RENDER_CACHE_SIZE = 100;
 const MAX_IMAGE_CACHE_SIZE = 50;
+const iconPathCache = new Map();
 
 /**
  * Canvas renderer class
@@ -906,8 +908,46 @@ export class CanvasRenderer {
       case 'shape':
         this.renderShapeElement(element, width, height);
         break;
+      case 'icon':
+        this.renderIconElement(element, width, height);
+        break;
     }
 
+    this.ctx.restore();
+  }
+
+  /**
+   * Render a library icon as an editable monochrome vector.
+   */
+  renderIconElement(element, width, height) {
+    const icon = getIconById(element.iconId);
+    const scale = Math.max(0.01, Math.min(width, height) / 24);
+    const strokeWidth = Math.max(0.5, Number(element.strokeWidth) || 2);
+
+    this.ctx.save();
+    this.ctx.strokeStyle = element.color || 'black';
+    this.ctx.lineCap = 'round';
+    this.ctx.lineJoin = 'round';
+    this.ctx.lineWidth = strokeWidth / scale;
+    this.ctx.scale(scale, scale);
+    this.ctx.translate(-12, -12);
+
+    if (typeof Path2D === 'undefined') {
+      this.ctx.strokeRect(3, 3, 18, 18);
+      this.ctx.beginPath();
+      this.ctx.moveTo(5, 5);
+      this.ctx.lineTo(19, 19);
+      this.ctx.moveTo(19, 5);
+      this.ctx.lineTo(5, 19);
+      this.ctx.stroke();
+    } else {
+      let paths = iconPathCache.get(icon.id);
+      if (!paths) {
+        paths = icon.paths.map(path => new Path2D(path));
+        iconPathCache.set(icon.id, paths);
+      }
+      for (const path of paths) this.ctx.stroke(path);
+    }
     this.ctx.restore();
   }
 

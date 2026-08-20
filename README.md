@@ -2,8 +2,6 @@
 
 A free, browser-based label designer for Phomemo thermal printers. No drivers needed - connects via Bluetooth or USB.
 
-**Try it now: https://phomymo.affordablemagic.net**
-
 <p>
   <img src="screenshot.png" alt="Phomymo Label Designer" width="600" />
   <img src="screenshot-mobile.png" alt="Mobile UI" width="200" />
@@ -11,17 +9,25 @@ A free, browser-based label designer for Phomemo thermal printers. No drivers ne
 
 ## Quick Start
 
-1. Open https://phomymo.affordablemagic.net in Chrome (or any Chromium-based browser)
-2. Click **Connect** to pair with your printer via Bluetooth (or **USB** for PM-241)
-3. Design your label and click **Print**
+1. Start the local server from the repository root:
+   ```bash
+   ./scripts/serve-local.sh
+   ```
+2. Open **http://localhost:8080** in Chrome (or another Chromium-based browser)
+3. Click **Connect** to pair with your printer via Bluetooth (or **USB** for PM-241)
+4. Design your label and click **Print**
 
-To run locally (Web Bluetooth requires HTTPS or localhost):
+Set `PHOMYMO_PORT` to use a different port. Web Bluetooth requires a secure context; browsers treat `localhost` as secure.
+
+### Private access with Tailscale
+
+If this machine is already connected to your tailnet, expose the local server over tailnet-only HTTPS:
 
 ```bash
-cd src/web
-python3 -m http.server 8080
-# Open http://localhost:8080 in Chrome
+./scripts/serve-tailscale.sh
 ```
+
+Open the HTTPS URL printed by `tailscale serve` from another device in the same tailnet. Tailscale ACLs continue to control who can reach it. Stop the command with `Ctrl+C` to stop both the proxy and local server.
 
 **Requires:** Chrome, Edge, or another Chromium-based browser. Web Bluetooth is not available in Firefox or Safari. Android Chrome is supported with full touch UI; iOS is not supported. PM-241 printers require USB (WebUSB).
 
@@ -29,7 +35,7 @@ python3 -m http.server 8080
 
 **Template Gallery** - 160 built-in, professionally designed templates across 18 categories (price tags, food & kitchen, home storage, office filing, cables & tech, names & school, shipping, QR & social, Korean labels, health & care, safety & compliance, gifts & events, craft & garden, cafe & hospitality, beauty & wellness, pets & animal care, warehouse & logistics, and travel & outdoors). Live WYSIWYG thumbnails, category filters, tag search, and one-click apply - optionally auto-scaled to fit your current label size. Field templates (`{{Name}}`, `{{AssetID}}`) drop straight into batch printing, and date templates print today's date via `[[date]]` expressions. Save your own designs to a **My Templates** category with one click for instant reuse.
 
-**Design Elements** - Text with 100 curated built-in fonts (53 Latin/system and 47 Korean families) plus optional local system fonts, sizes, styles, alignment, and background colors; images with scale/aspect lock; barcodes (Code128, EAN-13, UPC-A, Code39); QR codes; and shapes with 100 editable border/frame presets—including tags, badges, arches, ribbons, speech bubbles, photo frames, and organic silhouettes—alongside rectangle, ellipse, triangle, and line tools.
+**Design Elements** - Text with 100 curated built-in fonts (53 Latin/system and 47 Korean families) plus optional local system fonts, sizes, styles, alignment, and background colors; a searchable library of 100 editable vector icons with Korean/English labels, categories, favorites, and recents; images with scale/aspect lock; barcodes (Code128, EAN-13, UPC-A, Code39); QR codes; and shapes with 100 editable border/frame presets—including tags, badges, arches, ribbons, speech bubbles, photo frames, and organic silhouettes—alongside rectangle, ellipse, triangle, and line tools.
 
 **Editing** - Drag to move, corner/edge resize handles, rotation. Multi-select (Shift+click), grouping (Ctrl/Cmd+G), undo/redo, keyboard nudge, layer ordering, clipboard image paste (Ctrl/Cmd+V).
 
@@ -115,6 +121,7 @@ phomymo/
 │       ├── storage.js     # localStorage persistence
 │       ├── templates.js   # Variable substitution & CSV
 │       ├── gallery.js     # Built-in template gallery
+│       ├── icon-library.js # 100 editable vector icons and metadata
 │       ├── template-library.json  # Bundled template designs
 │       ├── ble.js         # Web Bluetooth transport
 │       ├── usb.js         # WebUSB transport
@@ -125,6 +132,9 @@ phomymo/
 │           ├── bindings.js   # Event binding helpers
 │           ├── errors.js     # Error handling
 │           └── validation.js # Input validation
+├── scripts/
+│   ├── serve-local.sh     # Localhost server
+│   └── serve-tailscale.sh # Tailnet-only HTTPS access
 └── README.md
 ```
 
@@ -139,6 +149,8 @@ Protocol research and inspiration:
 - [vivier/phomemo-tools](https://github.com/vivier/phomemo-tools) - CUPS driver with reverse-engineered protocol
 - [yaddran/thermal-print](https://github.com/yaddran/thermal-print) - Printer status query commands
 - [ooki1jp](https://github.com/vivier/phomemo-tools/issues/27#issuecomment-3850158579) - M04AS/M04S protocol reverse-engineering
+
+Icons: [Lucide](https://lucide.dev/) (ISC license; see [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md))
 
 Libraries: [JsBarcode](https://github.com/lindell/JsBarcode), [QRCode.js](https://github.com/davidshimjs/qrcodejs), [jsPDF](https://github.com/parallax/jsPDF)
 

@@ -124,6 +124,25 @@ export function createShapeElement(shapeType = 'rectangle', options = {}) {
 }
 
 /**
+ * Create an editable vector icon element
+ */
+export function createIconElement(iconId = 'package', options = {}) {
+  return {
+    id: generateId(),
+    type: 'icon',
+    zone: options.zone ?? 0,
+    x: options.x ?? 50,
+    y: options.y ?? 50,
+    width: options.width ?? 96,
+    height: options.height ?? 96,
+    rotation: options.rotation ?? 0,
+    iconId,
+    color: options.color ?? 'black',
+    strokeWidth: options.strokeWidth ?? 2,
+  };
+}
+
+/**
  * Update element properties
  */
 export function updateElement(elements, id, changes) {

@@ -196,11 +196,14 @@ Definitions</a></li>
 </ol>
 <hr />
 <h2 id="getting-started">Getting Started</h2>
-<p>Open <a
-href="https://phomymo.affordablemagic.net">phomymo.affordablemagic.net</a>
-in Chrome, Edge, or another Chromium-based browser. The app works on
-desktop and Android - iOS is not supported due to Web Bluetooth
-limitations.</p>
+<p>From the repository root, run
+<code>./scripts/serve-local.sh</code>, then open <a
+href="http://localhost:8080">http://localhost:8080</a> in Chrome, Edge,
+or another Chromium-based browser. The app works on desktop and Android
+- iOS is not supported due to Web Bluetooth limitations.</p>
+<p>For private access from another device, run
+<code>./scripts/serve-tailscale.sh</code> and open the HTTPS URL printed
+by Tailscale from a device in the same tailnet.</p>
 <figure>
 <img src="screenshots/01-getting-started/01-app-loaded.png"
 alt="App loaded" />
@@ -313,6 +316,23 @@ inline edit mode - type your text and click outside to finish.</p>
 alt="Text element added" />
 <figcaption aria-hidden="true">Text element added</figcaption>
 </figure>
+<h3 id="icons">Icons</h3>
+<p>Click <strong>Icons</strong> to open the asset browser. The library
+contains 100 editable monochrome vectors across shipping, retail, food,
+home, safety, office, health, craft, lifestyle, and communication
+categories.</p>
+<ul>
+<li>Search with English or Korean words such as <code>package</code>,
+<code>배송</code>, <code>safety</code>, or <code>식품</code></li>
+<li>Use <strong>☆</strong> to keep favorites and
+<strong>Recent</strong> to revisit recently used icons</li>
+<li>After adding an icon, change its color and stroke width in the
+properties panel</li>
+<li>Click <strong>Change</strong> to swap the artwork without losing its
+position, size, or rotation</li>
+</ul>
+<p>Icons remain vector-sharp in canvas previews, PNG/PDF exports, saved
+designs, templates, and thermal printing.</p>
 <h3 id="barcodes">Barcodes</h3>
 <p>Click <strong>Barcode</strong> to add a barcode. The default format
 is Code 128 - change it in the properties panel.</p>

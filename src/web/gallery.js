@@ -9,7 +9,7 @@
  * Template coordinates use the same base resolution as the editor: 8 px/mm.
  */
 
-import { CanvasRenderer } from './canvas.js?v=122';
+import { CanvasRenderer } from './canvas.js?v=123';
 import {
   generateId,
   createTextElement,
@@ -17,9 +17,10 @@ import {
   createBarcodeElement,
   createQRElement,
   createShapeElement,
-} from './elements.js?v=101';
+  createIconElement,
+} from './elements.js?v=102';
 import { evaluateExpressions } from './templates.js?v=101';
-import { STORAGE_KEYS } from './constants.js?v=108';
+import { STORAGE_KEYS } from './constants.js?v=109';
 
 // Extra per-type properties that the renderer understands but the element
 // factories don't create. These survive normalization so templates can use them.
@@ -52,6 +53,9 @@ function normalizeElement(raw, stableId) {
       break;
     case 'image':
       el = createImageElement(raw.imageData ?? '', raw);
+      break;
+    case 'icon':
+      el = createIconElement(raw.iconId ?? 'package', raw);
       break;
     default:
       return null;
